@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>jCarousel Examples</title>
+<link href="static_callbacks_files/style.css" rel="stylesheet" type="text/css">
+<!--
+  jQuery library
+-->
+<script type="text/javascript" src="static_callbacks_files/jquery-1.js"></script>
+<!--
+  jCarousel library
+-->
+<script type="text/javascript" src="static_callbacks_files/jquery.js"></script>
+<!--
+  jCarousel skin stylesheet
+-->
+<link rel="stylesheet" type="text/css" href="static_callbacks_files/skin.css">
+
+<style type="text/css">
+
+/**
+ * Overwrite for having a carousel with dynamic width.
+ */
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+    width: 85%;
+}
+
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+    width: 100%;
+}
+
+#display {
+    clear: both;
+    width: auto;
+    height: 250px;
+    overflow: scroll;
+    border: 1px solid #666;
+    background-color: #fcfcfc;
+    padding: 10px;
+}
+</style>
+
+<script type="text/javascript">
+
+/**
+ * This is the callback function which receives notification
+ * about the state of the next button.
+ */
+function mycarousel_buttonNextCallback(carousel, button, enabled) {
+    display('Next button is now ' + (enabled ? 'enabled' : 'disabled'));
+};
+
+/**
+ * This is the callback function which receives notification
+ * about the state of the prev button.
+ */
+function mycarousel_buttonPrevCallback(carousel, button, enabled) {
+    display('Prev button is now ' + (enabled ? 'enabled' : 'disabled'));
+};
+
+/**
+ * This is the callback function which receives notification
+ * right after initialisation of the carousel
+ */
+function mycarousel_initCallback(carousel, state) {
+    if (state == 'init')
+        display('Carousel initialised');
+    else if (state == 'reset')
+        display('Carousel reseted');
+};
+
+/**
+ * This is the callback function which receives notification
+ * right after reloading of the carousel
+ */
+function mycarousel_reloadCallback(carousel) {
+    display('Carousel reloaded');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item becomes the first one in the visible range.
+ */
+function mycarousel_itemFirstInCallback(carousel, item, idx, state) {
+    display('Item #' + idx + ' is now the first item');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item is no longer the first one in the visible range.
+ */
+function mycarousel_itemFirstOutCallback(carousel, item, idx, state) {
+    display('Item #' + idx + ' is no longer the first item');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item becomes the first one in the visible range.
+ */
+function mycarousel_itemLastInCallback(carousel, item, idx, state) {
+    display('Item #' + idx + ' is now the last item');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item is no longer the first one in the visible range.
+ */
+function mycarousel_itemLastOutCallback(carousel, item, idx, state) {
+    display('Item #' + idx + ' is no longer the last item');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item becomes the first one in the visible range.
+ * Triggered before animation.
+ */
+function mycarousel_itemVisibleInCallbackBeforeAnimation(carousel, item, idx, state) {
+    // No animation on first load of the carousel
+    if (state == 'init')
+        return;
+
+    jQuery('img', item).fadeIn('slow');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item becomes the first one in the visible range.
+ * Triggered after animation.
+ */
+function mycarousel_itemVisibleInCallbackAfterAnimation(carousel, item, idx, state) {
+    display('Item #' + idx + ' is now visible');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item is no longer the first one in the visible range.
+ * Triggered before animation.
+ */
+function mycarousel_itemVisibleOutCallbackBeforeAnimation(carousel, item, idx, state) {
+    jQuery('img', item).fadeOut('slow');
+};
+
+/**
+ * This is the callback function which receives notification
+ * when an item is no longer the first one in the visible range.
+ * Triggered after animation.
+ */
+function mycarousel_itemVisibleOutCallbackAfterAnimation(carousel, item, idx, state) {
+    display('Item #' + idx + ' is no longer visible');
+};
+
+/**
+ * Helper function for printing out debug messages.
+ * Not needed for jCarousel.
+ */
+var row = 1;
+function display(s) {
+    // Log to Firebug (getfirebug.com) if available
+    //if (window.console != undefined && typeof window.console.log == 'function')
+      //  console.log(s);
+
+    if (row >= 1000)
+        var r = row;
+    else if (row >= 100)
+        var r = '&nbsp;' + row;
+    else if (row >= 10)
+        var r = '&nbsp;&nbsp;' + row;
+    else
+        var r = '&nbsp;&nbsp;&nbsp;' + row;
+
+    jQuery('#display').html(jQuery('#display').html() + r + ': ' + s + '<br />').get(0).scrollTop += 10000;
+
+    row++;
+};
+
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        scroll: 1,
+
+        initCallback:   mycarousel_initCallback,
+        reloadCallback: mycarousel_reloadCallback,
+
+        buttonNextCallback:   mycarousel_buttonNextCallback,
+        buttonPrevCallback:   mycarousel_buttonPrevCallback,
+
+        itemFirstInCallback:  mycarousel_itemFirstInCallback,
+        itemFirstOutCallback: mycarousel_itemFirstOutCallback,
+        itemLastInCallback:   mycarousel_itemLastInCallback,
+        itemLastOutCallback:  mycarousel_itemLastOutCallback,
+        itemVisibleInCallback: {
+            onBeforeAnimation: mycarousel_itemVisibleInCallbackBeforeAnimation,
+            onAfterAnimation:  mycarousel_itemVisibleInCallbackAfterAnimation
+        },
+        itemVisibleOutCallback: {
+            onBeforeAnimation: mycarousel_itemVisibleOutCallbackBeforeAnimation,
+            onAfterAnimation:  mycarousel_itemVisibleOutCallbackAfterAnimation
+        }
+    });
+});
+
+</script>
+
+</head>
+<body>
+<div id="wrap">
+  <h1>jCarousel</h1>
+  <h2>Riding carousels with jQuery</h2>
+
+  <h3>Carousel illustrating the callback functions</h3>
+  <p>
+    This carousel has registered all available callback functions and displays
+    information about the state of the items and buttons. Additionally the width
+    of the carousel is set to auto. Resize the browser window and see what happens.
+  </p>
+
+
+  <div class=" jcarousel-skin-tango"><div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal"><div style="position: relative;" class="jcarousel-clip jcarousel-clip-horizontal"><ul style="overflow: hidden; position: relative; top: 0px; margin: 0px; padding: 0px; left: -340px; width: 950px;" id="mycarousel" class="jcarousel-list jcarousel-list-horizontal">
+    <li jcarouselindex="1" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-1 jcarousel-item-1-horizontal"><img style="display: none;" src="static_callbacks_files/199481236_dc98b5abb3_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="2" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-2 jcarousel-item-2-horizontal"><img style="display: none;" src="static_callbacks_files/199481072_b4a0d09597_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="3" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-3 jcarousel-item-3-horizontal"><img style="display: none;" src="static_callbacks_files/199481087_33ae73a8de_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="4" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-4 jcarousel-item-4-horizontal"><img style="display: none;" src="static_callbacks_files/199481108_4359e6b971_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="5" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-5 jcarousel-item-5-horizontal"><img src="static_callbacks_files/199481143_3c148d9dd3_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="6" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-6 jcarousel-item-6-horizontal"><img src="static_callbacks_files/199481203_ad4cdcf109_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="7" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-7 jcarousel-item-7-horizontal"><img src="static_callbacks_files/199481218_264ce20da0_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="8" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-8 jcarousel-item-8-horizontal"><img src="static_callbacks_files/199481255_fdfe885f87_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="9" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-9 jcarousel-item-9-horizontal"><img src="static_callbacks_files/199480111_87d4cb3e38_s.jpg" alt="" height="75" width="75"></li>
+    <li jcarouselindex="10" style="float: left; list-style: none outside none;" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-10 jcarousel-item-10-horizontal"><img src="static_callbacks_files/229228324_08223b70fa_s.jpg" alt="" height="75" width="75"></li>
+  </ul></div><div disabled="false" style="display: block;" class="jcarousel-prev jcarousel-prev-horizontal"></div><div disabled="true" style="display: block;" class="jcarousel-next jcarousel-next-horizontal jcarousel-next-disabled jcarousel-next-disabled-horizontal"></div></div></div>
+
+  <p id="display">&nbsp;&nbsp;&nbsp;1: Carousel initialised<br>&nbsp;&nbsp;&nbsp;2: Next button is now enabled<br>&nbsp;&nbsp;&nbsp;3: Prev button is now disabled<br>&nbsp;&nbsp;&nbsp;4: Item #1 is now the first item<br>&nbsp;&nbsp;&nbsp;5: Item #6 is now the last item<br>&nbsp;&nbsp;&nbsp;6: Item #1 is now visible<br>&nbsp;&nbsp;&nbsp;7: Item #2 is now visible<br>&nbsp;&nbsp;&nbsp;8: Item #3 is now visible<br>&nbsp;&nbsp;&nbsp;9: Item #4 is now visible<br>&nbsp;&nbsp;10: Item #5 is now visible<br>&nbsp;&nbsp;11: Item #6 is now visible<br>&nbsp;&nbsp;12: Prev button is now enabled<br>&nbsp;&nbsp;13: Item #2 is now the first item<br>&nbsp;&nbsp;14: Item #1 is no longer the first item<br>&nbsp;&nbsp;15: Item #7 is now the last item<br>&nbsp;&nbsp;16: Item #6 is no longer the last item<br>&nbsp;&nbsp;17: Item #7 is now visible<br>&nbsp;&nbsp;18: Item #1 is no longer visible<br>&nbsp;&nbsp;19: Item #3 is now the first item<br>&nbsp;&nbsp;20: Item #2 is no longer the first item<br>&nbsp;&nbsp;21: Item #8 is now the last item<br>&nbsp;&nbsp;22: Item #7 is no longer the last item<br>&nbsp;&nbsp;23: Item #8 is now visible<br>&nbsp;&nbsp;24: Item #2 is no longer visible<br>&nbsp;&nbsp;25: Item #4 is now the first item<br>&nbsp;&nbsp;26: Item #3 is no longer the first item<br>&nbsp;&nbsp;27: Item #9 is now the last item<br>&nbsp;&nbsp;28: Item #8 is no longer the last item<br>&nbsp;&nbsp;29: Item #9 is now visible<br>&nbsp;&nbsp;30: Item #3 is no longer visible<br>&nbsp;&nbsp;31: Next button is now disabled<br>&nbsp;&nbsp;32: Item #5 is now the first item<br>&nbsp;&nbsp;33: Item #4 is no longer the first item<br>&nbsp;&nbsp;34: Item #10 is now the last item<br>&nbsp;&nbsp;35: Item #9 is no longer the last item<br>&nbsp;&nbsp;36: Item #10 is now visible<br>&nbsp;&nbsp;37: Item #4 is no longer visible<br>&nbsp;&nbsp;38: Carousel reloaded<br>&nbsp;&nbsp;39: Carousel reloaded<br></p>
+
+</div>
+
+
+</body></html>

@@ -1,0 +1,22 @@
+		<div class="content">
+<?php 
+mysql_select_db($database_pulsar, $pulsar);
+$idioma="";
+if($lingua != "br")
+	$idioma = "_en";
+$query_temas = "SELECT Id,Tema$idioma as Tema, Pai FROM temas where Pai = 0 ORDER BY Pai,Tema ASC";
+$temas_menu = mysql_query($query_temas, $pulsar) or die(mysql_error());
+   
+   $html = "
+			<ul class=\"menu-nossos-temas\">";
+   $table = "temas";
+   rootTree($temas_menu, $table, $html, $pulsar, $idioma);
+   $html .= "
+			</ul>
+			";
+ 
+   printf("%s", $html);
+
+?>
+
+		</div>

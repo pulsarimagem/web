@@ -1,0 +1,432 @@
+* {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-FAMILY: Verdana, Tahoma, Arial, Sans-Serif; font-size:14px
+}
+UL {
+	LIST-STYLE-TYPE: none
+}
+UL LI {
+	LIST-STYLE-TYPE: none
+}
+A.textomenu {
+	FONT-SIZE: 12px; COLOR: #103979; FONT-FAMILY: verdana,sans; TEXT-DECORATION: none
+}
+A.textomenu:hover {
+	FONT-SIZE: 12px; COLOR: #103979; FONT-FAMILY: verdana,sans; TEXT-DECORATION: underline
+}
+A.textodest {
+	FONT-SIZE: 9px; COLOR: #a3a3a3; FONT-FAMILY: verdana,sans; TEXT-DECORATION: none
+}
+A.textodest:hover {
+	FONT-SIZE: 9px; COLOR: #a3a3a3; FONT-FAMILY: verdana,sans; TEXT-DECORATION: underline
+}
+A.textorodape {
+	FONT-SIZE: 10px; COLOR: #1565ad; FONT-FAMILY: verdana,sans; TEXT-DECORATION: none
+}
+A.textorodape:hover {
+	FONT-SIZE: 10px; COLOR: #1565ad; FONT-FAMILY: verdana,sans; TEXT-DECORATION: underline
+}
+A.textosubint {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: verdana,sans; TEXT-DECORATION: none
+}
+A.textosubint:hover {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: verdana,sans; TEXT-DECORATION: underline
+}
+A.menuint {
+	FONT-SIZE: 11px; COLOR: #91b3cf; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.menuint:hover {
+	FONT-SIZE: 11px; COLOR: #ff9f07; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.menucores {
+	FONT-SIZE: 11px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.menucores:hover {
+	FONT-SIZE: 11px; COLOR: #ff9f07; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkpreto {
+	FONT-SIZE: 9px; COLOR: #000000; FONT-FAMILY: verdana,sans; TEXT-DECORATION: none
+}
+A.linkpreto:hover {
+	FONT-SIZE: 9px; COLOR: #000000; FONT-FAMILY: verdana,sans; TEXT-DECORATION: underline
+}
+A.linkpreto2 {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: verdana,sans; TEXT-DECORATION: none
+}
+A.linkpreto2:hover {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: verdana,sans; TEXT-DECORATION: underline
+}
+A.linkazul {
+	FONT-SIZE: 10px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: underline
+}
+A.linkazul:hover {
+	FONT-SIZE: 10px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkazulesc {
+	FONT-SIZE: 10px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkazulesc:hover {
+	FONT-SIZE: 10px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: underline
+}
+A.linkazulconfig {
+	FONT-SIZE: 10px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkazulconfig:hover {
+	FONT-SIZE: 10px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkazulmapa {
+	FONT-SIZE: 11px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkazulmapa:hover {
+	FONT-SIZE: 11px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.menuheader {
+	FONT-SIZE: 10px; COLOR: #003366; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.menuheader:hover {
+	FONT-SIZE: 10px; COLOR: #ff9f07; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+.formulario {
+	BORDER-RIGHT: #b8d3e9 1px solid; BORDER-TOP: #b8d3e9 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #b8d3e9 1px solid; BORDER-BOTTOM: #b8d3e9 1px solid; FONT-FAMILY: verdana,arial,sans; HEIGHT: 20px; BACKGROUND-COLOR: #edf3fa
+}
+.formulariob {
+	BORDER-RIGHT: #b8d3e9 1px solid; BORDER-TOP: #b8d3e9 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #b8d3e9 1px solid; BORDER-BOTTOM: #b8d3e9 1px solid; FONT-FAMILY: verdana,arial,sans; HEIGHT: 20px; BACKGROUND-COLOR: #ffffff
+}
+.titulodest {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #18417b; FONT-FAMILY: verdana,sans
+}
+.titulopreto {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: verdana,sans
+}
+.chamada {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #18417b; FONT-FAMILY: arial,verdana,sans
+}
+.textoazul {
+	FONT-SIZE: 11px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans
+}
+.textoazulp {
+	FONT-SIZE: 10px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans
+}
+.textoazulg {
+	FONT-SIZE: 17px; COLOR: #1565ad; FONT-FAMILY: verdana,arial,sans
+}
+.textopreto {
+	FONT-SIZE: 9px; COLOR: #000000; FONT-FAMILY: verdana,sans
+}
+.textopretom {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: verdana,sans
+}
+.textopretog {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: verdana,sans
+}
+.textobrancom {
+	FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: verdana,sans
+}
+.textolaranja {
+	FONT-SIZE: 11px; COLOR: #ff7800; FONT-FAMILY: verdana,sans
+}
+.textolaranjap {
+	FONT-SIZE: 10px; COLOR: #ff7800; FONT-FAMILY: verdana,sans
+}
+.textolaranjag {
+	FONT-SIZE: 17px; COLOR: #ff7800; FONT-FAMILY: verdana,sans
+}
+.textolaranjap {
+	FONT-SIZE: 9px; COLOR: #ff7800; FONT-FAMILY: verdana,sans
+}
+.textoheaderm {
+	FONT-SIZE: 13px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans
+}
+.textoheaderg {
+	FONT-SIZE: 17px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans
+}
+.textotitcars {
+	FONT-WEIGHT: bolder; FONT-SIZE: 18px; TEXT-TRANSFORM: uppercase; COLOR: #1565ad; FONT-FAMILY: arial,sans
+}
+.divNews {
+	BACKGROUND-COLOR: white
+}
+A.linkheaderg {
+	FONT-SIZE: 17px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: none
+}
+A.linkheaderg:hover {
+	FONT-SIZE: 17px; COLOR: #11426a; FONT-FAMILY: verdana,arial,sans; TEXT-DECORATION: underline
+}
+.ecologia {
+	FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, "Trebuchet MS"
+}
+.ecologia .lista1 {
+	MARGIN-TOP: 5px; PADDING-LEFT: 5px; FONT-WEIGHT: bolder; HEIGHT: 20px; BACKGROUND-COLOR: #c9e4c6; TEXT-DECORATION: none
+}
+.ecologia .lista1 A {
+	FONT-WEIGHT: bolder; FONT-SIZE: 12px; COLOR: #336600; TEXT-DECORATION: none
+}
+.ecologia .lista1 A:hover {
+	TEXT-DECORATION: underline
+}
+.ecologia .contEco {
+	FONT-SIZE: 11px
+}
+.bgNovaHome {
+	
+}
+.respiroPrincipal {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 30px; PADDING-TOP: 10px; BACKGROUND-COLOR: white
+}
+.bodyNovaHome TD {
+	FONT-SIZE: 11px; COLOR: #898989
+}
+.bodyNovaHome A {
+	COLOR: #898989; TEXT-DECORATION: none
+}
+.bodyNovaHome A:hover {
+	COLOR: black
+}
+.comboNovaHome {
+	BORDER-RIGHT: 0px; BORDER-TOP: #bababa 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #bababa 1px solid; COLOR: #898989; BORDER-BOTTOM: 0px
+}
+.bgMenu {
+	BACKGROUND: url(../img/bg/menuBack.gif) repeat-x left bottom
+}
+.menuPrincipal {
+	
+}
+.menuPrincipal LI {
+	FLOAT: left
+}
+.menuPrincipal LI A {
+	DISPLAY: block; OVERFLOW: hidden; TEXT-INDENT: -5000px; HEIGHT: 32px
+}
+.menuPrincipal .clientes {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat left top; WIDTH: 151px
+}
+.menuPrincipal .clientes:hover {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat left -32px
+}
+.menuPrincipal .clientesOn {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat left -32px; WIDTH: 151px
+}
+.menuPrincipal .autores {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -151px top; WIDTH: 150px
+}
+.menuPrincipal .autores:hover {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -151px -32px
+}
+.menuPrincipal .autoresOn {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -151px -32px; WIDTH: 150px
+}
+.menuPrincipal .cromos {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -301px top; WIDTH: 150px
+}
+.menuPrincipal .cromos:hover {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -301px -32px
+}
+.menuPrincipal .cromosOn {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -301px -32px; WIDTH: 150px
+}
+.menuPrincipal .contratos {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -451px top; WIDTH: 150px
+}
+.menuPrincipal .contratos:hover {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -451px -32px
+}
+.menuPrincipal .contratosOn {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -451px -32px; WIDTH: 150px
+}
+.menuPrincipal .relatorios {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -601px top; WIDTH: 150px
+}
+.menuPrincipal .relatorios:hover {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -601px -32px
+}
+.menuPrincipal .relatoriosOn {
+	BACKGROUND: url(../img/misc/menu.gif) no-repeat -601px -32px; WIDTH: 150px
+}
+.divPos {
+	POSITION: absolute
+}
+#clientes {
+	BORDER-RIGHT: #ff0000 2px solid; DISPLAY: none; Z-INDEX: 10; LEFT: 5px; BORDER-BOTTOM: #ff0000 2px solid; TOP: -20px; TEXT-ALIGN: left
+}
+#clientes UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(../img/bg/menuPrincipal.jpg) #e01a00 repeat-x left top; FILTER: alpha(opacity=70); PADDING-BOTTOM: 4px; WIDTH: 150px; PADDING-TOP: 0px; opacity: 0.9; -moz-opacity: 0.9
+}
+#clientes UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; WIDTH: 150px; PADDING-TOP: 1px; BORDER-BOTTOM: #f39132 1px solid
+}
+#clientes UL LI A {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; FONT-SIZE: 11px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 3px; TEXT-TRANSFORM: uppercase; WIDTH: 150px; COLOR: white; PADDING-TOP: 3px; TEXT-DECORATION: none
+}
+#clientes UL LI A:hover {
+	FONT-WEIGHT: bolder; FILTER: alpha(opacity=90); COLOR: #012c53; BACKGROUND-COLOR: white; opacity: 0.8; -moz-opacity: 0.8
+}
+#clientes UL .lastItem {
+	BORDER-BOTTOM: 0px
+}
+#autores {
+	BORDER-RIGHT: #ff0000 2px solid; DISPLAY: none; Z-INDEX: 10; LEFT: 155px; BORDER-BOTTOM: #ff0000 2px solid; TOP: -20px; TEXT-ALIGN: left
+}
+#autores UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(../img/bg/menuPrincipal.jpg) #e01a00 repeat-x left top; FILTER: alpha(opacity=70); PADDING-BOTTOM: 4px; WIDTH: 150px; PADDING-TOP: 0px; opacity: 0.9; -moz-opacity: 0.9
+}
+#autores UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; WIDTH: 150px; PADDING-TOP: 1px; BORDER-BOTTOM: #f39132 1px solid
+}
+#autores UL LI A {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; FONT-SIZE: 11px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 3px; TEXT-TRANSFORM: uppercase; WIDTH: 150px; COLOR: white; PADDING-TOP: 3px; TEXT-DECORATION: none
+}
+#autores UL LI A:hover {
+	FONT-WEIGHT: bolder; FILTER: alpha(opacity=90); COLOR: #012c53; BACKGROUND-COLOR: white; opacity: 0.8; -moz-opacity: 0.8
+}
+#autores UL .lastItem {
+	BORDER-BOTTOM: 0px
+}
+#cromos {
+	BORDER-RIGHT: #ff0000 2px solid; DISPLAY: none; Z-INDEX: 10; LEFT: 305px; BORDER-BOTTOM: #ff0000 2px solid; TOP: -20px; TEXT-ALIGN: left
+}
+#cromos UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(../img/bg/menuPrincipal.jpg) #e01a00 repeat-x left top; FILTER: alpha(opacity=70); PADDING-BOTTOM: 4px; WIDTH: 150px; PADDING-TOP: 0px; opacity: 0.9; -moz-opacity: 0.9
+}
+#cromos UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; WIDTH: 150px; PADDING-TOP: 1px; BORDER-BOTTOM: #f39132 1px solid
+}
+#cromos UL LI A {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; FONT-SIZE: 11px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 3px; TEXT-TRANSFORM: uppercase; WIDTH: 150px; COLOR: white; PADDING-TOP: 3px; TEXT-DECORATION: none
+}
+#cromos UL LI A:hover {
+	FONT-WEIGHT: bolder; FILTER: alpha(opacity=90); COLOR: #012c53; BACKGROUND-COLOR: white; opacity: 0.8; -moz-opacity: 0.8
+}
+#cromos UL .lastItem {
+	BORDER-BOTTOM: 0px
+}
+#contratos {
+	BORDER-RIGHT: #ff0000 2px solid; DISPLAY: none; Z-INDEX: 10; LEFT: 455px; BORDER-BOTTOM: #ff0000 2px solid; TOP: -20px; TEXT-ALIGN: left
+}
+#contratos UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(../img/bg/menuPrincipal.jpg) #e01a00 repeat-x left top; FILTER: alpha(opacity=70); PADDING-BOTTOM: 4px; WIDTH: 150px; PADDING-TOP: 0px; opacity: 0.9; -moz-opacity: 0.9
+}
+#contratos UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; WIDTH: 150px; PADDING-TOP: 1px; BORDER-BOTTOM: #f39132 1px solid
+}
+#contratos UL LI A {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; FONT-SIZE: 11px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 3px; TEXT-TRANSFORM: uppercase; WIDTH: 150px; COLOR: white; PADDING-TOP: 3px; TEXT-DECORATION: none
+}
+#contratos UL LI A:hover {
+	FONT-WEIGHT: bolder; FILTER: alpha(opacity=90); COLOR: #012c53; BACKGROUND-COLOR: white; opacity: 0.8; -moz-opacity: 0.8
+}
+#contratos UL .lastItem {
+	BORDER-BOTTOM: 0px
+}
+#relatorios {
+	BORDER-RIGHT: #ff0000 2px solid; DISPLAY: none; Z-INDEX: 10; LEFT: 605px; BORDER-BOTTOM: #ff0000 2px solid; TOP: -20px; TEXT-ALIGN: left
+}
+#relatorios UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(../img/bg/menuPrincipal.jpg) #e01a00 repeat-x left top; FILTER: alpha(opacity=70); PADDING-BOTTOM: 4px; WIDTH: 150px; PADDING-TOP: 0px; opacity: 0.9; -moz-opacity: 0.9
+}
+#relatorios UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; WIDTH: 150px; PADDING-TOP: 1px; BORDER-BOTTOM: #f39132 1px solid
+}
+#relatorios UL LI A {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; FONT-SIZE: 11px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 3px; TEXT-TRANSFORM: uppercase; WIDTH: 150px; COLOR: white; PADDING-TOP: 3px; TEXT-DECORATION: none
+}
+#relatorios UL LI A:hover {
+	FONT-WEIGHT: bolder; FILTER: alpha(opacity=90); COLOR: #012c53; BACKGROUND-COLOR: white; opacity: 0.8; -moz-opacity: 0.8
+}
+#relatorios UL .lastItem {
+	BORDER-BOTTOM: 0px
+}
+.vitrines {
+	BORDER-TOP: #c9c9c9 2px solid; PADDING-BOTTOM: 15px
+}
+.vitrines TABLE .estrutura {
+	BORDER-RIGHT: #c9c9c9 1px solid; PADDING-TOP: 10px
+}
+.vitrines TABLE .noBorder {
+	BORDER-RIGHT: 0px
+}
+.estrutura H2 {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 22px; FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: url(../img/misc/ico_setaLaranja.gif) no-repeat 1px 7px; PADDING-BOTTOM: 8px; COLOR: black; PADDING-TOP: 6px; BORDER-BOTTOM: #c9c9c9 1px solid
+}
+.estrutura P {
+	MARGIN: 5px 0px; LINE-HEIGHT: 18px
+}
+.estrutura A {
+	FONT-WEIGHT: bolder; COLOR: #00abdf; TEXT-DECORATION: none
+}
+.estrutura A:hover {
+	COLOR: black
+}
+.boxViva {
+	BACKGROUND: url(../img/misc/img_boxViva.jpg) no-repeat left top; HEIGHT: 144px
+}
+.boxViva TD {
+	FONT-SIZE: 11px; COLOR: black
+}
+.campos {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 2px; BORDER-TOP: #bababa 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 11px; PADDING-BOTTOM: 0px; BORDER-LEFT: #bababa 1px solid; COLOR: black; LINE-HEIGHT: 12px; PADDING-TOP: 2px; BORDER-BOTTOM: 0px; HEIGHT: 17px
+}
+.linksViva {
+	FLOAT: left
+}
+.linksViva LI {
+	DISPLAY: inline; COLOR: white
+}
+.linksViva LI A {
+	COLOR: white; TEXT-DECORATION: none
+}
+.linksViva LI A:hover {
+	COLOR: black
+}
+.footer {
+	BACKGROUND: url(../img/misc/logo_ibama.jpg) no-repeat 700px top; HEIGHT: 38px
+}
+.footer UL {
+	FLOAT: left; MARGIN: 8px 0px 5px 5px
+}
+.footer UL LI {
+	DISPLAY: inline; FONT-SIZE: 9px; COLOR: #898989
+}
+.footer LI A {
+	FONT-SIZE: 9px; COLOR: #898989; TEXT-DECORATION: none
+}
+.footer LI A:hover {
+	COLOR: black
+}
+.bodyInternas TD {
+	FONT-SIZE: 11px; COLOR: #898989
+}
+.bodyInternas A {
+	COLOR: #898989; TEXT-DECORATION: none
+}
+.bodyInternas A:hover {
+	COLOR: black
+}
+.proposta TD {
+	FONT-SIZE: 11px; COLOR: #2670b3
+}
+.proposta INPUT {
+	FONT-SIZE: 11px; COLOR: black
+}
+SELECT {
+	FONT-SIZE: 11px; COLOR: black
+}
+.btEnviar {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND: url(../img/bt/enviar2.gif) no-repeat left top; BORDER-LEFT: 0px; WIDTH: 85px; CURSOR: pointer; BORDER-BOTTOM: 0px; HEIGHT: 22px
+}
+.txtTitRecall {
+	FONT-SIZE: 25px; COLOR: #004e9a
+}
+.txtRecall {
+	FONT-WEIGHT: bolder; FONT-SIZE: 12px
+}
+.txtRecall2 {
+	FONT-SIZE: 12px
+}
+.txtRecall3 {
+	FONT-SIZE: 14px
+}
+.txtRecall4 {
+	FONT-SIZE: 20px; COLOR: #004e9a
+}
+.brdBottom TD {
+	BORDER-BOTTOM: #dedede 1px solid
+}

@@ -1,0 +1,211 @@
+<?php require_once('Connections/pulsar.php'); ?>
+<?php include("tool_auth.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>.::SIG - SISTEMA DE INFORMAÇÕES GERENCIAIS PULSAR IMAGENS::.</title>
+<link href="atributos/global.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="atributos/tablecloth.css" type="text/css" rel="stylesheet" media="screen" />
+<LINK href="css/style.css" type=text/css rel=STYLESHEET />
+<script language="javascript">
+
+	function soNums(e,args) 
+    {         
+        // Função que permite apenas teclas numéricas e  
+        // todos os caracteres que estiverem na lista 
+        // de argumentos. 
+        // Deve ser chamada no evento onKeyPress desta forma 
+        //  onKeyPress ="return (soNums(event,'(/){,}.'));" 
+        // caso queira apenas permitir caracters 
+
+            if (document.all){var evt=event.keyCode;} // caso seja IE 
+            else{var evt = e.charCode;}    // do contrário deve ser Mozilla 
+            var chr= String.fromCharCode(evt);    // pegando a tecla digitada 
+            // Se o código for menor que 20 é porque deve ser caracteres de controle 
+            // ex.: <ENTER>, <TAB>, <BACKSPACE> portanto devemos permitir 
+            // as teclas numéricas vão de 48 a 57 
+            if (evt <20 || (evt >47 && evt<58) || (args.indexOf(chr)>-1 ) ){return true;} 
+            return false; 
+    }
+    function confirma(){
+	    if(confirm("Deseja realmente excluir este Preço?"))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+<?php include("scripts.php")?>
+<?php include("part_top.php")?>
+</head>
+
+<body>
+<?php
+
+$sqlTipo = "select Id, tipo from USO_TIPO order by tipo";
+$objTipo = mysql_query($sqlTipo, $sig) or die(mysql_error());
+
+$sqlSubTipo = "select Id, subtipo from USO_SUBTIPO order by subtipo";
+$objSubTipo = mysql_query($sqlSubTipo, $sig) or die(mysql_error());
+
+$sqlDesc = "select Id, descricao from USO_DESC order by descricao";
+$objDesc = mysql_query($sqlDesc, $sig) or die(mysql_error());
+
+If (isset($_GET["inclui"])) {
+
+    If ( $_POST["txtvalor"] != "" ) {        
+       $sqlInclui = "insert into USO(id_tipo,id_subtipo,id_descricao,valor,contrato)values(" . $_POST["ddltipo"] . "," . $_POST["ddlsubtipo"] . "," . $_POST["ddldesc"] . "," . str_replace(",",".",$_POST["txtvalor"]) . ",'".$_POST["contrato"]."')";
+    } else {
+       $sqlInclui = "insert into USO(id_tipo,id_subtipo,id_descricao,contrato)values(" . $_POST["ddltipo"] . "," . $_POST["ddlsubtipo"] . "," . $_POST["ddldesc"] . ",'".$_POST["contrato"]."')";
+    }
+
+    mysql_query($sqlInclui, $sig) or die(mysql_error());
+}
+
+$idEditaTipo = 0;
+$idEditaSub = 0;
+$idEditaDesc = 0;
+$idEditaContrato = "F";
+
+If (isset($_GET["edita"])) {
+    $id = $_GET["edita"];
+    $sqlEdita = "select uso.Id, uso.contrato, tipo.Id as id_tipo, sub.Id as id_subtipo, descr.Id as id_desc,valor from USO as uso, USO_TIPO as tipo, USO_SUBTIPO as sub, USO_DESC as descr where uso.id_tipo = tipo.Id and uso.Id = " . $id . " and uso.id_subtipo = sub.Id and uso.id_descricao = descr.Id order by tipo, subtipo,descricao,valor ";
+    $objEdita = mysql_query($sqlEdita, $sig) or die(mysql_error()); 
+	$row_objEdita = mysql_fetch_array($objEdita); 
+    $idEditaTipo = $row_objEdita["id_tipo"];
+    $idEditaSub = $row_objEdita["id_subtipo"];
+    $idEditaDesc = $row_objEdita["id_desc"];
+    $idEditaContrato = $row_objEdita["contrato"];
+}
+
+If (isset($_GET["gravaedita"]) && $_GET["gravaedita"] != "" ) {
+    $sqlGrava = "update USO set id_tipo = " . $_POST["ddltipo"] . " , id_subtipo = " . $_POST["ddlsubtipo"] . " , id_descricao = " . $_POST["ddldesc"] . " , valor = " . str_replace(",",".",$_POST["txtvalor"]) . ", contrato = '".$_POST["contrato"]."' where Id = " . $_GET["gravaedita"];
+    mysql_query($sqlGrava, $sig) or die(mysql_error());
+}
+
+If (isset($_GET["delete"]) && $_GET["delete"] != "" ) {
+    $sqlDel = "delete from USO where Id = " . $_GET["delete"];
+    mysql_query($sqlDel, $sig) or die(mysql_error());
+}
+
+$sqlTotal = "select uso.Id, uso.contrato, tipo, subtipo, descricao, valor from USO as uso, USO_TIPO as tipo, USO_SUBTIPO as sub, USO_DESC as descr where uso.id_tipo = tipo.Id and uso.id_subtipo = sub.Id and uso.id_descricao = descr.Id order by contrato, tipo, subtipo,descricao,valor";
+$objTotal = mysql_query($sqlTotal, $sig) or die(mysql_error());
+
+
+?>
+
+<!--mensagem-->
+<font color="#000000"><h2><?php echo isset($_GET["mens"])?$_GET["mens"]:"" ?></h2></font>
+<form id="frmPreco" action="adm_precos.php?<?php If ( isset($_GET["edita"]) ) { ?>gravaedita=<?php echo $_GET["edita"] ?><?php } else { ?>inclui=true<?php } ?>" enctype="" method="post">
+  <table width="50%">
+    <tr>
+        <td colspan="6" style="font-weight:bold;">
+            Incluir Novo Preço 
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight:bold;">Contrato</td>
+    	<td style="font-weight:bold;">Tipo</td>
+        <td style="font-weight:bold;">Subtipo</td>
+        <td style="font-weight:bold;">Descrição</td>
+        <td style="font-weight:bold;">Preço</td>
+    </tr>
+    <tr>
+        <td>
+            <select name="contrato">
+            	<option <?php If ( $idEditaContrato == "F") echo "selected=\"selected\"";?> value='F'>Foto</option>
+            	<option <?php If ( $idEditaContrato == "V") echo "selected=\"selected\"";?> value='V'>Video</option>
+            </select>
+        </td>
+    	<td>
+            <select name="ddltipo">
+            <?php while ($row_objTipo = mysql_fetch_array($objTipo)) {?>
+                <?php If ( $idEditaTipo == $row_objTipo["Id"] ) { ?>
+                    <option selected="selected" value='<?php echo $row_objTipo["Id"] ?>'><?php echo $row_objTipo["tipo"] ?></option>
+                <?php } else { ?>
+                    <option value='<?php echo $row_objTipo["Id"] ?>'><?php echo $row_objTipo["tipo"] ?></option>
+                <?php } ?>
+            <?php } ?>
+            </select>
+        </td>
+        <td>
+            <select name="ddlsubtipo">
+            <?php while ($row_objSubTipo = mysql_fetch_array($objSubTipo)) { ?>
+                <?php If ( $idEditaSub == $row_objSubTipo["Id"] ) { ?>
+                    <option selected="selected"  value='<?php echo $row_objSubTipo["Id"] ?>'><?php echo $row_objSubTipo["subtipo"] ?></option>
+                <?php } else { ?>
+                    <option value='<?php echo $row_objSubTipo["Id"] ?>'><?php echo $row_objSubTipo["subtipo"] ?></option>
+                <?php } ?>
+            <?php } ?>
+            </select>
+        </td>
+        <td>
+            <select name="ddldesc">
+            <?php while ($row_objDesc = mysql_fetch_array($objDesc)) {?>
+                <?php If ( $idEditaDesc == $row_objDesc["Id"] ) { ?>
+                    <option selected="selected" value='<?php echo $row_objDesc["Id"] ?>'><?php echo $row_objDesc["descricao"] ?></option>
+                <?php } else { ?>
+                    <option value='<?php echo $row_objDesc["Id"] ?>'><?php echo $row_objDesc["descricao"] ?></option>
+                <?php } ?>
+            <?php } ?>
+            </select>
+        </td>
+        <td>
+            <?php If (isset($_GET["edita"]) ) { ?>
+                <input type="text" name="txtvalor" id="txtvalor" value='<?php echo $row_objEdita["valor"] ?>' size="15" onKeyPress="return (soNums(event,','));" />
+            <?php } else { ?>
+                <input type="text" name="txtvalor" id="txtvalor" size="15" onKeyPress="return (soNums(event,','));" />
+            <?php } ?>
+        </td>
+        <td>
+            <input type="submit" name="envia" value="OK" />
+        </td>
+    </tr>
+  </table>
+
+  <table width="50%">
+    <tr>
+        <td colspan="6" style="font-weight:bold;">
+            Preços Incluídos   
+        </td>
+    </tr>
+    <tr >
+        <td style="font-weight:bold;">Tipo Contrato</td>
+        <td style="font-weight:bold;">Tipo</td>
+        <td style="font-weight:bold;">Subtipo</td>
+        <td style="font-weight:bold;">Descrição</td>
+        <td style="font-weight:bold;" nowrap="nowrap">Valor</td>
+        <td style="font-weight:bold;">Editar</td>
+        <td style="font-weight:bold;">Excluir</td>
+    </tr>
+    <?php while ($row_objTotal = mysql_fetch_array($objTotal)) {?>
+        <tr>
+            <td><?php echo $row_objTotal["contrato"]=="V"?"Video":"Foto" ?></td>
+        	<td><?php echo $row_objTotal["tipo"] ?></td>
+            <td><?php echo $row_objTotal["subtipo"] ?></td>
+            <td><?php echo $row_objTotal["descricao"] ?></td>
+            <?php If ( $row_objTotal["valor"] != "0" ) { ?>
+                <td  nowrap="nowrap"><?php echo formatcurrency($row_objTotal["valor"]) ?></td>
+            <?php } else { ?>
+                <td>N/D</td>
+            <?php } ?>
+            <td><a href='adm_precos.php?edita=<?php echo $row_objTotal["Id"] ?>'><img src="images/edit.png" border="0" /></a></td>
+            <td><a href='adm_precos.php?delete=<?php echo $row_objTotal["Id"] ?>' onclick="return confirma();"><img src="images/delete.png" border="0" /></a></td>
+        </tr>                
+    <?php } ?>
+    </table>
+
+</form>
+</body>
+</html>
+
+<?php //'fechar e eliminar todos os obejtos recordset e de conexão?>
+
+
+
+
+
+
+

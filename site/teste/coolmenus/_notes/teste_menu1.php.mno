@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_temas" value="name:Id;datatype:int,name:Tema;datatype:string,name:Pai;datatype:int" />
+</info>

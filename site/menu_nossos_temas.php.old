@@ -1,0 +1,29 @@
+		<div class="content">
+<?php 
+if($siteDebug) {
+	$timeBefore = microtime(true);
+}
+mysql_select_db($database_pulsar, $pulsar);
+$idioma="";
+if($lingua != "br")
+	$idioma = "_en";
+$query_temas = "SELECT DISTINCT Id,Tema$idioma as Tema, Pai FROM temas LEFT JOIN rel_fotos_temas on temas.Id = rel_fotos_temas.id_tema LEFT JOIN Fotos on rel_fotos_temas.id_foto = Fotos.Id_foto WHERE Pai = 0 AND tombo RLIKE '^[a-zA-Z]' ORDER BY Pai,Tema ASC";
+$temas_menu = mysql_query($query_temas, $pulsar) or die(mysql_error());
+   
+   $html = "
+			<ul class=\"menu-nossos-temas\">";
+   $table = "temas";
+   rootTree($temas_menu, $table, $html, $pulsar, $idioma);
+   $html .= "
+			</ul>
+			";
+ 
+   printf("%s", $html);
+if($siteDebug) {
+	$timeAfter = microtime(true);
+	$diff = $timeAfter - $timeBefore;
+	echo "<strong>Tempo tema: </strong>".$diff."<br>";
+}
+?>
+
+		</div>
