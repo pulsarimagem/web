@@ -8,6 +8,10 @@
     <?php include("scripts.php"); ?>
   </head>
   <body>
+  
+  
+  
+  
 
     <?php include("part_topbar.php") ?>
 
