@@ -20,6 +20,8 @@ $totalRows_texto = mysql_num_rows($texto);
 </head>
 <body>
 
+
+
 <?php include("../tool_clickTale_Header.php")?>
 
 <?php include("../tool_tooltip.php")?>
