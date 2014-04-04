@@ -133,7 +133,7 @@ a:focus, a:hover { text-decoration: none; }
 .home-welcome div.busca input.radio { float: left; }
 .home-welcome img.big { margin: 0 auto; display: inline-block; zoom: 1; *display: inline; }
 .home-welcome div.bemvindo { position: absolute; bottom: 22px; width: 714px; left: 50%; margin-left: -375px; border: 1px solid #e6e6e6; background: #FFF; padding: 14px 18px; opacity: .7; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; filter: alpha(opacity=70); text-align: left; }
-.home-welcome div.bemvindo h2 { color: #ff9900; text-transform: uppercase; padding-bottom: 12px; font-size: 16px; font-weight: bold; }
+.home-welcome div.bemvindo h1 { color: #ff9900; text-transform: uppercase; padding-bottom: 12px; font-size: 12px; font-weight: bold; }
 .home-welcome div.bemvindo div.col { width: 48%; float: left; padding-right: 6px; }
 .home-welcome div.bemvindo span.cadastrese { position: absolute; top: 14px; right: 18px; font-size: 11px; }
 .home-welcome div.bemvindo span.cadastrese a { color: #0099ff; }

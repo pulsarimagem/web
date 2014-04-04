@@ -52,7 +52,7 @@ $totalRows_texto = mysql_num_rows($texto);
 	<div class="bemvindo">
 		<span class="cadastrese"><a href="cadastro.php">Cadastre-se</a></span>
 		<div class="col">
-			<h2>Bem vindo ao Pulsar Imagens</h2>
+			<h1>Bem vindo ao banco de imagens Pulsar Imagens</h1>
 			Nós somos um banco de imagens que reúne a produção fotográfica de mais de quarenta fotógrafos, com sólidas carreiras individuais, e preocupados em documentar nosso país, seus		</div>
 		<div class="col" style="padding-top: 28px;">
 			habitantes, costumes e cultura, sua produção econômica, fauna, flora e toda sua imensa extensão territorial.
