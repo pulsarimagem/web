@@ -22,13 +22,18 @@ $query_fotos_download = sprintf("SELECT downloads.usuario, downloads.id_login, d
 									from Fotos 
 									INNER JOIN fotografos ON (Fotos.id_autor=fotografos.id_fotografo) 
 									INNER JOIN (SELECT *, left(arquivo,length(arquivo)-4) as tombo from log_download2
-									WHERE log_download2.id_login = %s AND MONTH(log_download2.data_hora) = %s AND YEAR(log_download2.data_hora) = %s 
-									ORDER BY log_download2.data_hora DESC) as downloads ON (downloads.tombo=Fotos.tombo) 
+										WHERE log_download2.id_login = %s AND MONTH(log_download2.data_hora) = %s AND YEAR(log_download2.data_hora) = %s 
+										UNION
+										SELECT *, arquivo as tombo from log_download2
+										WHERE log_download2.id_login = %s AND MONTH(log_download2.data_hora) = %s AND YEAR(log_download2.data_hora) = %s 
+										) as downloads ON (downloads.tombo=Fotos.tombo) 
 									LEFT OUTER JOIN Estados ON (Fotos.id_estado=Estados.id_estado) 
 									LEFT JOIN paises ON (paises.id_pais=Fotos.id_pais)
 									LEFT JOIN $database_sig.USO_SUBTIPO ON (downloads.uso = $database_sig.USO_SUBTIPO.Id)
 									LEFT JOIN $database_sig.USO ON (downloads.formato = $database_sig.USO.Id)
-									LEFT JOIN $database_sig.USO_DESC ON ($database_sig.USO.id_utilizacao = $database_sig.USO_DESC.Id);", $row_top_login['id_cadastro'], $mes, $ano);
+									LEFT JOIN $database_sig.USO_DESC ON ($database_sig.USO.id_utilizacao = $database_sig.USO_DESC.Id);", $row_top_login['id_cadastro'], $mes, $ano, $row_top_login['id_cadastro'], $mes, $ano);
+if($siteDebug)
+	echo $query_fotos_download."<br>";
 $fotos_download = mysql_query($query_fotos_download, $pulsar) or die(mysql_error());
 $row_fotos_download = mysql_fetch_assoc($fotos_download);
 $totalRows_fotos_download = mysql_num_rows($fotos_download);
@@ -126,13 +131,27 @@ $row_mes_download = mysql_fetch_assoc($mes_download);
                                 Titulos: <strong><?php echo $row_fotos_download['projeto']; ?></strong><br/>
 <?php if($row_fotos_download['uso_desc'] != "") { ?>
                                 Uso: <strong><?php echo $row_fotos_download['uso_desc']; ?></strong><br/>
-<?php } else { ?>
-                                Uso: <strong><?php echo $row_fotos_download['uso']; ?></strong><br/>
-<?php } ?>
-<?php if($row_fotos_download['uso_desc'] != "") { ?>
                                 Tamanho: <strong><?php echo $row_fotos_download['tamanho_desc']; ?></strong><br/>
-<?php } else { ?>                             
-                                Tamanho: <strong><?php echo $row_fotos_download['formato']; ?></strong><br/>
+<?php } else { ?>
+                                Uso: <strong>
+<?php 
+if(is_numeric($row_fotos_download['uso'])) { 
+	mysql_select_db($database_sig, $sig); 
+	echo translate_iduso($row_fotos_download['uso'],$lingua,$sig);
+?>
+								</strong><br/>
+								Tamanho: <strong><?php echo translate_idusoTamanho($row_fotos_download['uso'],$lingua,$sig); ?></strong><br/>
+	<?php 
+	
+} else {
+	echo $row_fotos_download['uso'];
+?>
+								</strong><br/>
+								Tamanho: <strong><?php echo $row_fotos_download['formato']; ?></strong><br/>
+<?php
+}
+?> 
+
 <?php } ?>
                                 Observação: <strong><?php echo $row_fotos_download['obs']; ?></strong><br/>                            </td>
                         </tr>

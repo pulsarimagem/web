@@ -79,7 +79,7 @@ if(!$has_error && $submit) {
 	if ($loginFoundUser) {
 
 
-		$LoginRS__query=sprintf("SELECT login, senha, download FROM cadastro WHERE login='%s' AND senha='%s'",
+		$LoginRS__query=sprintf("SELECT id_cadastro, login, senha, download FROM cadastro WHERE login='%s' AND senha='%s'",
 		get_magic_quotes_gpc() ? $loginUsername : addslashes($loginUsername), get_magic_quotes_gpc() ? $password : addslashes($password));
 		 
 		$LoginRS = mysql_query($LoginRS__query, $pulsar) or die(mysql_error());
@@ -106,6 +106,27 @@ if(!$has_error && $submit) {
 				$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
 				unset($_SESSION['PrevUrl']);
 			}
+			
+			$sqlCarrinho = "SELECT tombo, id_uso FROM carrinho WHERE id_cadastro = ".$loginDataUser['id_cadastro'];
+			$rsCarrinho = mysql_query($sqlCarrinho, $pulsar) or die(mysql_error());
+			while($rowCarrinho = mysql_fetch_array($rsCarrinho)) {
+				$_SESSION['produto']['produtos_'.$rowCarrinho['tombo']] = '1';
+				$id_uso = $rowCarrinho['id_uso'];
+				$_SESSION['produto'.$rowCarrinho['tombo']]['uso'] = $id_uso;
+				
+				mysql_select_db($database_sig, $sig);
+			
+				$queryUso = "select uso.valor
+				from USO as uso
+				WHERE uso.Id = $id_uso";
+				$rsUso = mysql_query($queryUso, $sig) or die(mysql_error());
+				$totalUso = mysql_num_rows($rsUso);
+				$rowUso = mysql_fetch_array($rsUso);
+				
+				//			$_SESSION['produto'.$_GET['add']]['valor'] = ($lingua!="br"?convertPounds($rowUso['valor']):$rowUso['valor']);
+				$_SESSION['produto'.$rowCarrinho['tombo']]['valor'] = $rowUso['valor'];
+			}
+			
 			header("Location: " . $MM_redirectLoginSuccess );
 
 echo $_SESSION['last_uri']."<br>" ;

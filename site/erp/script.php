@@ -94,6 +94,37 @@ jQuery(document).ready(function() {
 		$('.novoIndio').toggle();
 	});
 
+	$('#indexSelectAutorFotos').change(function (){
+		var id=$(this).val();
+		var dataString = 'action=getAutorFotos&id_autor='+id;
+		$.ajax({
+			type: "POST",
+			url: "tool_ajax.php",
+			data: dataString,
+			cache: false,
+			success: function(html) {
+				$('#indexSelectFotos').html(html);
+				$('.indexSelectFotos').show();
+			} 
+		});
+	});
+
+	$('#indexSelectAutorVideos').change(function (){
+		var id=$(this).val();
+		var dataString = 'action=getAutorVideos&id_autor='+id;
+		$.ajax({
+			type: "POST",
+			url: "tool_ajax.php",
+			data: dataString,
+			cache: false,
+			success: function(html) {
+				$('#indexSelectVideos').html(html);
+				$('.indexSelectVideos').show();
+			} 
+		});
+	});
+	
+	
 	$("#indexDesc2").select2({
 		multiple: true,
 		placeholder: '-- Escolha os Descritores --',

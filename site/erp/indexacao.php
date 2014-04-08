@@ -72,7 +72,59 @@
 										</div>
 									</div>
 								</div>
-							</form>							
+							</form>			
+							<form method="get" class="form-horizontal">
+								<div class="control-group">
+									<label class="control-label">Pré Indexação Fotos</label>
+									<div class="controls clearfix">
+										<div class="span3">
+										 	<select name="autor" id="indexSelectAutorFotos">
+										   		<option>Escolha Autor</option>
+<?php while ($row_autor_fotos_tmp_select = mysql_fetch_assoc($autor_fotos_tmp_select)){ ?>
+										   		<option value="<?php echo $row_autor_fotos_tmp_select['id_autor'];?>" <?php if($row_autor_fotos_tmp_select['id_autor'] == $id_autor) echo " SELECTED"?>><?php echo $row_autor_fotos_tmp_select['nome'];?> [<?php echo $row_autor_fotos_tmp_select['total'];?> foto(s)]</option>
+<?php } ?>
+										   	</select>
+										</div>										
+										<div class="indexSelectFotos span3" <?php if($id_autor=="") echo "style=\"display:none\""?>>
+										   	<select name="tombos[]" id="indexSelectFotos" class="notChosen">
+									   			<option value="nada">--- Tombo ---</option>
+<?php while ($row_fotos_tmp_select = mysql_fetch_assoc($fotos_tmp_select)){ ?>
+									   			<option value="<?php echo $row_fotos_tmp_select['tombo'];?>"><?php echo $row_fotos_tmp_select['tombo'];?></option>
+<?php } ?>
+									   		</select>
+										</div>
+										<div class="indexSelectFotos span4" <?php if($id_autor=="") echo "style=\"display:none\""?>>
+											<button type="submit" name="action" value="consultar" class="btn btn-primary">Consultar</button>
+										</div>
+									</div>
+								</div>
+							</form>		
+							<form method="get" class="form-horizontal">
+								<div class="control-group">
+									<label class="control-label">Pré Indexação Vídeos</label>
+									<div class="controls clearfix">
+										<div class="span3">
+										 	<select name="autor" id="indexSelectAutorVideos">
+										   		<option>Escolha Autor</option>
+<?php while ($row_autor_videos_tmp_select = mysql_fetch_assoc($autor_videos_tmp_select)){ ?>
+										   		<option value="<?php echo $row_autor_videos_tmp_select['id_autor'];?>" <?php if($row_autor_videos_tmp_select['id_autor'] == $id_autor) echo " SELECTED"?>><?php echo $row_autor_videos_tmp_select['nome'];?> [<?php echo $row_autor_videos_tmp_select['total'];?> foto(s)]</option>
+<?php } ?>
+										   	</select>
+										</div>												
+										<div class="indexSelectVideos span3" <?php if($id_autor=="") echo "style=\"display:none\""?>>
+										   <select name="tombos[]" id="indexSelectVideos" class="notChosen">
+										   		<option value="nada">--- Tombo ---</option>
+<?php while ($row_videos_tmp_select = mysql_fetch_assoc($videos_tmp_select)){ ?>
+										   		<option value="<?php echo $row_videos_tmp_select['tombo'];?>"><?php echo $row_videos_tmp_select['tombo'];?></option>
+<?php } ?>
+										   </select>
+										</div>
+										<div class="indexSelectVideos span4" <?php if($id_autor=="") echo "style=\"display:none\""?>>
+											<button type="submit" name="action" value="consultar" class="btn btn-primary">Consultar</button>
+										</div>
+									</div>
+								</div>
+							</form>																				
 							<form method="post" class="form-horizontal" name="form2" action="indexacao.php">
 <?php if($tomboExists) { ?>								
 								<div class="control-group">

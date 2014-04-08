@@ -47,6 +47,10 @@ if (isset($_POST['contrato'])) {
 if (isset($_GET['contrato'])) {
 	$contrato = (get_magic_quotes_gpc()) ? $_GET['contrato'] : addslashes($_GET['contrato']);
 }
+if($contrato == "V") {
+	$isVideo = true;
+}
+	
 if (isset($_GET['name'])) {
 	$name = (get_magic_quotes_gpc()) ? $_GET['name'] : addslashes($_GET['name']);
 }
@@ -270,8 +274,15 @@ else {
 		$estouro_quota = false;
 		// verifica se tem questionário antigo...
 		
-		$sql3="
-		select * from log_download2 where id_login = ".$usuario." order by id_log desc";
+		$where = "AND arquivo RLIKE '^[0-9]'";
+		if($isVideo) {
+			$where = "AND arquivo NOT RLIKE '^[0-9]'";
+		}
+		$sql3="select * from log_download2 where id_login = ".$usuario." $where order by id_log desc";
+		
+		if($siteDebug) {
+			echo "$sql3<br>";
+		}
 		
 		mysql_select_db($database_pulsar, $pulsar);
 		$formulario = mysql_query($sql3, $pulsar) or die(mysql_error());

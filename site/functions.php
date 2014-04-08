@@ -135,7 +135,9 @@ if (isset($_SESSION['MM_Username'])) {
 }
 
 if(!isset($lingua)) {
-	$lingua = $_SESSION['lingua'];
+	$lingua = "br";
+	$lingua = isset($_POST['lingua'])?$_POST['lingua']:$lingua;
+	$lingua = isset($_SESSION['lingua'])?$_SESSION['lingua']:$lingua;
 }
 else {
 	$_SESSION['lingua'] = $lingua;
@@ -249,6 +251,26 @@ function translate_iduso ($id_uso, $idioma, $sig) {
 	if($row['tamanho']!= "")
 		$uso .= " - ".$row['tamanho'];
 			
+	return $uso;
+}
+
+function translate_idusoTamanho ($id_uso, $idioma, $sig) {
+	$sql = "select uso.Id, USO_TIPO.tipo_$idioma as tipo, USO_SUBTIPO.subtipo_$idioma as utilizacao, uso_formato.formato_$idioma as formato, uso_distribuicao.distribuicao_$idioma as distribuicao, uso_periodicidade.periodicidade_$idioma as periodicidade, descr.descricao_$idioma as tamanho, REPLACE(REPLACE(REPLACE(FORMAT(valor,2),'.','|'),',','.'),'|',',') as valor
+	from USO as uso
+	left join USO_TIPO on uso.id_tipo = USO_TIPO.Id
+	left join USO_SUBTIPO on uso.id_utilizacao = USO_SUBTIPO.Id
+	left join USO_DESC as descr on uso.id_tamanho = descr.Id
+	left join uso_formato on uso.id_formato = uso_formato.id
+	left join uso_distribuicao on uso.id_distribuicao = uso_distribuicao.id
+	left join uso_periodicidade on uso.id_periodicidade = uso_periodicidade.id
+	where uso.Id = $id_uso";
+	$result = mysql_query($sql, $sig) or die(mysql_error());
+	$row = mysql_fetch_array($result);
+
+	$uso = "";
+	if($row['tamanho']!= "")
+		$uso .= $row['tamanho'];
+		
 	return $uso;
 }
 

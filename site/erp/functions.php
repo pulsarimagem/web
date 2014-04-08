@@ -360,6 +360,11 @@ function formatnumber($number) {
 	return $numStr;
 }
 
+function convertPounds($reais) {
+	$pounds = ceil(($reais - ($reais*0.3))*0.66);
+	return $pounds.".00";
+}
+
 function fixnumber($number) {
 	$number = str_replace(".","",$number);
 	$number = str_replace(",",".",$number);

@@ -130,7 +130,54 @@ else if($action == "clean_id_contato_sig") {
 		                  	<option value="<?php echo $row_contatos['ID']?>"><?php echo htmlentities($row_contatos['CONTATO'])?></option>
 <?php 		
 	}	
+}else if($action == "getAutorFotos") {
+	$id_autor = $_POST['id_autor'];
+	
+	mysql_select_db($database_pulsar, $pulsar);
+	$query_fotos_tmp_select = sprintf("SELECT tombo FROM Fotos_tmp WHERE Fotos_tmp.tombo NOT RLIKE '^[a-zA-Z]' AND id_autor=%s LIMIT 20",$id_autor);
+	$fotos_tmp_select = mysql_query($query_fotos_tmp_select, $pulsar) or die(mysql_error());
+	
+	$totalRows_fotos_tmp_select = mysql_num_rows($fotos_tmp_select);
+	if($totalRows_fotos_tmp_select > 0) {
+		$_SESSION['autor']=$id_autor;
+	?>
+		<option value="">--- Escolha uma Foto ---</option>
+<?php 		
+		 while ($row_fotos_tmp_select = mysql_fetch_assoc($fotos_tmp_select)){ ?>
+   		<option value="<?php echo $row_fotos_tmp_select['tombo'];?>"><?php echo $row_fotos_tmp_select['tombo'];?></option>
+<?php 
+		}
+	}
+	else {
+		$_SESSION['autor']="";
+?>
+		<option value="">--- Nenhuma Foto ---</option>
+<?php 			
+	}	
+}else if($action == "getAutorVideos") {
+	$id_autor = $_POST['id_autor'];
+	
+	mysql_select_db($database_pulsar, $pulsar);
+	$query_videos_tmp_select = sprintf("SELECT tombo FROM Fotos_tmp WHERE Fotos_tmp.tombo RLIKE '^[a-zA-Z]' AND Fotos_tmp.status = 2 AND id_autor=%s LIMIT 20",$id_autor);
+	$videos_tmp_select = mysql_query($query_videos_tmp_select, $pulsar) or die(mysql_error());
+	
+	$totalRows_videos_tmp_select = mysql_num_rows($videos_tmp_select);
+	if($totalRows_videos_tmp_select > 0) {
+		$_SESSION['autor']=$id_autor;
+?>
+		<option value="">--- Escolha um Video ---</option>
+<?php 		
+		 while ($row_fotos_tmp_select = mysql_fetch_assoc($fotos_tmp_select)){ ?>
+   		<option value="<?php echo $row_fotos_tmp_select['tombo'];?>"><?php echo $row_fotos_tmp_select['tombo'];?></option>
+<?php 
+		}
+	}
+	else {
+		$_SESSION['autor']="";
+?>
+		<option value="">--- Nenhum Video ---</option>
+<?php 				
+	}	
 }
-
 
 ?>

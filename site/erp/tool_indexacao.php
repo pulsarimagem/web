@@ -263,11 +263,13 @@ if($totalRows_dados_foto > 0) {
 }
 
 if(!$tomboExists && $toLoad && !$multiLoad) {
-	$addScript="<script>
-					if(confirm('Tombo $colname_dados_foto não existente no banco de dados. Criar novo?')) {
-						location.href = 'indexacao.php?action=criar&tombos[]=$colname_dados_foto';
-					}
-				</script>";
+	if($tombo != "") { 
+		$addScript="<script>
+						if(confirm('Tombo $colname_dados_foto não existente no banco de dados. Criar novo?')) {
+							location.href = 'indexacao.php?action=criar&tombos[]=$colname_dados_foto';
+						}
+					</script>";
+	}
 }
 mysql_select_db($database_pulsar, $pulsar);
 $query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $colname_dados_foto);
@@ -348,6 +350,24 @@ if($toLoad && $tomboExists && !$multiLoad) {
 	}
 }
 
+mysql_select_db($database_pulsar, $pulsar);
+
+$query_autor_fotos_tmp_select = sprintf("SELECT Fotos_tmp.id_autor, count(Fotos_tmp.id_autor) as total,fotografos.Nome_Fotografo as nome FROM Fotos_tmp, fotografos WHERE Fotos_tmp.tombo NOT RLIKE '^[a-zA-Z]' AND Fotos_tmp.id_autor = fotografos.id_fotografo GROUP BY id_autor");
+$autor_fotos_tmp_select = mysql_query($query_autor_fotos_tmp_select, $pulsar) or die(mysql_error());
+
+$query_autor_videos_tmp_select = sprintf("SELECT Fotos_tmp.id_autor, count(Fotos_tmp.id_autor) as total,fotografos.Nome_Fotografo as nome FROM Fotos_tmp, fotografos WHERE Fotos_tmp.tombo RLIKE '^[a-zA-Z]' AND Fotos_tmp.id_autor = fotografos.id_fotografo AND Fotos_tmp.status = 2 GROUP BY id_autor");
+$autor_videos_tmp_select = mysql_query($query_autor_videos_tmp_select, $pulsar) or die(mysql_error());
+
+// print_r($_SESSION);
+$id_autor = (isset($_SESSION['autor'])&&$_SESSION['autor']!=""?$_SESSION['autor']:"");
+
+if($id_autor != "") {
+	$query_fotos_tmp_select = sprintf("SELECT tombo FROM Fotos_tmp WHERE Fotos_tmp.tombo NOT RLIKE '^[a-zA-Z]' AND id_autor=%s LIMIT 20",$id_autor);
+	$fotos_tmp_select = mysql_query($query_fotos_tmp_select, $pulsar) or die(mysql_error());
+	
+	$query_videos_tmp_select = sprintf("SELECT tombo FROM Fotos_tmp WHERE Fotos_tmp.tombo RLIKE '^[a-zA-Z]' AND Fotos_tmp.status = 2 AND id_autor=%s LIMIT 20",$id_autor);
+	$videos_tmp_select = mysql_query($query_videos_tmp_select, $pulsar) or die(mysql_error());
+}
 // se ï¿½ nova indexaï¿½ï¿½o vai para outra tela
 // if ($totalRows_dados_foto == 0) { 
 //   if (($_GET['tombo'] != "") && ($_POST['del_cromo'] == "") && ($row_login['index_inc']==1)) {

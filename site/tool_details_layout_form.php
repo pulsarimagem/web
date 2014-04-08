@@ -173,7 +173,7 @@ if(!$has_error && $submit) {
 			$headers .= "bcc: ".$fullcc."\n";
 			
 			mail($to,$subject,$message,$headers);
-			echo $message;
+//			echo $message;
 		}		
 		if(count($files_arr) > 1) {
 			$zipfile = $homeftp."/temp/".$usuario.".zip";

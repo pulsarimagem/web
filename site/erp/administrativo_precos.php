@@ -168,6 +168,7 @@
                   <th>Periodicidade</th>
                   <th>Tamanho</th>
                   <th>Valor</th>
+                  <th>GBP</th>
                   <th>Descrição</th>
                   <th>Ações</th>
                 </tr>
@@ -184,7 +185,9 @@
 		            <td><?php echo $row_objTotal["tamanho"] ?></td>
 		            <?php If ( $row_objTotal["valor"] != "0" ) { ?>
 		                <td><?php echo formatcurrency($row_objTotal["valor"]) ?></td>
+		                <td>£ <?php echo convertPounds($row_objTotal["valor"]) ?></td>
 		            <?php } else { ?>
+		                <td>N/D</td>
 		                <td>N/D</td>
 		            <?php } ?>
 		            <td><?php echo $row_objTotal["descricao"] ?></td>

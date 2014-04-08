@@ -74,7 +74,7 @@ bajb_backdetect.OnBack = function() {
             <br/>
 			<br/>
  			<!--<h2><?php echo $row_dados_foto['assunto_principal']; ?></h2>
-			<h2><?php echo translateText($row_dados_foto['assunto_principal']); ?></h2>-->
+			<h2><?php //echo translateText($row_dados_foto['assunto_principal']); ?></h2>-->
 			<h2><span class="label">Code:</span> <?php echo $row_dados_foto['tombo']; ?></h2>
 			<div class="wrapper-image">
 				<div class="image <?php if($isVideo) echo "video";?>">
@@ -130,7 +130,7 @@ bajb_backdetect.OnBack = function() {
 				<div class="infA">
           <p><span class="label">Code:</span> <?php echo $detail_tombo; ?></p>
           <!--<p><span class="label">Assunto:</span> <?php echo $row_dados_foto['assunto_principal'];?></p>-->
-          <p><span class="label">Caption:</span> <?php echo translateText($row_dados_foto['assunto_principal']); ?></p>
+          <p><span class="label">Caption:</span> <?php echo ($row_dados_foto['assunto_en']!=""?$row_dados_foto['assunto_en']:translateText($row_dados_foto['assunto_principal'])); ?></p>
 <?php if($row_dados_foto['extra'] != "") {?>
         			<!--<p><span class="label">Informa&ccedil;&atilde;o Adicional:</span> <?php echo $row_extra_foto['extra']; ?></p>-->
         			<p><span class="label">Additional information:</span> <?php echo translateText($row_dados_foto['extra']); ?></p>
