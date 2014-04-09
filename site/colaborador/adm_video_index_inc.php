@@ -46,17 +46,17 @@
 	            		<label>Código:</label>
 	                    <input name="tombo2" type="text" id="tombo2" value="<?php echo $codigo; ?>" disabled="disabled"/>
 	                    <input name="tombo" type="hidden" id="tombo" value="<?php echo $codigo; ?>"/>
-	                    <input name="Id_Foto" type="hidden" id="Id_Foto" value="<?php echo $row_dados_foto['Id_Foto']; ?>">
+<!-- 	                    <input name="Id_Foto" type="hidden" id="Id_Foto" value="<?php echo $row_dados_foto['Id_Foto']; ?>"> -->
 	                    <div class="clear"></div>
 	                </li>
 	            	<li>
 	                    <label>Assunto Principal:</label>
-	                    <input name="assunto_principal" type="text" id="assunto_principal" value="<?php echo ($iptc_assunto != "" ? $iptc_assunto : $row_dados_foto['assunto_principal']); ?>" size="55"/>
+	                    <input name="assunto_principal" type="text" id="assunto_principal" value="" size="55"/>
 	                    <div class="clear"></div>
 	                </li>
 	            	<li>
 	                    <label>Informação Adicional:</label>
-	                    <input name="extra" type="text" id="extra" value="<?php echo $row_dados_foto['extra']; ?>" size="55"/>
+	                    <input name="extra" type="text" id="extra" value="" size="55"/>
 	                    <div class="clear"></div>
 	                </li>
 	            	<li>
@@ -64,7 +64,7 @@
 	                    <select name="autor" id="autor" disabled="disabled"><?php
 do {  
 ?>
-            <option value="<?php echo $row_fotografos['id_fotografo']?>"<?php if (!(strcmp($row_fotografos['id_fotografo'], $row_dados_foto['id_autor']))) {echo "SELECTED";} else if (!(strcmp($row_fotografos['Iniciais_Fotografo'], $row_ini_fotografo['Iniciais_Fotografo']))) {echo "SELECTED";}?>><?php echo $row_fotografos['Nome_Fotografo']?></option>
+            <option value="<?php echo $row_fotografos['id_fotografo']?>"><?php echo $row_fotografos['Nome_Fotografo']?></option>
             <?php
 } while ($row_fotografos = mysql_fetch_assoc($fotografos));
   $rows = mysql_num_rows($fotografos);
@@ -78,36 +78,24 @@ do {
 	                </li>
 	            	<li>
 	                    <label>Data:</label>
-						<input name="data_tela" type="text" id="data_tela" onBlur="MM_callJS('fix_data()')" value="<?php 
-//		echo ($iptc_data != "" ? $iptc_data : $row_dados_foto['data_foto']);
-		if($iptc_data != "") {
-			echo $iptc_data;		
-		} else {			
-			if (strlen($row_dados_foto['data_foto']) == 4) {
-				echo $row_dados_foto['data_foto'];
-			} elseif (strlen($row_dados_foto['data_foto']) == 6) {
-				echo substr($row_dados_foto['data_foto'],4,2).'/'.substr($row_dados_foto['data_foto'],0,4);
-			} elseif (strlen($row_dados_foto['data_foto']) == 8) {
-				echo substr($row_dados_foto['data_foto'],6,2).'/'.substr($row_dados_foto['data_foto'],4,2).'/'.substr($row_dados_foto['data_foto'],0,4);
-			}
-		} ?>"/>
-	           			<input name="data" type="hidden" id="data" value="<?php echo ($iptc_data != "" ? fix_iptc_date($iptc_data) : $row_dados_foto['data_foto']); ?>"/>
+						<input name="data_tela" type="text" id="data_tela" onBlur="MM_callJS('fix_data()')" value=""/>
+	           			<input name="data" type="hidden" id="data" value=""/>
 	                    <i style="margin-left: 10px; font-size:10px; color:#CCCCCC">mm/aaaa</i>
 	                    <div class="clear"></div>
 	                </li>
 	            	<li>
 	                    <label>Cidade:</label>
-	                    <input name="cidade" type="text" id="cidade" value="<?php echo ($iptc_local != "" ? $iptc_local : $row_dados_foto['cidade']); ?>" size="55"/>
+	                    <input name="cidade" type="text" id="cidade" value="" size="55"/>
 	                    <div class="clear"></div>
 	                </li>
 	            	<li>
 	                    <label>Estado:</label>
 	                    <select name="estado" id="estado">
-	            			<option value="" <?php if (!(strcmp("", $row_dados_foto['id_estado'])) && $iptc_estado == "") {echo "SELECTED";} ?>>--- em branco ---</option>
+	            			<option value="">--- em branco ---</option>
 <?php
 do {  
 ?>
-			            	<option value="<?php echo $row_estado['id_estado']?>"<?php if (!(strcmp($row_estado['id_estado'], $row_dados_foto['id_estado'])) || !(strcmp($row_estado['Sigla'], $iptc_estado))) {echo "SELECTED";} ?>><?php echo $row_estado['Estado']?></option>
+			            	<option value="<?php echo $row_estado['id_estado']?>"><?php echo $row_estado['Estado']?></option>
 <?php
 } while ($row_estado = mysql_fetch_assoc($estado));
   $rows = mysql_num_rows($estado);
@@ -122,11 +110,11 @@ do {
 			       <li>
 	                    <label>Pais:</label>
 						<select name="pais" id="pais">
-				            <option value="" <?php if (!(strcmp("", $row_dados_foto['id_pais'])) && $iptc_pais == "") {echo "SELECTED";} ?>>--- em branco ---</option>
+				            <option value="" >--- em branco ---</option>
 <?php
 do {  
 ?>
-				            <option value="<?php echo $row_pais['id_pais']?>"<?php if (!(strcmp($row_pais['id_pais'], $row_dados_foto['id_pais'])) || !(strcmp($row_pais['nome'], $iptc_pais))) {echo "SELECTED";} ?>><?php echo $row_pais['nome']?></option>
+				            <option value="<?php echo $row_pais['id_pais']?>"><?php echo $row_pais['nome']?></option>
 <?php
 } while ($row_pais = mysql_fetch_assoc($pais));
   $rows = mysql_num_rows($pais);
@@ -162,13 +150,13 @@ if ( $totalRows_temas > 0 ) {
 ?>
             			</select>
 	                    <div class="clear"></div>
-	                    <input name="" type="button" id="button" value="Incluir" style="margin-left: 148px; float: none;" onClick="MM_openBrWindow('adm_index_tema2.php?Id_Foto=<?php echo $row_dados_foto['Id_Foto']; ?>&tombo=<?php echo $row_dados_foto['tombo']; ?>','','width=680,height=140,top=400,left=250')"/>
+	                    <input name="" type="button" id="button" value="Incluir" style="margin-left: 148px; float: none;" onClick="MM_openBrWindow('adm_index_tema2.php?Id_Foto=&tombo=','','width=680,height=140,top=400,left=250')"/>
 			            <input type="button" name="Submit2" id="button" value="Copiar temas de..." onClick="copiarDados()" style="float: none;">
 	                    <input name="" type="button" id="badbutton" value="Excluir" style="float: none;" onClick="excluir2(document.form2.tema.selectedIndex)"/>
 	                </li>
 	            	<li>
 	                    <label>Palavras-chave:</label>
-                        <input name="descritor" type="text" id="descritor" value="<?php echo ($iptc_pal != "" ? $iptc_pal : $row_dados_foto['pal_chave']); ?>" size="55"/>	                    
+                        <input name="descritor" type="text" id="descritor" value="" size="55"/>	                    
 	                    <div class="clear"></div>
 	                </li>
 	            	<li>

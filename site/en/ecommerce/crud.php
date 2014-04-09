@@ -4,7 +4,7 @@
         public $tabela;
         public function __construct(){
        
-            $this->db = new PDO('mysql:host=localhost;dbname=pulsar','pulsar','v41qv412012'); 
+            $this->db = new PDO('mysql:host=localhost;dbname=pulsar','root',''); 
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
         }

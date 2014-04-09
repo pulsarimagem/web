@@ -64,7 +64,7 @@ do {
 	?>
 				<li>
 					<a href="details.php?tombo=<?php echo $row_retorno['tombo']."&search=PA&ordem_foto=$count_fotos&page_num=$page_num&total_foto=$totalRows_retorno"; ?>">
-						<img <?php if($isVideo) { ?>src="<?php echo $cloud_server?>Videos/thumbs/<?php echo $row_retorno['tombo']; ?>_3s.jpg"<?php } else { ?>src="<?php echo "http://www.pulsarimagens.com.br/" //$homeurl; ?>bancoImagens/<?php echo $row_retorno['tombo']; ?>p.jpg" <?php } ?> title="" onMouseover="ddrivetip('<?php echo addslashes(delQuote(($lingua=="en"?$row_retorno['assunto_en']:$row_retorno['assunto_principal']))); ?><?php if ($row_retorno['extra'] != NULL) echo ' - '.delQuote($row_retorno["extra"]);?><?php echo ' - '.addslashes($row_retorno['cidade']); ?><?php echo ' - '.addslashes($row_retorno['Sigla']!=""?$row_retorno['Sigla']:$row_retorno['nome']); ?><?php 
+						<img <?php if($isVideo) { ?>src="<?php echo $cloud_server?>Videos/thumbs/<?php echo $row_retorno['tombo']; ?>_3s.jpg"<?php } else { ?>src="<?php echo "http://www.pulsarimagens.com.br/" //$homeurl; ?>bancoImagens/<?php echo $row_retorno['tombo']; ?>p.jpg" <?php } ?> title="" onMouseover="ddrivetip('<?php echo addslashes(delQuote(($lingua=="en"?$row_retorno['assunto_en']:$row_retorno['assunto_principal']))); ?><?php if ($row_retorno['extra'] != NULL && $lingua!="en") echo ' - '.delQuote($row_retorno["extra"]);?><?php echo ' - '.addslashes($row_retorno['cidade']); ?><?php echo ' - '.addslashes($row_retorno['Sigla']!=""?$row_retorno['Sigla']:$row_retorno['nome']); ?><?php 
 if (strlen($row_retorno['data_foto']) == 4) {
 	echo ' - '.$row_retorno['data_foto'];
 } elseif (strlen($row_retorno['data_foto']) == 6) {

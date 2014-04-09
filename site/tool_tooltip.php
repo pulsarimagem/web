@@ -1,4 +1,4 @@
-<?php if($lingua == "br") { ?>
+<?php if($lingua == "br" || true) { ?>
 <div id="dhtmltooltip"></div>
 <script src='../js/tooltip.js' type='text/javascript'></script>
 <style>

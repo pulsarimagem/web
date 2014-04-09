@@ -492,7 +492,7 @@ $(document).ready(function() {
 	
 	// botao continuar comprando
 	$("a.continuar-comprando").live('click',function(){
-		document.location='listing.php';
+		document.location='buscaavancada.php';
 		return false;
 	});
 
