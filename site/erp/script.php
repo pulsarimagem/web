@@ -29,6 +29,8 @@ jQuery(document).ready(function() {
 	$('.cadastrarCromo').click(function (){
 		$('.formInserirCromos').hide();
 		$('.formCadastrarCromos').show();
+		$('#id_uso').attr('name','id_uso3');
+		$('#id_uso_cadastro').attr('name','id_uso');
 	});
 	$('.submitOnclick').click(function (){
 		$('.formOnclick').submit();

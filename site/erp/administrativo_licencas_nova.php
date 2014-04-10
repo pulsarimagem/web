@@ -221,7 +221,7 @@ if($baixado == "S") {
                   </tr>
                   
                   <tr>
-                      <td colspan="2"><select data-placeholder="--" name="id_uso" id="id_uso_cadastro">
+                      <td colspan="2"><select data-placeholder=" - Escolha um uso - " name="id_uso2" id="id_uso_cadastro" class="notChosen">
                           <option value=""></option>
 
 <?php 
@@ -269,7 +269,7 @@ if($baixado == "S") {
                       <td colspan="2"><input type="text" placeholder="Assunto" class="gimefocus" name="qassunto" /></td>
                       <td colspan="2"><input type="text" placeholder="Autor" class="gimefocus" name="qautor" /></td>
                       <td colspan="2">
-						<input class="btn btn-primary unbind_unload" type="submit" name="action" value="Inserir"/>
+						<button class="btn btn-primary unbind_unload" type="submit" name="action" value="InserirNew">Inserir</button>
 	                    <input type="hidden" name="exec" value="cromo"/>
 	                    <input type="hidden" name="id_contrato" value="<?php echo $id_contrato?>"/>
 	                    <input type="hidden" id="cromo_nao_cadastrado" name="cromo_nao_cadastrado" value="s" />	                      	

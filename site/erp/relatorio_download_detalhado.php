@@ -176,7 +176,8 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
     <input name="exec" type="hidden" value="cromo"/>  
     <input name="descricao" type="hidden" value="<?php echo $last_download['projeto']; ?>"/>  
 <?php if($relTipo != "layout") { ?>
-    <input class="gerarLR btn btn-danger" name="action" type="submit" value="Gerar LR"/>
+    <input name="action" type="hidden" value="Inserir"/>  
+    <input class="gerarLR btn btn-danger" name="acao" type="submit" value="Gerar LR"/>
 	<input name="id_uso" type="hidden" value="<?php echo $last_download['uso']//"6";//$row_arquivos['id_uso']; ?>"/>
 <?php } ?>
     <input name="id_cliente_sig" class="id_cliente_sig" type="hidden" value="<?php echo $row_cliente['id_cliente_sig'];//$row_arquivos['id_uso']; ?>"/>
@@ -264,7 +265,8 @@ $group_cnt = 0;
     <input name="exec" type="hidden" value="cromo"/>  
     <input name="descricao" type="hidden" value="<?php echo $this_download['projeto']; ?>"/>  
 <?php if($relTipo != "layout") { ?>
-    <input class="gerarLR btn btn-danger" name="action" type="submit" value="Gerar LR"/>
+    <input name="action" type="hidden" value="Inserir"/>  
+	<input class="gerarLR btn btn-danger" name="acao" type="submit" value="Gerar LR"/>
 	<input name="id_uso" type="hidden" value="<?php echo $this_download['uso']//"6";//$row_arquivos['id_uso']; ?>"/>
 <?php } ?>
     <input name="id_cliente_sig" class="id_cliente_sig" type="hidden" value="<?php echo $row_cliente['id_cliente_sig'];//$row_arquivos['id_uso']; ?>"/>
