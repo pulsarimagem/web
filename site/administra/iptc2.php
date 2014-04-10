@@ -210,24 +210,24 @@ foreach ($array_final as $aa => $bb) {
 		$bb=mb_convert_encoding($bb,"iso-8859-1","UTF-8");
 	}
 	if(stripos($bb,"Assunto") !== false) {
-		$iptc_assunto = trim(substr(strstr($bb, ':'),1));
+		$iptc_assunto = trim(str_replace("??","",substr(strstr($bb, ':'),1)));
 	}
 	if(stripos($bb,"Local") !== false) {
-		$iptc_local = trim(substr(strstr($bb, ':'),1));
+		$iptc_local = trim(str_replace("??","",substr(strstr($bb, ':'),1)));
 		if(stripos($bb,"-") !== false) {
 			$local_estado = split("-",$iptc_local);
-			$iptc_local = trim($local_estado[0]);
-			$iptc_estado = trim($local_estado[1]);
+			$iptc_local = trim(str_replace("??","",$local_estado[0]));
+			$iptc_estado = trim(str_replace("??","",$local_estado[1]));
 		}
 	}
 	if(stripos($bb,"Pais") !== false) {
-		$iptc_pais = trim(substr(strstr($bb, ':'),1));
+		$iptc_pais = trim(str_replace("??","",substr(strstr($bb, ':'),1)));
 	}
 	if(stripos($bb,"País") !== false) {
-		$iptc_pais = trim(substr(strstr($bb, ':'),1));
+		$iptc_pais = trim(str_replace("??","",substr(strstr($bb, ':'),1)));
 	}
 	if(stripos($bb,"Data") !== false) {
-		$iptc_data = trim(substr(strstr($bb, ':'),1));
+		$iptc_data = trim(str_replace("??","",substr(strstr($bb, ':'),1)));
 	}
 }
 
