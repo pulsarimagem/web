@@ -1,0 +1,7 @@
+<?php
+
+//Alterar os seguintes caminhos se necessário
+$yiic=dirname(__FILE__).'/../../../../Users/tr_syada/Downloads/yii-1.1.13/framework/yiic.php';
+$config=dirname(__FILE__).'/config/console.php';
+
+require_once($yiic);
