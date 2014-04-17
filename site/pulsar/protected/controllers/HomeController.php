@@ -33,7 +33,9 @@ class HomeController extends Controller
 				'arrAddedLastCarousel'=>$arrAddedLastCarousel, 
 				'arrlatestCarouselSearch'=>$arrlatestCarouselSearch,
 				'arrSearchByThemes'=>$arrSearchByThemes,
-				'arrSearchBreadcrumb'=>$arrSearchBreadcrumb
+				'arrSearchBreadcrumb'=>$arrSearchBreadcrumb,
+				'strUrlStockPhotos'=>$this->strUrlStockPhotos,
+				'strUrlCloud'=>$this->strUrlCloud
 			)
 		);
 	}

@@ -134,6 +134,11 @@ class ImageOfDao
 	 */
 	public function searchByThemes($intIdDad = 0, $booEmptyTheme = false)
 	{	
+		if(Yii::app()->user->getState('strFormType')=='ext')
+			$strLanguage = '_en';
+		else 
+			$strLanguage = '';
+				
 		if($booEmptyTheme == true)
 		{
 			switch ($intIdDad)
@@ -152,7 +157,7 @@ class ImageOfDao
 		{
 			$strSelect = '
 				tmf.Id,
-				tmf.Tema as Tema, 
+				tmf.Tema'.$strLanguage.' as Tema, 
 				tmf.Pai,
 			';
 			$strWhere = '';
@@ -199,7 +204,12 @@ class ImageOfDao
 	 */
 	public function searchBreadcrumbThemesById($intIdDad)
 	{
-		$arrResult = Yii::app()->db->createCommand('SELECT id,tema from tmp_menu_fotos WHERE id = "'.$intIdDad.'"')->queryAll();
+		if(Yii::app()->user->getState('strFormType')=='ext')
+			$strLanguage = '_en';
+		else 
+			$strLanguage = '';
+		
+		$arrResult = Yii::app()->db->createCommand('SELECT id,tema'.$strLanguage.' AS tema from tmp_menu_fotos WHERE id = "'.$intIdDad.'"')->queryAll();
 		
 		$objSessionComponents = new SessionComponents();
 		

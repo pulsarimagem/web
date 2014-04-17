@@ -290,7 +290,7 @@ table {
 	line-height: 1em;
 }
 
-#header .menu .t a:hover {
+#header .menu .t a {
 	background: #fff002;
 	background: -moz-linear-gradient(top, #fff002 0%, #ffc600 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff002),
@@ -377,7 +377,7 @@ table {
 	margin: 0;
 }
 
-#internal .menu .m a,#internal .menu .t a {
+#internal .menu .m a{
 	text-decoration: none;
 	color: #000000;
 	font-size: 0.9em;
@@ -1315,6 +1315,44 @@ table {
 	margin-left: 12px;
 }
 
+#buttonSearch {
+	vertical-align: top;
+	border: 1px solid #cacaca;
+	font-weight: 700;
+	color: #452929;
+	border-radius: 4px;
+	padding: 8px 16px 7px 16px;
+	background: #fff002;
+	background: -moz-linear-gradient(top, #fff002 0%, #ffc600 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff002),
+		color-stop(100%, #ffc600) );
+	background: -webkit-linear-gradient(top, #fff002 0%, #ffc600 100%);
+	background: -o-linear-gradient(top, #fff002 0%, #ffc600 100%);
+	background: -ms-linear-gradient(top, #fff002 0%, #ffc600 100%);
+	background: linear-gradient(to bottom, #fff002 0%, #ffc600 100%);
+	filter: progid : DXImageTransform.Microsoft.gradient (   startColorstr =
+		'#fff002', endColorstr = '#ffc600', GradientType = 0 );
+	margin-left: 12px;
+	max-width: 87px;
+}
+
+#buttonHeader {
+	background: linear-gradient(to bottom, #FFF002 0%, #FFC600 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #CACACA;
+    border-radius: 4px;
+    color: #452929;
+    font-weight: 700;
+    margin-left: 6px;
+    padding: 8px 16px 7px;
+    vertical-align: top;
+	max-width: 85px;
+	max-height: 39px;
+	
+	
+	font-size: 1.1em;
+    padding: 8px 8px 4px;
+}
+
 #big-search p {
 	padding: 0;
 	color: #fff;
@@ -1323,7 +1361,7 @@ table {
 	font-size: 0.8em;
 	line-height: 1em;
 	padding-top: 4px;
-	padding-left: 276px;
+	padding-left: 264px;
 }
 
 #big-search p a {
@@ -1596,13 +1634,8 @@ table {
 	padding-top: 2px;
 }
 
-#map .language dd:nth-child (2) {
-	background: url(/images/flag-pt.png) no-repeat left top;
-}
-
-#map .language dd:nth-child (3) {
-	background: url(../images/flag-en.png) no-repeat left top;
-}
+#map .language dd:nth-child(2) { background: url(../images/flag-pt.png) no-repeat left top; }
+#map .language dd:nth-child(3) { background: url(../images/flag-en.png) no-repeat left top; }
 
 #copyright {
 	padding: 12px 0;
@@ -3272,4 +3305,4 @@ table {
 #minhas-pastas button span {
 	font-size: 0.8em;
 	line-height: 1em;
-}
+}	

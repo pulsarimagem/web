@@ -33,6 +33,8 @@
 	<link rel='stylesheet' type='text/css' href='<?php echo Yii::app()->request->baseUrl; ?>/css/style.css' />
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/code.js');?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/html5.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jcarousel.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/search.js');?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
@@ -45,17 +47,21 @@
 		<div id="root" class="cf">
 	    	<div class="social">
 	    		<a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-facebook.png" /></a>
-	    		<a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-flickr.png" /></a></div>
+	    		<?php //<a href="#"><img src=" echo Yii::app()->request->baseUrl; /images/social-flickr.png" /></a>?>
+	    	</div>	
 	        <div class="newsletter">
 	        	<fieldset>
-	            	<h3>Assine a newsletter</h3>
-	                <label><span class="label">e-mail</span>
+	            	<h3><?php echo Yii::t('zii', 'Subscribe to newsletter');?></h3>
+	                <label><span class="label"><?php echo Yii::t('zii', 'e-mail');?></span>
 	                <input type="text"></label>
+	                <?php if(Yii::app()->user->getState('strFormType')!='ext') :?>
 	                <label>
 	                	<select>
-	                		<option value="" selected>Editorial</option></select>
+	                		<option value="" selected>Editorial</option>
+	                	</select>
 	                </label>
-	                <button>Ok</button>
+	                <?php endif;?>
+	                <button><?php echo Yii::t('zii', 'Ok');?></button>
 	            </fieldset>
 	        </div>
 		</div>
@@ -63,36 +69,36 @@
 	<nav id="map">
 		<div id="root" class="cf">
 			<dl>
-	    		<dt>Sessões</dt>
-	            <dd><a href="#">Home</a></dd>
-	            <dd><a href="#">Quem somos</a></dd>
-	            <dd><a href="#">Minha conta</a></dd>
-	            <dd><a href="#">Cotação</a></dd>
-	            <dd><a href="#">Cadastro</a></dd>
-	            <dd><a href="#">Busca avançada</a></dd>
+	    		<dt><?php echo Yii::t('zii', 'Sessions');?></dt>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'Home');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'About Us');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'My Account');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'Quotation');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'Cadastre');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'Advanced search');?></a></dd>
 	        </dl>
 	    	<dl>
-	        	<dt>Sessões</dt>
-	            <dd><a href="#">Como Funciona?</a></dd>
-	            <dd><a href="#">Dúvidas</a></dd>
-	            <dd><a href="#">Contato</a></dd>
+	        	<dt><?php echo Yii::t('zii', 'Sessions');?></dt>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'how it works?');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'F.A.Q');?></a></dd>
+	            <dd><a href="#"><?php echo Yii::t('zii', 'Contact');?></a></dd>
 	        </dl>
 	    	<dl class="contato">
-	        	<dt>Contato</dt>
-	            <dd>55 (11) 3875 0101<br/>
-					<a href="pulsar@pulsarimagens.com.br">pulsar@pulsarimagens.com.br</a></dd>
-	            <dd>Rua Apiacás, 934 <br/>05017-020<br/>São Paulo - SP - Brasil</dd>
+	        	<dt><?php echo Yii::t('zii', 'Contact');?></dt>
+	            <dd><?php echo Yii::t('zii', '+44 20 3290 9066');?><br/>
+					<a href="pulsar@pulsarimagens.com.br"><?php echo Yii::t('zii', 'contact@pulsarimages.com');?></a></dd>
+	            <dd><?php echo Yii::t('zii', '2 Queen Caroline St');?> <br/><?php echo Yii::t('zii', 'W6 9DX');?><br/><?php echo Yii::t('zii', 'London - UK');?></dd>
 	        </dl>
 	    	<dl class="language">
-	        	<dt>Escolha o idioma</dt>
-	                <dd><a href="#">Português (BR)</a></dd>
-	                <dd><a href="#">English</a></dd>
+	        	<dt><?php echo Yii::t('zii', 'Choose the language');?></dt>
+	                <dd><a href="#"><?php echo Yii::t('zii', 'Portuguese (BR)');?></a></dd>
+	                <dd><a href="#"><?php echo Yii::t('zii', 'English');?></a></dd>
 	        	</dl>
 	    </div>
 	</nav>
 	<footer id="copyright">
 		<div id="root">
-			&reg; Pulsar Imagens <?php echo date('Y').' - '. Yii::t('zii', 'All Rights Reserved'); ?>.
+			&reg; <?php echo Yii::t('zii', 'Pulsar Images');?> <?php echo date('Y').' - '. Yii::t('zii', 'All Rights Reserved'); ?>.
 		</div>
 	</footer>
 <!-- End footer -->

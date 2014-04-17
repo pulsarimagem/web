@@ -54,7 +54,7 @@ class SessionComponents
 			}
 			Yii::app()->user->setState('breadcrumb',$arrBreadcumb);
 		}else{
-			Yii::app()->user->setState('breadcrumb',array('0'=>'Temas'));
+			Yii::app()->user->setState('breadcrumb',array('0'=>Yii::t('zii', 'Themes')));
 		}
 	}
 	

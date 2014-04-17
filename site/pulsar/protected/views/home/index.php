@@ -12,7 +12,7 @@
  * 
  * */
 ?>
-<!-- Start header -->
+<!-- Start Themes -->
 <header id="temas" style="display: none;">
 			<div class="breadcrumbs"><?php foreach ($arrSearchBreadcrumb as $intKey => $strValue):?><a href="#" <?php echo 'dad='.$intKey;?> onclick="jQuery.ajax({'type':'POST','url':'/pulsar/ajax/AjaxSearchByThemes','data':{'dad':<?php echo $intKey; ?>},'cache':false,'success':function(html){jQuery('#temas').html(html)}});"><?php echo $strValue;?></a><?php endforeach;?></div> 
 	<section class="scroller">
@@ -23,7 +23,7 @@
 				echo 
 					CHtml::link(
 						CHtml::image(
-								'http://www.pulsarimagens.com.br/bancoImagens/'.$arrThemes['tombo'].'p.jpg',
+								$strUrlStockPhotos.$arrThemes['tombo'].'p.jpg',
 								$arrThemes['Tema'].' '.$arrThemes['Id'], 
 								array('onclick'=>CHtml::ajax(array(
 													'update'=>'#temas',
@@ -42,18 +42,19 @@
 		</div>	
 		<?php endforeach;?>
 	</section>
-	<!-- <p>Veja também: <a href="#">Amazônia</a>   /   <a href="#">Desmatamento</a>   /   <a href="#">Erosão</a>   /   <a href="#">Desmatamento</a>   /   <a href="#">Erosão</a>   /   <a href="#">Desmatamento</a>   /   <a href="#">Erosão</a>   /   <a href="#">Desmatamento</a>   /   <a href="#">Erosão</a></p> --> 
 </header>
+<!-- End Themes -->
+<!-- Start header -->
 <header id="header">
 	<div id="root" class="cf">
         <div class="pulsarimagens">
         	<img src="images/logo.png" /></div>
         <nav class="menu">
             <ul>
-                <li class="t"><a href="#">Temas <span>▼</span></a></li>
-                <li class="m"><a href="#">Como Funciona?</a></li>
-                <li class="m"><a href="#">Login</a></li>
-                <li class="m"><a href="#">Registrar-se</a></li>
+                <li class="t"><a href="#"><?php echo Yii::t('zii','Themes');?> <span>▼</span></a></li>
+                <li class="m"><a href="#"><?php echo Yii::t('zii', 'how it works?');?></a></li>
+                <li class="m"><a href="#"><?php echo Yii::t('zii', 'Login');?></a></li>
+                <li class="m"><a href="#"><?php echo Yii::t('zii', 'Sign up');?></a></li>
                 <li class="l">
                     <div class="box">
                         <p><img src="images/flag-pt.png" /></p>
@@ -66,18 +67,22 @@
 	</div>
 </header>	
 <!-- End header -->
+<!-- Start Container -->
 <section id="big-search" style="background-image: url(images/home/<?php echo $strImageRandon;?>.jpg)">	
     	<div class="mask">
             <div class="search">
-                <input type="text" placeholder="O que você procura? (palavra-chave ou código)"><button>Buscar</button>
-                <p><a href="#">busca avançada</a></p>
+                <?php echo CHtml::form('listing','post');?>
+                <input type="text" id="search" placeholder="<?php echo Yii::t('zii', 'What are you looking for? (code or keyword)');?>">
+                <?php echo CHtml::submitButton(Yii::t('zii', 'Search'),array('id'=>'buttonSearch'));?>
+                <?php echo CHtml::endForm();?>
+                <p><a href="#"><?php echo Yii::t('zii', 'Advanced search');?></a></p>
             </div>
         </div>
 	</section>
 	
 		<section id="slider-bar">
     	<div class="title"><div id="root">
-        	<h2>Adicionadas recentemente</h2>
+        	<h2><?php echo Yii::t('zii', 'Recently added');?></h2>
         </div></div>
         <div class="carousel">
         	<div class="overflow">
@@ -85,9 +90,9 @@
                 <?php foreach ($arrAddedLastCarousel as $strValue):?>
                     <li>
                     	<?php if(ctype_alpha(substr($strValue['tombo'], 0,1))) :?>
-                    		<a href="#"><img src="http://177.71.182.64/Videos/thumbs/<?php echo $strValue['tombo'];?>_3s.jpg"></a>
+                    		<a href="#"><img src="<?php echo $strUrlCloud.$strValue['tombo'];?>_3s.jpg"></a>
                     	<?php else:?>
-                        	<a href="#"><img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $strValue['tombo'];?>p.jpg"></a>
+                        	<a href="#"><img src="<?php echo $strUrlStockPhotos.$strValue['tombo'];?>p.jpg"></a>
                     	<?php endif;?>
                     </li>
                 <?php endforeach;?>    
@@ -99,7 +104,7 @@
 	</section>
 	<section id="slider-bar">
     	<div class="title"><div id="root">
-        	<h2>Ultimas Pesquisas</h2>
+        	<h2><?php echo Yii::t('zii','Last searches');?></h2>
         </div></div>
         <div class="carousel">
         	<div class="overflow">
@@ -107,9 +112,9 @@
                 	<?php foreach ($arrlatestCarouselSearch as $strValue):?>
                     <li>
                     	<?php if(ctype_alpha(substr($strValue['tombo'], 0,1))) :?>
-                    		<a href="#"><img src="http://177.71.182.64/Videos/thumbs/<?php echo $strValue['tombo'];?>_3s.jpg"></a>
+                    		<a href="#"><img src="<?php echo $strUrlCloud.$strValue['tombo'];?>_3s.jpg"></a>
                     	<?php else:?>
-                        	<a href="#"><img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $strValue['tombo'];?>p.jpg"></a>
+                        	<a href="#"><img src="<?php echo $strUrlStockPhotos.$strValue['tombo'];?>p.jpg"></a>
                     	<?php endif;?>
                     </li>
                     <?php endforeach;?>
@@ -123,8 +128,9 @@
 		<div id="root">
 	    	<figure><img src="images/logo.png" /></figure>
 	        <article>
-	            <h2>Sobre o Pulsar</h2>
-	            <p>Nós somos um banco de imagens que reúne a produção fotográfica de mais de quarenta fotógrafos, com sólidas carreiras individuais, e preocupados em documentar nosso país, seus habitantes, costumes e cultura, sua produção econômica, fauna, flora e toda sua imensa extensão territorial.</p>
+	            <h2><?php echo Yii::t('zii', 'About Pulsar');?></h2>
+	            <p><?php echo Yii::t('zii','We are an image database that brings together the photographic production of over forty photographers with solid individual careers, and concerned with documenting our country, its people, customs and culture, its economic output, fauna, flora and all its vast territorial extension.');?></p>
 	        </article>
 		</div>
 	</footer>
+<!-- End Container -->	

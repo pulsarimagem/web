@@ -28,6 +28,10 @@ class Controller extends CController
 	 */
 	public $strMesageThemesHome = 'Fim de níveis';
 	
+	public $strUrlStockPhotos = 'http://www.pulsarimagens.com.br/bancoImagens/';
+	
+	public $strUrlCloud = 'http://177.71.182.64/Videos/thumbs/';
+	
 	public function init()
 	{
 		//pelo ip de acesso, alterar a linguagem de acordo com o pais de origem, 
@@ -41,10 +45,10 @@ class Controller extends CController
 		if($objIpdetails->get_countrycode() == "" || $objIpdetails->get_countrycode() == "BR")
 		{
 		*/
-			Yii::app()->setLanguage('pt_br');
-			$objSession->setFormType('pt_br');
-			//$objSession->setFormType('ext');
-			//Yii::app()->setLanguage('en');
+			//Yii::app()->setLanguage('pt_br');
+			//$objSession->setFormType('pt_br');
+			$objSession->setFormType('ext');
+			Yii::app()->setLanguage('en');
 		/*
 		}
 		else 
