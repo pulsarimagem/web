@@ -84,7 +84,7 @@ do {
 											<ul>
 						                      <li class="autor"><span class="label">Author:</span> <?php echo $row_fotos_pasta['Nome_Fotografo'];?></li>
 						                      <li class="codigo"><span class="label">Code:</span> <?php echo $row_fotos_pasta['tombo']; ?></li>
-						                      	<li class="assunto"><span class="label">Subject:</span> <?php echo $row_fotos_pasta['assunto_en']; ?></li>
+						                      	<li class="assunto"><span class="label">Subject:</span> <?php echo $row_fotos_pasta['assunto_principal_en']; ?></li>
 	                    						<li class="local"><span class="label">Local: </span><?php echo $row_fotos_pasta['cidade']; ?><?php if ($row_fotos_pasta['Sigla'] <> '') { echo ' - ';};?><?php echo $row_fotos_pasta['Sigla']; ?></li>
 												<?php if ($row_fotos_pasta['pais']<>"") { ?> <li class="pais"><span class="label">Country: </span><?php echo $row_fotos_pasta['pais_en']; ?></li><?php } ?>
 												<li class="data"><span class="label">Date: </span><?php

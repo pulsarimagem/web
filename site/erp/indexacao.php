@@ -94,6 +94,7 @@
 									   		</select>
 										</div>
 										<div class="indexSelectFotos span4" <?php if($id_autor=="") echo "style=\"display:none\""?>>
+											<input type="hidden" name="fotoTmp" value="true"/>
 											<button type="submit" name="action" value="consultar" class="btn btn-primary">Consultar</button>
 										</div>
 									</div>
@@ -120,6 +121,7 @@
 										   </select>
 										</div>
 										<div class="indexSelectVideos span4" <?php if($id_autor=="") echo "style=\"display:none\""?>>
+											<input type="hidden" name="fotoTmp" value="true"/>
 											<button type="submit" name="action" value="consultar" class="btn btn-primary">Consultar</button>
 										</div>
 									</div>
@@ -138,8 +140,8 @@
 <?php } ?>
 											</div>
 											<div class="span8">
-<?php if(file_exists($fotosalta.$row_dados_foto['tombo'].'.jpg')) { ?>											
-												<IFRAME ID=IFrame1 FRAMEBORDER=0 SCROLLING=YES SRC="iptc.php?foto=<?php echo $row_dados_foto['tombo']; ?>"></IFRAME>
+<?php if(file_exists($fotosalta.$form_tombo.'.jpg')) { ?>											
+												<IFRAME ID=IFrame1 FRAMEBORDER=0 SCROLLING=YES SRC="iptc.php?foto=<?php echo $form_tombo; ?>"></IFRAME>
 <?php } ?>
 											</div>
 <?php } else { ?>
@@ -171,31 +173,31 @@
 										<input type="hidden" name="tombos[]" value="<?php echo $tombo;?>"/>
 <?php 	}?>										
 <?php } else { ?>
-										<input type="text" name="tombo" value="<?php echo ($toLoad?$row_dados_foto['tombo']:"");?>" disabled="disabled"/>
-										<input type="hidden" name="tombo" value="<?php echo ($toLoad?$row_dados_foto['tombo']:"");?>"/>
+										<input type="text" name="tombo" value="<?php echo ($toLoad?$form_tombo:"");?>" disabled="disabled"/>
+										<input type="hidden" name="tombo" value="<?php echo ($toLoad?$form_tombo:"");?>"/>
 <?php }?>						
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Assunto principal</label>
 									<div class="controls clearfix">
-										<input type="text" name="assunto_principal" id="assunto_principal" value="<?php echo ($toLoad?($row_dados_foto['assunto_principal']==""?$iptc_assunto:$row_dados_foto['assunto_principal']):"");?>"/>
+										<input type="text" name="assunto_principal" id="assunto_principal" value="<?php echo ($toLoad?($form_assunto==""?$iptc_assunto:$form_assunto):"");?>"/>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Informação adicional</label>
 									<div class="controls clearfix">
-										<input type="text" name="extra" value="<?php echo ($toLoad?$row_dados_foto['extra']:"");?>"/>
+										<input type="text" name="extra" value="<?php echo ($toLoad?$form_extra:"");?>"/>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Direito de imagem</label>
 									<div class="controls">
 										<div class="span6">
-											<label><input type="radio" name="dir_img" value="0" <?php echo ($row_dados_foto['direito_img']%10 != 1 && $row_dados_foto['direito_img']%10 != 2 && $row_dados_foto['direito_img']%10 != 3? "checked":"");?>> Nenhum</label> 
-											<label><input type="radio" name="dir_img" value="1" <?php echo ($row_dados_foto['direito_img']%10 == 1 ? "checked":"");?>> Uso autorizado</label> 
-											<label><input type="radio" name="dir_img" value="2" <?php echo ($row_dados_foto['direito_img']%10 == 2 ? "checked":"");?>> Uso autorizado + Acrécimo de 100%</label>
-<!-- 											<label><input type="radio" name="dir_img" value="3" <?php echo ($row_dados_foto['direito_img']%10 == 3 ? "checked":"");?>> Não autorizado</label> -->
+											<label><input type="radio" name="dir_img" value="0" <?php echo ($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":"");?>> Nenhum</label> 
+											<label><input type="radio" name="dir_img" value="1" <?php echo ($form_dirimg%10 == 1 ? "checked":"");?>> Uso autorizado</label> 
+											<label><input type="radio" name="dir_img" value="2" <?php echo ($form_dirimg%10 == 2 ? "checked":"");?>> Uso autorizado + Acrécimo de 100%</label>
+<!-- 											<label><input type="radio" name="dir_img" value="3" <?php echo ($form_dirimg%10 == 3 ? "checked":"");?>> Não autorizado</label> -->
 										</div>
 									</div>
 								</div>
@@ -203,9 +205,9 @@
 									<label class="control-label">Direito de propriedade</label>
 									<div class="controls">
 										<div class="span6">
-											<label><input type="radio" name="dir_prop" value="0" <?php echo (intval($row_dados_foto['direito_img']/10) != 1 && $row_dados_foto['direito_img']/10 != 2 ? "checked":"");?>> Nenhum</label> 
-											<label><input type="radio" name="dir_prop" value="10" <?php echo (intval($row_dados_foto['direito_img']/10) == 1 ? "checked":"");?>> Autorizado</label> 
-											<label><input type="radio" name="dir_prop" value="20" <?php echo (intval($row_dados_foto['direito_img']/10) == 2 ? "checked":"");?>> Não autorizado</label>
+											<label><input type="radio" name="dir_prop" value="0" <?php echo (intval($form_dirimg/10) != 1 && $form_dirimg/10 != 2 ? "checked":"");?>> Nenhum</label> 
+											<label><input type="radio" name="dir_prop" value="10" <?php echo (intval($form_dirimg/10) == 1 ? "checked":"");?>> Autorizado</label> 
+											<label><input type="radio" name="dir_prop" value="20" <?php echo (intval($form_dirimg/10) == 2 ? "checked":"");?>> Não autorizado</label>
 										</div>
 									</div>
 								</div>
@@ -217,7 +219,7 @@
             <?php
 do {  
 ?>
-            <option value="<?php echo $row_fotografos['id_fotografo']?>"<?php if ((!(strcmp($row_fotografos['id_fotografo'], $row_dados_foto['id_autor'])))||(!(strcmp($row_fotografos['id_fotografo'], $row_ini_fotografo['id_fotografo'])))) {echo "SELECTED";}?>><?php echo $row_fotografos['Nome_Fotografo']?></option>
+            <option value="<?php echo $row_fotografos['id_fotografo']?>"<?php if ((!(strcmp($row_fotografos['id_fotografo'], $form_autor)))||(!(strcmp($row_fotografos['id_fotografo'], $row_ini_fotografo['id_fotografo'])))) {echo "SELECTED";}?>><?php echo $row_fotografos['Nome_Fotografo']?></option>
             <?php
 } while ($row_fotografos = mysql_fetch_assoc($fotografos));
   $rows = mysql_num_rows($fotografos);
@@ -235,32 +237,32 @@ do {
 								<div class="control-group">
 									<label class="control-label">Data</label>
 									<div class="controls clearfix">
-										<input name="data_tela" type="text" id="data_tela" onBlur="fix_data()" value="<?php if($toLoad) { if($row_dados_foto['data_foto']=="") { echo $iptc_data; } else { if (strlen($row_dados_foto['data_foto']) == 4) {
-			echo $row_dados_foto['data_foto'];
-		} elseif (strlen($row_dados_foto['data_foto']) == 6) {
-			echo substr($row_dados_foto['data_foto'],4,2).'/'.substr($row_dados_foto['data_foto'],0,4);
-		} elseif (strlen($row_dados_foto['data_foto']) == 8) {
-			echo substr($row_dados_foto['data_foto'],6,2).'/'.substr($row_dados_foto['data_foto'],4,2).'/'.substr($row_dados_foto['data_foto'],0,4);
+										<input name="data_tela" type="text" id="data_tela" onBlur="fix_data()" value="<?php if($toLoad) { if($form_data=="") { echo $iptc_data; } else { if (strlen($form_data) == 4) {
+			echo $form_data;
+		} elseif (strlen($form_data) == 6) {
+			echo substr($form_data,4,2).'/'.substr($form_data,0,4);
+		} elseif (strlen($form_data) == 8) {
+			echo substr($form_data,6,2).'/'.substr($form_data,4,2).'/'.substr($form_data,0,4);
 		}}} ?>">
-										<input type="hidden" name="data" value="<?php echo ($toLoad?($row_dados_foto['data_foto']==""?fix_iptc_date($iptc_data):$row_dados_foto['data_foto']):"");?>"/>
+										<input type="hidden" name="data" value="<?php echo ($toLoad?($form_data==""?fix_iptc_date($iptc_data):$form_data):"");?>"/>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Cidade</label>
 									<div class="controls clearfix">
-										<input class="span5" type="hidden" name="cidade" id="indexCidade" value="<?php echo ($toLoad?($row_dados_foto['cidade']==""?$iptc_local:$row_dados_foto['cidade']):"");?>">
-<!-- 										<input type="text" name="cidade" value="<?php echo ($toLoad?$row_dados_foto['cidade']:"");?>"/> -->
+										<input class="span5" type="hidden" name="cidade" id="indexCidade" value="<?php echo ($toLoad?($form_cidade==""?$iptc_local:$form_cidade):"");?>">
+<!-- 										<input type="text" name="cidade" value="<?php echo ($toLoad?$form_cidade:"");?>"/> -->
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Estado</label>
 									<div class="controls clearfix">
 										<select name="estado" data-placeholder=" - - - - - Escolha - - - - - ">
-            <option value="" <?php if (!(strcmp("", $row_dados_foto['id_estado'])) && $iptc_estado == "") {echo "SELECTED";} ?>></option>
+            <option value="" <?php if (!(strcmp("", $form_estado)) && $iptc_estado == "") {echo "SELECTED";} ?>></option>
             <?php
 do {  
 ?>
-            <option value="<?php echo $row_estado['id_estado']?>"<?php if (!(strcmp($row_estado['id_estado'], $row_dados_foto['id_estado'])) || !(strcasecmp($row_estado['Sigla'], $iptc_estado))) {echo "SELECTED";} ?>><?php echo $row_estado['Estado']?></option>
+            <option value="<?php echo $row_estado['id_estado']?>"<?php if (!(strcmp($row_estado['id_estado'], $form_estado)) || !(strcasecmp($row_estado['Sigla'], $iptc_estado))) {echo "SELECTED";} ?>><?php echo $row_estado['Estado']?></option>
             <?php
 } while ($row_estado = mysql_fetch_assoc($estado));
   $rows = mysql_num_rows($estado);
@@ -277,11 +279,11 @@ do {
 									<div class="controls clearfix">
 										<div class="span5">
 											<select class="span12" name="pais" data-placeholder=" - - - - - Escolha - - - - - ">
-            <option value="" <?php if (!(strcmp("", $row_dados_foto['id_pais'])) && $iptc_pais == "") {echo "SELECTED";} ?>></option>
+            <option value="" <?php if (!(strcmp("", $form_pais)) && $iptc_pais == "") {echo "SELECTED";} ?>></option>
             <?php
 do {  
 ?>
-            <option value="<?php echo $row_pais['id_pais']?>"<?php if (!(strcmp($row_pais['id_pais'], $row_dados_foto['id_pais'])) || !(strcasecmp(removeAccents($row_pais['nome']), removeAccents($iptc_pais)))) {echo "SELECTED";} ?>><?php echo $row_pais['nome']?></option>
+            <option value="<?php echo $row_pais['id_pais']?>"<?php if (!(strcmp($row_pais['id_pais'], $form_pais)) || !(strcasecmp(removeAccents($row_pais['nome']), removeAccents($iptc_pais)))) {echo "SELECTED";} ?>><?php echo $row_pais['nome']?></option>
             <?php
 } while ($row_pais = mysql_fetch_assoc($pais));
   $rows = mysql_num_rows($pais);

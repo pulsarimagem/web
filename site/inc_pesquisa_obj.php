@@ -75,7 +75,7 @@ class pesquisaPulsar {
 	public $isdebug = false;
 	public $total = 0;
 	public $isEnable = false;
-	public $toTranslate = true;
+	public $toTranslate = false;//true;
 	
 	public $arrFiltros = array("direito_aut"=>true,"horizontal"=>true,"vertical"=>true,"foto"=>true,"video"=>true,"id_autor"=>true,"id_tema"=>true,"data"=>true,"dia"=>true,"mes"=>true,"ano"=>true);
 	public $arrPosFiltros = array("foto"=>false,"video"=>false,"fullhd"=>false,"hd"=>false,"sd"=>false,"h"=>false,"v"=>false);
@@ -449,13 +449,13 @@ class pesquisaPulsar {
 						
 					$palavra_composta = array();
 					$this->pc_permute($palavra_composta, $palavra_composta_arr);
-					$palavra_composta_imp_assunto = implode("') OR Fotos.assunto_principal RLIKE trim('", $palavra_composta);
+					$palavra_composta_imp_assunto = implode("') OR Fotos.assunto_principal$idioma RLIKE trim('", $palavra_composta);
 					$palavra_composta_imp_extra = implode("') OR Fotos.extra RLIKE trim('", $palavra_composta);
-					$palavra_composta_imp_cidade = str_ireplace("Fotos.assunto_principal", "Fotos.cidade", $palavra_composta_imp_assunto); 									
-					$palavra_composta_imp_estado = str_ireplace("Fotos.assunto_principal", "Estados.Sigla", $palavra_composta_imp_assunto); 									
-					$palavra_composta_imp_estado2 = str_ireplace("Fotos.assunto_principal", "Estados.Estado", $palavra_composta_imp_assunto); 									
-					$palavra_composta_imp_pais = str_ireplace("Fotos.assunto_principal", "paises.nome$idioma", $palavra_composta_imp_assunto); 									
-					$palavra_composta_imp_pc = str_ireplace("Fotos.assunto_principal", "pal_chave.Pal_Chave$idioma", $palavra_composta_imp_assunto); 									
+					$palavra_composta_imp_cidade = str_ireplace("Fotos.assunto_principal$idioma", "Fotos.cidade", $palavra_composta_imp_assunto); 									
+					$palavra_composta_imp_estado = str_ireplace("Fotos.assunto_principal$idioma", "Estados.Sigla", $palavra_composta_imp_assunto); 									
+					$palavra_composta_imp_estado2 = str_ireplace("Fotos.assunto_principal$idioma", "Estados.Estado", $palavra_composta_imp_assunto); 									
+					$palavra_composta_imp_pais = str_ireplace("Fotos.assunto_principal$idioma", "paises.nome$idioma", $palavra_composta_imp_assunto); 									
+					$palavra_composta_imp_pc = str_ireplace("Fotos.assunto_principal$idioma", "pal_chave.Pal_Chave$idioma", $palavra_composta_imp_assunto); 									
 // 					$palavra_imp_pc = implode("%' OR Pal_Chave LIKE '%", $palavra_arr);
 					
 					$selectTable = $this->lastTmp;
@@ -484,7 +484,7 @@ class pesquisaPulsar {
 									LEFT JOIN Estados ON (Estados.id_estado=Fotos.id_estado)
 									LEFT JOIN tmpPc ON (Fotos.Id_Foto=tmpPc.id_foto)
 
-									WHERE Fotos.assunto_principal RLIKE trim('$palavra_composta_imp_assunto')
+									WHERE Fotos.assunto_principal$idioma RLIKE trim('$palavra_composta_imp_assunto')
 									OR Fotos.extra RLIKE trim('$palavra_composta_imp_extra') 
 									OR Fotos.cidade RLIKE trim('$palavra_composta_imp_cidade')
 									OR Estados.Estado RLIKE trim('$palavra_composta_imp_estado2')
@@ -545,7 +545,7 @@ class pesquisaPulsar {
 					
 					$tmpPc = "DROP TEMPORARY TABLE IF EXISTS tmpPc; CREATE TEMPORARY TABLE tmpPc SELECT Id_Foto from rel_fotos_pal_ch 
 								LEFT JOIN (SELECT * from pal_chave 
-											WHERE (Pal_Chave RLIKE '$palavra')) AS pal_chave ON rel_fotos_pal_ch.id_palavra_chave = pal_chave.Id
+											WHERE (Pal_Chave$idioma RLIKE '$palavra')) AS pal_chave ON rel_fotos_pal_ch.id_palavra_chave = pal_chave.Id
 								WHERE pal_chave.Pal_Chave$idioma RLIKE trim('$palavra'); CREATE INDEX id_foto ON tmpPc(Id_Foto)";
 					
 					$relQuery .= "$tmpPc; INSERT IGNORE INTO $tmpTable (Id_Foto) 
@@ -555,7 +555,7 @@ class pesquisaPulsar {
 									LEFT JOIN Estados ON (Estados.id_estado=Fotos.id_estado)
 									LEFT JOIN tmpPc ON (Fotos.Id_Foto=tmpPc.id_foto)
 
-									WHERE Fotos.assunto_principal RLIKE trim('$palavra')
+									WHERE Fotos.assunto_principal$idioma RLIKE trim('$palavra')
 									OR Fotos.extra RLIKE trim('$palavra') 
 									OR Fotos.cidade RLIKE trim('$palavra')
 									OR Estados.Sigla RLIKE trim('$palavra')
@@ -741,6 +741,7 @@ class pesquisaPulsar {
 			$query = "SELECT DISTINCT
 					  tmp.Id_Foto,
 					  Fotos.assunto_principal,
+					  Fotos.assunto_principal_en,
 					  Fotos.cidade,
 					  Estados.Sigla,
 					  paises.nome$idioma as nome,
@@ -826,7 +827,7 @@ class pesquisaPulsar {
 			$query = "SELECT DISTINCT
 			Fotos.Id_Foto,
 			Fotos.assunto_principal,
-			Fotos.assunto_en,
+			Fotos.assunto_principal_en,
 			Fotos.cidade,
 			Estados.Sigla,
 			paises.nome$idioma as nome,
@@ -1319,6 +1320,12 @@ class pesquisaPulsar {
 								$tmpQuery = "SELECT Fotos.Id_Foto FROM $thisTable $selectJoin
 												WHERE (Fotos.assunto_principal $operator '$palavra')";
 								$this->createQueryLine($tmpQuery, $tmpTable, $isInsert);
+								if($this->idioma != "br") {
+									$thisTable = ($selectTable == "Fotos")?"(SELECT Id_Foto,assunto_principal_en FROM Fotos WHERE convert(assunto_principal_en USING utf8) LIKE '%".$rawPalavraCutted."%') as Fotos":$selectTable;
+									$tmpQuery = "SELECT Fotos.Id_Foto FROM $thisTable $selectJoin
+									WHERE (Fotos.assunto_principal_en $operator '$palavra')";
+									$this->createQueryLine($tmpQuery, $tmpTable, $isInsert);
+								}
 								break;
 							case "extra":
 								$tmpQuery = "SELECT Fotos.Id_Foto FROM $selectTable $selectJoin 

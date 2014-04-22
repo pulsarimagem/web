@@ -3,6 +3,7 @@ $toLoad = false;
 $multiLoad = false;
 $tomboExists = false;
 $tombos = array();
+$isFotoTmp = (isset($_GET['fotoTmp'])?true:false);
 $action = isset($_GET['action'])?strtolower($_GET['action']):"";
 $action = isset($_POST['action'])?strtolower($_POST['action']):$action;
 
@@ -11,13 +12,19 @@ $msg = isset($_GET['msg'])?$_GET['msg']:"";
 // print_r($_POST);
 // print_r($_GET);
 mysql_select_db($database_pulsar, $pulsar);
-if($action == "criar") {
+if($action == "criar" || $isFotoTmp) {
 	$tombos = $_GET['tombos'];
 	foreach($tombos as $tombo) {
-		$sql = "INSERT INTO Fotos (tombo) VALUES ('$tombo')";
-		mysql_query($sql, $pulsar) or die(mysql_error());
-		$msg = "Criado com sucesso!";
-		header("location: indexacao.php?tombos[]=$tombo&action=consultar&msg=Criado com sucesso!");
+		$sqlSelect = "SELECT * FROM Fotos WHERE tombo = '$tombo';";
+		$rsSelect = mysql_query($sqlSelect, $pulsar) or die(mysql_error());
+		if(mysql_num_rows($rsSelect) == 0) {
+			$sql = "INSERT INTO Fotos (tombo) VALUES ('$tombo')";
+			mysql_query($sql, $pulsar) or die(mysql_error());
+			if(!isFotoTmp) {
+				$msg = "Criado com sucesso!";
+				header("location: indexacao.php?tombos[]=$tombo&action=consultar&msg=Criado com sucesso!");
+			}
+		}
 	}
 }
 else if($action == "gravar") {
@@ -66,10 +73,10 @@ else if($action == "gravar") {
 		$data = $_POST['data'];
 		$autor = $_POST['autor'];
 	// 	$tombo = $_POST['tombo'];
-		$assunto_en = translateText($assunto_principal);
+		$assunto_principal_en = translateText($assunto_principal);
 		
 		
-		$updateSQL = sprintf("UPDATE Fotos SET tombo=%s, id_autor=%s, data_foto=%s, cidade=%s, id_estado=%s, id_pais=%s, orientacao=%s, assunto_principal=%s, assunto_en=%s, dim_a=%s, dim_b=%s, direito_img=%s, extra=%s WHERE Id_Foto=%s",
+		$updateSQL = sprintf("UPDATE Fotos SET tombo=%s, id_autor=%s, data_foto=%s, cidade=%s, id_estado=%s, id_pais=%s, orientacao=%s, assunto_principal=%s, assunto_principal_en=%s, dim_a=%s, dim_b=%s, direito_img=%s, extra=%s WHERE Id_Foto=%s",
 				GetSQLValueString($tombo, "text"),
 				GetSQLValueString($autor, "int"),
 				GetSQLValueString($data, "text"),
@@ -78,7 +85,7 @@ else if($action == "gravar") {
 				GetSQLValueString($pais, "text"),
 				GetSQLValueString($orientacao, "text"),
 				GetSQLValueString($assunto_principal, "text"),
-				GetSQLValueString($assunto_en, "text"),
+				GetSQLValueString($assunto_principal_en, "text"),
 				GetSQLValueString($width, "int"),
 				GetSQLValueString($height, "int"),
 				GetSQLValueString($direito_img, "int"),
@@ -252,18 +259,29 @@ if (isset($_GET['action'])) {
 		}
 	}
 }
-$query_dados_foto = sprintf("SELECT * FROM Fotos WHERE tombo = '%s'", $colname_dados_foto);
-$dados_foto = mysql_query($query_dados_foto, $pulsar) or die(mysql_error());
-$row_dados_foto = mysql_fetch_assoc($dados_foto);
-$totalRows_dados_foto = mysql_num_rows($dados_foto);
-
-if($totalRows_dados_foto > 0) {
-	$tomboExists = true;
-	$idFoto = $row_dados_foto['Id_Foto'];
+if($isFotoTmp) {
+	$query_dados_foto = sprintf("SELECT * FROM Fotos_tmp WHERE tombo = '%s'", $colname_dados_foto);
+	$dados_foto = mysql_query($query_dados_foto, $pulsar) or die(mysql_error());
+	$row_dados_foto = mysql_fetch_assoc($dados_foto);
+	$totalRows_dados_foto = mysql_num_rows($dados_foto);
+	if($totalRows_dados_foto > 0) {
+		$tomboExists = true;
+		$idFoto = $row_dados_foto['Id_Foto'];
+	}
+}
+else {
+	$query_dados_foto = sprintf("SELECT * FROM Fotos WHERE tombo = '%s'", $colname_dados_foto);
+	$dados_foto = mysql_query($query_dados_foto, $pulsar) or die(mysql_error());
+	$row_dados_foto = mysql_fetch_assoc($dados_foto);
+	$totalRows_dados_foto = mysql_num_rows($dados_foto);
+	if($totalRows_dados_foto > 0) {
+		$tomboExists = true;
+		$idFoto = $row_dados_foto['Id_Foto'];
+	}
 }
 
 if(!$tomboExists && $toLoad && !$multiLoad) {
-	if($tombo != "") { 
+	if($colname_dados_foto != "") { 
 		$addScript="<script>
 						if(confirm('Tombo $colname_dados_foto não existente no banco de dados. Criar novo?')) {
 							location.href = 'indexacao.php?action=criar&tombos[]=$colname_dados_foto';
@@ -441,5 +459,21 @@ if($tomboExists) {
 		}
 	}
 }
+
+$form_tombo = $row_dados_foto['tombo'];
+$form_assunto = $row_dados_foto['assunto_principal'];
+$form_extra = $row_dados_foto['extra'];
+$form_autor = $row_dados_foto['id_autor'];
+$form_dirimg = $row_dados_foto['direito_img'];
+$form_data = $row_dados_foto['data_foto'];
+$form_cidade = $row_dados_foto['cidade'];
+$form_estado = $row_dados_foto['id_estado'];
+$form_pais = $row_dados_foto['id_pais'];
+
+if($isFotoTmp) {
+	$iptc_pal = $row_dados_foto['pal_chave'];
+}
+//$form_temas =
+//$form_pc =
 
 ?>

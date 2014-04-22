@@ -167,8 +167,8 @@ else if($action == "clean_id_contato_sig") {
 ?>
 		<option value="">--- Escolha um Video ---</option>
 <?php 		
-		 while ($row_fotos_tmp_select = mysql_fetch_assoc($fotos_tmp_select)){ ?>
-   		<option value="<?php echo $row_fotos_tmp_select['tombo'];?>"><?php echo $row_fotos_tmp_select['tombo'];?></option>
+		 while ($row_videos_tmp_select = mysql_fetch_assoc($videos_tmp_select)){ ?>
+   		<option value="<?php echo $row_videos_tmp_select['tombo'];?>"><?php echo $row_videos_tmp_select['tombo'];?></option>
 <?php 
 		}
 	}

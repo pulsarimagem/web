@@ -133,6 +133,10 @@ if(!isset($_SESSION['ultima_pesquisa'])) {
 	$engine = new pesquisaPulsar();
 	$engine->dbConn = $pulsar;
 	$engine->db = $database_pulsar;
+	
+	if(isset($_GET['translate']))
+		$engine->toTranslate = true;
+	
 	$engine->connect();
 	$engine->idioma = $lingua;
 	//$engine->isEnable = true;

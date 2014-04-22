@@ -27,7 +27,7 @@ $query_dados_foto = sprintf("SELECT
   Fotos.dim_b,
   Fotos.direito_img,
   Fotos.assunto_principal,
-  Fotos.assunto_en,
+  Fotos.assunto_principal_en,
   Fotos.extra,
   paises.nome as pais
 FROM
@@ -46,14 +46,14 @@ $dados_foto = mysql_query($query_dados_foto, $pulsar) or die(mysql_error());
 $row_dados_foto = mysql_fetch_assoc($dados_foto);
 $totalRows_dados_foto = mysql_num_rows($dados_foto);
 
-if($row_dados_foto['assunto_en'] == "") {
+if($row_dados_foto['assunto_principal_en'] == "") {
 	$assunto = $row_dados_foto['assunto_principal'];
 	$assunto_en = addslashes(translateText($assunto));
 	if($siteDebug)
 		echo "$assunto || $assunto_en <br>";
 	
 	if($assunto_en != $assunto) {
-		$update = "UPDATE Fotos SET assunto_en = '$assunto_en' WHERE Id_foto = ".$row_dados_foto['Id_Foto'];
+		$update = "UPDATE Fotos SET assunto_principal_en = '$assunto_en' WHERE Id_foto = ".$row_dados_foto['Id_Foto'];
 		if($siteDebug)
 			echo $update."<br>";
 		mysql_query($update, $pulsar) or die(mysql_error());
