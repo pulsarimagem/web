@@ -1209,6 +1209,9 @@ table {
 	background: #fff;
 	border: 1px solid #e2e2e2;
 	padding-bottom: 30px;
+	max-height: 320px;
+	overflow: auto;
+	border-bottom-color: #ffffff;
 }
 
 #temas .box {
