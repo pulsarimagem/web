@@ -157,7 +157,7 @@ $exif = exif_read_data($fotosalta.$_GET['tombo'].'.jpg', 'IFD0');
 //echo $exif===false ? "No EXIF data found.<br />\n" : "";
 $exif = exif_read_data($fotosalta.$_GET['tombo'].'.jpg', 0, true);
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 0, true);
-
+// print_r($exif);
 /*
 foreach ($exif as $key => $section) {
    foreach ($section as $name => $val) {

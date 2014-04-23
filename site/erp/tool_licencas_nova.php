@@ -21,6 +21,8 @@ if($novo) {
 //	$id_cliente	= $_GET['id_cliente'];	
 	$id_cliente	= 123;	
 	$strSQL = "INSERT INTO CONTRATOS (DATA, ID_CONTRATO_DESC,id_owner) values (NOW(),7,".$row_login['id'].")";
+	if($siteDebug)
+		echo $strSQL;
 	$objRS = mysql_query($strSQL, $sig) or die(mysql_error());
 	$strSQL = "SELECT MAX(ID) as ID FROM CONTRATOS";
 	$objRS = mysql_query($strSQL, $sig) or die(mysql_error());
@@ -32,9 +34,13 @@ else if($novoIntegra) {
 //	$id_cliente	= $_GET['id_cliente'];	
 	$id_cliente	= $_POST['id_cliente_sig'];	
 	$id_contato = $_POST['qcontato'];	
+	if($id_contato == "")
+		$id_contato = "NULL";
 	$idContratoDesc = $_POST['contrato_desc'];
 	$descricao = $_POST['descricao'];
 	$strSQL = "INSERT INTO CONTRATOS (DATA, ID_CONTRATO_DESC, ID_CLIENTE, ID_CONTATO, DESCRICAO, id_owner) values (NOW(),$idContratoDesc,$id_cliente,$id_contato,'$descricao',".$row_login['id'].")";
+	if($siteDebug)
+		echo $strSQL;
 	$objRS = mysql_query($strSQL, $sig) or die(mysql_error());
 	$strSQL = "SELECT MAX(ID) as ID FROM CONTRATOS";
 	$objRS = mysql_query($strSQL, $sig) or die(mysql_error());
