@@ -57,6 +57,8 @@ $periodo1 = $row_periodo['mes_ano'];
 $row_periodo = mysql_fetch_assoc($periodo);
 $periodo2 = $row_periodo['mes_ano'];
 
+mysql_data_seek($periodo,0);
+
 $periodo_tabela1 =  substr($periodo1,3,4).substr($periodo1,0,2);
 $periodo_tabela2 = substr($periodo2,3,4).substr($periodo2,0,2);
 

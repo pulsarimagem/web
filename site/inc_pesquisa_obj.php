@@ -77,7 +77,7 @@ class pesquisaPulsar {
 	public $isEnable = false;
 	public $toTranslate = false;//true;
 	
-	public $arrFiltros = array("direito_aut"=>true,"horizontal"=>true,"vertical"=>true,"foto"=>true,"video"=>true,"id_autor"=>true,"id_tema"=>true,"data"=>true,"dia"=>true,"mes"=>true,"ano"=>true);
+	public $arrFiltros = array("direito_aut"=>true,"horizontal"=>true,"vertical"=>true,"foto"=>true,"video"=>true,"id_autor"=>true,"not_id_autor"=>true,"id_tema"=>true,"data"=>true,"dia"=>true,"mes"=>true,"ano"=>true);
 	public $arrPosFiltros = array("foto"=>false,"video"=>false,"fullhd"=>false,"hd"=>false,"sd"=>false,"h"=>false,"v"=>false);
 	public $arrPosFiltros_groups = array("fullhd"=>0,"hd"=>0,"sd"=>0,"h"=>0,"v"=>0);
 	
@@ -310,6 +310,16 @@ class pesquisaPulsar {
 						$tmpQuery = "SELECT Fotos.Id_Foto FROM $selectTable $selectJoin WHERE Fotos.id_autor IN (".implode(",",$val).")";
 						$this->createQueryLine($tmpQuery, $tmpTable, $isInsert);
 						break;
+					case "not_id_autor":
+						$selectTable = $this->lastTmp;
+						$selectJoin = "";
+						if($selectTable != "Fotos")
+							$selectJoin = " LEFT JOIN Fotos ON Fotos.Id_Foto = $selectTable.Id_Foto ";
+						$tmpTable = $this->createTmpTable();
+						$this->lastTmp = $tmpTable;
+						$tmpQuery = "SELECT Fotos.Id_Foto FROM $selectTable $selectJoin WHERE Fotos.id_autor NOT IN (".implode(",",$val).")";
+						$this->createQueryLine($tmpQuery, $tmpTable, $isInsert);
+					break;						
 					case "id_tema":
 						$novaQuery_temas = "SELECT  id_tema  FROM    lista_temas WHERE id_pai = ( $val );";
 						mysql_select_db($this->db, $this->dbConn);
@@ -415,28 +425,30 @@ class pesquisaPulsar {
 				$maxLenAdd = 0;
 				$maxPalavraLen = 0;
 				foreach($this->pesquisas as $pesquisa) {
-					foreach($pesquisa->arrPalavras as $palavra=>$idioma) {
-						$raw_palavra = $palavra;
-						$palavra = str_ireplace("a", "[aàâäãá]", $palavra);
-						$palavra = str_ireplace("e", "[eèêëé]", $palavra);
-						$palavra = str_ireplace("i", "[iìîïí]", $palavra);
-						$palavra = str_ireplace("o", "[oòôöõó]", $palavra);
-						$palavra = str_ireplace("u", "[uùûüú]", $palavra);
-						$palavra = str_ireplace("c", "[cç]", $palavra);
-						$palavra = str_ireplace("n", "[nñ]", $palavra);
-						$palavra = str_ireplace("-", " ", $palavra);
-						$palavra = str_ireplace(" ", "[- ]", $palavra);
-							
-	//					$palavra = $palavra."s?";
-							
-						if(!$pesquisa->fracao) {
-							$palavra_composta_arr[] = "[[:<:]]".$palavra."[[:>:]][ -]*[[[:alpha:]]{0,2}]*[ -]*";
-							$len = strlen($raw_palavra);
-							$minLen += $len;
-							$maxLenAdd += 4;
-							if($len > $maxPalavraLen) {
-								$maxPalavraLen = $len;
-								$palavraTmpPC = $raw_palavra;
+					if($pesquisa->not!=true) {
+						foreach($pesquisa->arrPalavras as $palavra=>$idioma) {
+							$raw_palavra = $palavra;
+							$palavra = str_ireplace("a", "[aàâäãá]", $palavra);
+							$palavra = str_ireplace("e", "[eèêëé]", $palavra);
+							$palavra = str_ireplace("i", "[iìîïí]", $palavra);
+							$palavra = str_ireplace("o", "[oòôöõó]", $palavra);
+							$palavra = str_ireplace("u", "[uùûüú]", $palavra);
+							$palavra = str_ireplace("c", "[cç]", $palavra);
+							$palavra = str_ireplace("n", "[nñ]", $palavra);
+							$palavra = str_ireplace("-", " ", $palavra);
+							$palavra = str_ireplace(" ", "[- ]", $palavra);
+								
+		//					$palavra = $palavra."s?";
+								
+							if(!$pesquisa->fracao) {
+								$palavra_composta_arr[] = "[[:<:]]".$palavra."[[:>:]][ -]*[[[:alpha:]]{0,2}]*[ -]*";
+								$len = strlen($raw_palavra);
+								$minLen += $len;
+								$maxLenAdd += 4;
+								if($len > $maxPalavraLen) {
+									$maxPalavraLen = $len;
+									$palavraTmpPC = $raw_palavra;
+								}
 							}
 						}
 					}
@@ -1049,6 +1061,9 @@ class pesquisaPulsar {
 				$result = mysql_query($query, $this->dbConn) or die(mysql_error());
 				$row = mysql_fetch_array($result);
 				$pesquisaPcCount[$pos] = $row['cnt'];
+				if($pesquisa->not) {
+					$pesquisaPcCount[$pos] = 999999;
+				}
 			}
 			else {
 				$pesquisaPcCount[$pos] = 0;

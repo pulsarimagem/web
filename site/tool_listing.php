@@ -360,6 +360,14 @@ if(!isset($_SESSION['ultima_pesquisa'])) {
 				}
 			}
 		}
+		if (isset($_GET['not_id_autor']) && $_GET['not_id_autor'] != "") {
+			if(count($_GET['not_id_autor']) > 0) {
+				if($_GET['not_id_autor'][0] != "") {
+					$engine->arrFiltros['not_id_autor'] = $_GET['not_id_autor'];
+					$engine->isEnable = true;
+				}
+			}
+		}
 		if (isset($_GET['tema']) && $_GET['tema'] != "") {
 			$engine->arrFiltros['id_tema'] = $_GET['tema'];
 			$engine->isEnable = true;

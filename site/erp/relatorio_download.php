@@ -31,9 +31,9 @@
               <select class="span5" name="periodo" data-placeholder="periodo do download">
 	          	<option value="TODOS">- Todos -</option>
               
-<?php do { ?>
+<?php while ($row_periodo = mysql_fetch_assoc($periodo)) { ?>
 				<option value="<?php echo $row_periodo['mes_ano']; ?>"<?php if (isset($_GET['periodo']) && !(strcmp($row_periodo['mes_ano'], $_GET['periodo']))) {echo "selected=\"selected\"";} ?>><?php echo $row_periodo['mes_ano']?></option>
-<?php } while ($row_periodo = mysql_fetch_assoc($periodo)); ?>
+<?php } ?>
   			  </select>	
 	          </div>
             <div class="span4">
