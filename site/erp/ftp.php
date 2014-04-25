@@ -35,9 +35,12 @@
 <?php }?>
   			  </select>	
             </div>
-            <div class="span2">
-              <button type="submit" class="btn btn-primary">Enviar</button>
+            <div class="span1">
+              <button type="submit" class="btn btn-success">Enviar</button>
             </div>
+            <div class="span2">
+              <a class="btn btn-primary" href="ftp_criar.php">Criar Novo</a>
+            </div>            
           </form>
         </div>
         <br />
