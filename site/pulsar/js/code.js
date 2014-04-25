@@ -72,6 +72,8 @@ $(function(){
 			$(this).next('.config').show();
 		}
 	});
+	
+	
 	$('#lightbox-details .entry .box .buttons .adicionar').click(function(){
 		if($(this).next('.add').is(':visible')) {
 			$(this).next('.add').hide();
@@ -80,8 +82,16 @@ $(function(){
 		}
 	});
 	
+	$('#lightbox-details .entry .box .embed img').mouseover(function(){
+		if($(this).parents('.embed').next('.bigger').is(':visible')) {
+			$(this).parents('.embed').next('.bigger').hide();
+		} else {
+			$('#lightbox-details .entry .box .bigger').hide();
+			$(this).parents('.embed').next('.bigger').show();
+		}
+	});
 	
-	$('#lightbox-details .entry .box .embed img').click(function(){
+	$('#lightbox-details .entry .box .embed img').mouseout(function(){
 		if($(this).parents('.embed').next('.bigger').is(':visible')) {
 			$(this).parents('.embed').next('.bigger').hide();
 		} else {

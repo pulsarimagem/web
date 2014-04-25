@@ -31,10 +31,10 @@
 	<!-- Css dos designers -->
 	<link rel='stylesheet' type='text/css' href='<?php echo Yii::app()->request->baseUrl; ?>/css/fonts.css' />
 	<link rel='stylesheet' type='text/css' href='<?php echo Yii::app()->request->baseUrl; ?>/css/style.css' />
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/search.js');?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/code.js');?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/html5.js');?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jcarousel.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/search.js');?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
