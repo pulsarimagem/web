@@ -43,6 +43,11 @@ class SessionComponents
 		Yii::app()->user->setState('intTheme');
 	}
 	
+	public function setLanguageForDataBase($strPtBrOrEn)
+	{
+		Yii::app()->user->setState('strLanDataBase',$strPtBrOrEn);
+	}
+	
 	public function setBreadcrumb($themes)
 	{
 		if(count($themes) >= 1)
@@ -67,5 +72,95 @@ class SessionComponents
 	{
 		Yii::app()->user->setState('login',$strFirstName);
 		Yii::app()->user->setState('id',$strIdUser);
+		Yii::app()->user->setState('logado',true);
+	}
+	
+	public function setArrResults($arrResult)
+	{
+		Yii::app()->user->setState('arrResult',$arrResult);
+	}
+	
+	public function arraySeparateImagesAndVideosResults ($arrResults, $intViewPage = 50)
+	{
+		$countVideo = 1;
+		$intViewPageVideo = $intViewPage;
+		$countVideoViewPage = 1;
+		
+		$countImage = 0;
+		$intViewPageImage = $intViewPage;
+		$countImageViewPage = 1;
+		
+		
+		$arrVideo = false;
+		$arrImage = false;
+		
+		if(count($arrResults)>0)
+		{
+			foreach ($arrResults as $arrValue)
+			{
+				if (ctype_alpha(substr($arrValue['tombo'], 0,2))) 
+				{
+					if($countVideo > $intViewPageVideo)
+					{
+						$countVideoViewPage++;
+						$arrVideo[$countVideoViewPage][$countVideo] = $arrValue;
+						$intViewPageVideo += $intViewPage;
+						
+					}
+					else 
+					{
+						$arrVideo[$countVideoViewPage][$countVideo] = $arrValue;
+					}
+					$countVideo++;
+				}
+				else 
+				{
+					if($countImage > $intViewPageImage)
+					{
+						$countImageViewPage++;
+						$arrImage[$countImageViewPage][$countImage] = $arrValue;
+						$intViewPageImage += $intViewPage;
+						
+					}
+					else 
+					{
+						$arrImage[$countImageViewPage][$countImage] = $arrValue;
+					}
+					$countImage++;
+				}
+			}
+			Yii::app()->user->setState('arrVideo',$arrVideo);
+			Yii::app()->user->setState('arrImage',$arrImage);
+			Yii::app()->user->setState('intVideoPage',$countVideoViewPage);
+			Yii::app()->user->setState('intImagePage',$countImageViewPage);
+			Yii::app()->user->setState('intViewPage',$intViewPage);
+			Yii::app()->user->setState('countImage',$countImage);
+			Yii::app()->user->setState('countVideo',$countVideo);
+		}
+		else 
+		{
+			Yii::app()->user->setState('arrVideo',false);
+			Yii::app()->user->setState('arrImage',false);
+			Yii::app()->user->setState('intViewPage',0);
+			Yii::app()->user->setState('countImage',0);
+			Yii::app()->user->setState('countVideo',0);
+		}		
+		
+		
+	}
+	
+	public function setAmountDisplayedPerPage($intViewPage)
+	{
+		Yii::app()->user->setState('intViewPage',$intViewPage);
+	}
+	
+	public function setPagination($intPage)
+	{
+		Yii::app()->user->setState('intPage',$intPage);
+	}
+	
+	public function setTypeView($strTypeView)
+	{
+		Yii::app()->user->setState('strTypeView',$strTypeView);
 	}
 }

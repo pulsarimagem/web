@@ -72,7 +72,7 @@
     	<div class="mask">
             <div class="search">
                 <?php echo CHtml::form('listing','post');?>
-                <input type="text" id="search" placeholder="<?php echo Yii::t('zii', 'What are you looking for? (code or keyword)');?>">
+                <?php echo CHtml::textField('buscador','', array('id'=>'search', 'placeholder'=>Yii::t('zii', 'What are you looking for? (code or keyword)')))?>
                 <?php echo CHtml::submitButton(Yii::t('zii', 'Search'),array('id'=>'buttonSearch'));?>
                 <?php echo CHtml::endForm();?>
                 <p><a href="#"><?php echo Yii::t('zii', 'Advanced search');?></a></p>

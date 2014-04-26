@@ -32,6 +32,8 @@ class Controller extends CController
 	
 	public $strUrlCloud = 'http://177.71.182.64/Videos/thumbs/';
 	
+	public $errorSearch = 'Unfortunately we could not find any match for your search. Check if you have the right spelling or try changing a keyword. You can also browse through our categories.';
+	
 	public function init()
 	{
 		//pelo ip de acesso, alterar a linguagem de acordo com o pais de origem, 
@@ -45,16 +47,20 @@ class Controller extends CController
 		if($objIpdetails->get_countrycode() == "" || $objIpdetails->get_countrycode() == "BR")
 		{
 		*/
-			//Yii::app()->setLanguage('pt_br');
-			//$objSession->setFormType('pt_br');
-			$objSession->setFormType('ext');
 			Yii::app()->setLanguage('en');
+			$objSession->setFormType('en');
+			$objSession->setLanguageForDataBase('');
+			//$objSession->setFormType('ext');
+			//Yii::app()->setLanguage('en');
+			//$objSession->setLanguageForDataBase('_en');
+			
 		/*
 		}
 		else 
 		{
 			Yii::app()->setLanguage('en');
 			$objSession->setFormType('ext');
+			$objSession->setLanguageForDataBase('_en');
 		}
 		*/
 	}
