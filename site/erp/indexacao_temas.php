@@ -38,7 +38,11 @@
 <?php } ?>     	        
       <div class="row-fluid">
           <div class="span9">
+ <?php if(!$isEdit) { ?>          
             <button class="btn btn-success showNovo">Novo</button>
+<?php } else {?>
+            <a class="btn btn-success showNovo" href="indexacao_temas.php">Limpar</a>
+<?php } ?>            
 <!--             <a class="btn btn-danger " href="#">Excluir todos</a> -->
           </div>
           <div class="span3">
@@ -48,7 +52,7 @@
           </div>
         </div>
         <form>
-          <div class="row-fluid novo" style="display:none">
+          <div class="row-fluid novo" <?php if(!$isEdit) echo "style=\"display:none\""?>>
             <div class="span8">
               Tema Pai:
               <select class="span10" name="tema_pai" data-placeholder="--Escolha--">
@@ -59,7 +63,7 @@
    	   	      </select>
             </div>
           </div>
-          <div class="row-fluid novo" style="display:none">
+          <div class="row-fluid novo" <?php if(!$isEdit) echo "style=\"display:none\""?>>
             <div class="span4">
               Tema: <input name="tema" type="text" placeholder="Tema" value="<?php echo ($isEdit?$rowEdit['Tema']:"")?>"/>
             </div>
