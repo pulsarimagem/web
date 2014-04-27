@@ -136,7 +136,7 @@
 <?php if(!isVideo($colname_dados_foto)) { ?>										
 											<div class="span4">
 <?php foreach($tombos as $tombo) { ?>											
-												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" width="300" />
+												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" style="max-width: 200%" />
 <?php } ?>
 											</div>
 											<div class="span8">

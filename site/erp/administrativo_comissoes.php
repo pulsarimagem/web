@@ -329,19 +329,25 @@
 								$found_tribo = "";
 								$found_tribo_val = 0;
 								foreach($comissoes_indios as $tribo => &$total_tribo) {
-									if(stristr($row_OBJCROMOS['ASSUNTO'],$tribo)!==false) {
+									if(matchTribos($row_OBJCROMOS['ASSUNTO'],$tribo)) {
 //										echo "XXXXXXXX $COMISSAO_AUTOR $tribo<br>";
 										$found_tribo = $tribo;
 										$found_tribo_val += $COMISSAO_INDIO;
 										if(!$find)
 											$find = true;
-										else
+										else {
 											$double_find = true;
+// 											echo "XXXXXXXX ".$row_OBJCROMOS['ASSUNTO']."<br> $tribo<br>";
+										} 
 									}
 								}
 								if(!$find) {
 									$comissoes_indios_nenhum += $COMISSAO_INDIO;
 									$contrato_indios_nenhum .= $row_OBJCROMOS['ID_CONTRATO'].", ";
+// 									echo $row_OBJCROMOS['ASSUNTO']."<br>";
+// 									foreach($comissoes_indios as $tribo => &$total_tribo) {
+// 										echo " $tribo ;";
+// 									}
 								} else if($double_find) {
 									$comissoes_indios_dois += $COMISSAO_INDIO;
 									$contrato_indios_dois .= $row_OBJCROMOS['ID_CONTRATO'].", ";

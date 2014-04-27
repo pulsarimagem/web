@@ -96,7 +96,7 @@ class erpMenu {
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Temas", "indexacao_temas.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Palavras-chave", "indexacao_pc.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Edição Videos", "edicao_videos.php", "");
-			$this->menu->child[$i]->child[$j] = new erpMenuElem("Fotos sem Indexação", "fotos_sem_index.php", ""); $j++;
+			$this->menu->child[$i]->child[$j] = new erpMenuElem("Fotos sem Indexação", "fotos_sem_index.php?show=3", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Indexação sem Foto", "index_sem_foto.php", ""); $j++;
 			$i++; $j=0;
 				

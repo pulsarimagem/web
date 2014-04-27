@@ -230,7 +230,7 @@ function get_tribos() {
 
 function getTribos($sig) {
 	$indios = array();
-	$sql = "SELECT GROUP_CONCAT(tribo SEPARATOR ';') AS tribos1, GROUP_CONCAT(sinonimos SEPARATOR ';') as tribos2 FROM indios";
+	$sql = "SELECT GROUP_CONCAT(tribo SEPARATOR ';') AS tribos1, GROUP_CONCAT(sinonimos SEPARATOR ';') as tribos2 FROM (SELECT * FROM indios ORDER BY LENGTH(tribo) DESC) as indios";
 	$obj = mysql_query($sql, $sig) or die(mysql_error());
 	$row = mysql_fetch_array($obj);
 	$tribos_concat = $row['tribos1'].";".$row['tribos2'];
@@ -241,6 +241,17 @@ function getTribos($sig) {
 	return $indios;
 }
 
+function matchTribos($str, $tribo) {
+	if(stristr($str,$tribo)!==false) {
+		if(stristr($str,$tribo."-")!==false)
+			return false;
+		else
+			return true;
+	}
+	else {
+		return false;
+	}
+}
 function mergeTribos(&$tribos, $sig) {
 	$same_tribos = array();
 	$sql = "SELECT tribo, sinonimos FROM indios WHERE sinonimos IS NOT NULL";

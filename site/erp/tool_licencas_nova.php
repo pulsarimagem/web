@@ -9,7 +9,7 @@ $excluir = isset($_GET['excluir'])?true:false;
 $finalizar = isset($_POST['finalizar'])?true:false;
 $atualizar = isset($_POST['atualizar'])?true:false;
 
-$arr_indios = get_tribos();
+$arr_indios = getTribos($sig);
 $has_indios = false;
 $has_normal = false;
 $is_indios = false;

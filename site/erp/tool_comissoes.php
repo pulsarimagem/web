@@ -43,6 +43,7 @@ $totalRows_objRsImposto = mysql_num_rows($objRsImposto);
 
 $total_indio = 0;
 $comissoes_indios = getTribos($sig);// array("Kalapalo" => 0, "Caingangue" => 0, "Bororo" => 0, "Yanomami" => 0, "Kamayurá" => 0, "Xavante" => 0, "Yawalapiti" => 0, "Guarani" => 0, "Kambeba" => 0, "Kolulu" => 0, "Kaingang" => 0);
+// print_r($comissoes_indios);
 $comissoes_indios_nenhum = 0;
 $contrato_indios_nenhum = "";
 $comissoes_indios_dois = 0;
