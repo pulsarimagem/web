@@ -3,6 +3,8 @@ if($siteDebug) {
 	$timeStart = microtime(true);
 }
 
+$_SESSION['back'] = $_SERVER['REQUEST_URI'];
+
 $luis = isset($_GET['soLuis'])?true:false;
 $showVideos = isset($_GET['showVideos'])?true:false;
 $showFotos = isset($_GET['showFotos'])?true:false;

@@ -5,6 +5,8 @@ $contrato_foto_indio = 9;
 
 $retirar = array(".jpg",".JPG");
 
+$_SESSION['back'] = $_SERVER['REQUEST_URI'];
+
 $colname_arquivos = "-1";
 if (isset($_GET['id_login'])) {
 	$colname_arquivos = (get_magic_quotes_gpc()) ? $_GET['id_login'] : addslashes($_GET['id_login']);
