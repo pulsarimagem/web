@@ -1,5 +1,5 @@
 <?php
-$_SESSION['back'] = $_SERVER['REQUEST_URI'];
+$_SESSION['back2'] = $_SERVER['REQUEST_URI'];
 
 $colname_arquivos = "-1";
 if (isset($_GET['id_login']) && $_GET['id_login']!="TODOS") {

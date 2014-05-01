@@ -99,6 +99,9 @@ if($action == "criar") {
 			// echo $sql;
 			$rs = mysql_query($sql, $pulsar) or die(mysql_error());
 		}
+		$query_droptmp = "DROP TABLE IF EXISTS tmp_menu_fotos;";
+		mysql_query($query_droptmp, $pulsar) or die(mysql_error());
+		
 		$msg = "Tema criado com sucesso!";
 	}
 	else 
@@ -121,6 +124,10 @@ else if($action == "del") {
 	$rsDel = mysql_query($sqlDel, $pulsar) or die(mysql_error());
 	$sqlDel = "DELETE FROM lista_temas WHERE id_tema IN ($ids)";
 	$rsDel = mysql_query($sqlDel, $pulsar) or die(mysql_error());
+	
+	$query_droptmp = "DROP TABLE IF EXISTS tmp_menu_fotos;";
+	mysql_query($query_droptmp, $pulsar) or die(mysql_error());
+	
 	$msg = "Tema excluído com sucesso!";
 }
 else if($action == "alterar") {
@@ -148,6 +155,10 @@ else if($action == "alterar") {
 		// echo $sql;
 		$rs = mysql_query($sql, $pulsar) or die(mysql_error());
 	}
+	
+	$query_droptmp = "DROP TABLE IF EXISTS tmp_menu_fotos;";
+	mysql_query($query_droptmp, $pulsar) or die(mysql_error());
+	
 	$msg = "Tema alterado com sucesso!";
 }
 

@@ -35,7 +35,7 @@ $(document).ready(function() {
 
         <div class="row-fluid">
           <div class="span12">
-  			<a class="btn btn-success" href="<?php echo $_SESSION['back']?>">Voltar</a>
+  			<a class="btn btn-success" href="<?php echo $_SESSION['back2']?>">Voltar</a>
 		  </div>
 		</div>
 	  </div>
