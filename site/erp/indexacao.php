@@ -84,7 +84,12 @@
 										   		<option value="<?php echo $row_autor_fotos_tmp_select['id_autor'];?>" <?php if($row_autor_fotos_tmp_select['id_autor'] == $id_autor) echo " SELECTED"?>><?php echo $row_autor_fotos_tmp_select['nome'];?> [<?php echo $row_autor_fotos_tmp_select['total'];?> foto(s)]</option>
 <?php } ?>
 										   	</select>
-										</div>										
+										</div>		
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label"></label>
+									<div class="controls clearfix">
 										<div class="indexSelectFotos span3" <?php if($id_autor=="") echo "style=\"display:none\""?>>
 										   	<select name="tombos[]" id="indexSelectFotos" class="notChosen">
 									   			<option value="nada">--- Tombo ---</option>
@@ -108,10 +113,15 @@
 										 	<select name="autor" id="indexSelectAutorVideos">
 										   		<option>Escolha Autor</option>
 <?php while ($row_autor_videos_tmp_select = mysql_fetch_assoc($autor_videos_tmp_select)){ ?>
-										   		<option value="<?php echo $row_autor_videos_tmp_select['id_autor'];?>" <?php if($row_autor_videos_tmp_select['id_autor'] == $id_autor) echo " SELECTED"?>><?php echo $row_autor_videos_tmp_select['nome'];?> [<?php echo $row_autor_videos_tmp_select['total'];?> foto(s)]</option>
+										   		<option value="<?php echo $row_autor_videos_tmp_select['id_autor'];?>" <?php if($row_autor_videos_tmp_select['id_autor'] == $id_autor) echo " SELECTED"?>><?php echo $row_autor_videos_tmp_select['nome'];?> [<?php echo $row_autor_videos_tmp_select['total'];?> Video(s)]</option>
 <?php } ?>
 										   	</select>
-										</div>												
+										</div>		
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label"></label>
+									<div class="controls clearfix">																				
 										<div class="indexSelectVideos span3" <?php if($id_autor=="") echo "style=\"display:none\""?>>
 										   <select name="tombos[]" id="indexSelectVideos" class="notChosen">
 										   		<option value="nada">--- Tombo ---</option>
@@ -134,12 +144,19 @@
 									<div class="controls">
 										<div class="row-fluid">
 <?php if(!isVideo($colname_dados_foto)) { ?>										
-											<div class="span4">
+											<div class="span12">
 <?php foreach($tombos as $tombo) { ?>											
-												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" style="max-width: 200%" />
+												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" />
 <?php } ?>
 											</div>
-											<div class="span8">
+										</div>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label"></label>
+									<div class="controls">
+										<div class="row-fluid">
+											<div class="span12">
 <?php if(file_exists($fotosalta.$form_tombo.'.jpg')) { ?>											
 												<IFRAME ID=IFrame1 FRAMEBORDER=0 SCROLLING=YES SRC="iptc.php?foto=<?php echo $form_tombo; ?>"></IFRAME>
 <?php } ?>
@@ -147,7 +164,7 @@
 <?php } else { ?>
 											<div class="span4">
 <?php 	foreach ($thumbs as $thumb) {?>	           	
-	     							          	<img src="<?php echo $cloud_server?>Videos/thumbs/<?php echo $thumb?>" onclick="MM_openBrWindow('playervideo.php?tombo=<?php echo $_GET['tombo']; ?>','','resizable=yes,width=640,height=400')"/>
+	     							          	<img src="<?php echo $cloud_server?>Videos/thumbs/<?php echo $thumb?>" onclick="MM_openBrWindow('playervideo.php?tombo=<?php echo $form_tombo; ?>','','resizable=yes,width=640,height=400')"/>
 <?php 	}?>											</div>
 											<div class="span8">
 <?php 	foreach($video_info as $info=>$val) { ?>		
@@ -176,6 +193,14 @@
 										<input type="text" name="tombo" value="<?php echo ($toLoad?$form_tombo:"");?>" disabled="disabled"/>
 										<input type="hidden" name="tombo" value="<?php echo ($toLoad?$form_tombo:"");?>"/>
 <?php }?>						
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Copiar dados</label>
+									<div class="controls clearfix">
+										<input type="text" name="copy_tombo" id="copy_tombo" value="" style="width: 250px"/>
+										<input type="hidden" name="copy_url" id="copy_url" value="<?php echo $_SERVER['REQUEST_URI'];?>"/>
+										<button type="submit" name="action" value="copy_btn" class="btn btn-primary">Copiar</button>
 									</div>
 								</div>
 								<div class="control-group">
@@ -349,10 +374,10 @@ if($multiLoad) {
 <?php 	
 	}										
 } else { ?>
-										<input type="hidden" name="id_fotos[]" value="<?php echo $row_dados_foto['Id_Foto']?>"/>
+										<input type="hidden" name="id_fotos[]" value="<?php echo $idFoto?>"/>
 <?php } ?>										
 										<button type="submit" name="action" value="gravar" class="btn btn-primary">Gravar</button>
-										<a class="btn btn-danger confirmOnclick" href="indexacao.php?action=excluir&id_fotos[]=<?php echo $row_dados_foto['Id_Foto']?>">Excluir</a>
+										<a class="btn btn-danger confirmOnclick" href="indexacao.php?action=excluir&id_fotos[]=<?php echo $idFoto?>">Excluir</a>
 									</div>
 								</div>
 <?php } ?>								
