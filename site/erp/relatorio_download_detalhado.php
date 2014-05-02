@@ -151,18 +151,6 @@ do {
 		}
 	}
 
-  if ($divisor2 == false) {
-    if($row_arquivos['faturado']==0) {
-	  $divisor2 = true;
-	  echo "<br><br><h2> Imagem(ns) N&atilde;o Faturada(s) </h2><br><br>";
-	}
-  }
-  if ($divisor == false) {
-    if($row_arquivos['faturado']==1) {
-	  $divisor = true;
-	  echo "<br><br><h2> Imagem(ns) J&aacute; Faturada(s) </h2><br><br>";
-	}
-  }
 ?>
 <?php 
 $last_download = $this_download;
@@ -192,6 +180,20 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
 
 <form method="post" action="administrativo_licencas_nova.php">
 <?php } ?>
+<?php 
+  if ($divisor2 == false) {
+    if($row_arquivos['faturado']==0) {
+	  $divisor2 = true;
+	  echo "<br><br><h2> Imagem(ns) N&atilde;o Faturada(s) </h2><br><br>";
+	}
+  }
+  if ($divisor == false) {
+    if($row_arquivos['faturado']==1) {
+	  $divisor = true;
+	  echo "<br><br><h2> Imagem(ns) J&aacute; Faturada(s) </h2><br><br>";
+	}
+  }
+?>
     <table class="table table-bordered table-striped">
       <tr>
         <td width="150" rowspan="9" valign="top"><img src="http://www.pulsarimagens.com.br/bancoImagens/<?php

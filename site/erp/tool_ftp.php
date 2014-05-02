@@ -332,19 +332,6 @@ alert("Diretório removido com sucesso!!!");
 		} ;
 
 
-		
-		
-mysql_select_db($database_pulsar, $pulsar);
-$query_diretorios = "SELECT ftp.id_ftp,   cadastro.login, cadastro.empresa,   ftp.id_login, cadastro.nome, cadastro.email FROM cadastro  INNER JOIN ftp ON (cadastro.id_cadastro=ftp.id_login) ORDER BY cadastro.nome";
-$diretorios = mysql_query($query_diretorios, $pulsar) or die(mysql_error());
-$totalRows_diretorios = mysql_num_rows($diretorios);
-
-$sql3="select * from log_download2 where id_login = ".$idLogin." order by id_log desc";
-
-mysql_select_db($database_pulsar, $pulsar);
-$formulario = mysql_query($sql3, $pulsar) or die(mysql_error());
-$row_formulario = mysql_fetch_assoc($formulario);
-$totalRows_formulario = mysql_num_rows($formulario);
 
 mysql_select_db($database_pulsar, $pulsar);
 $query_ftps = "SELECT cadastro.login,   cadastro.id_cadastro,   cadastro.email, cadastro.nome, cadastro.temporario FROM ftp  INNER JOIN cadastro ON (ftp.id_login=cadastro.id_cadastro)";
@@ -427,8 +414,9 @@ if($action == "copiarFoto") {
 			$_POST['observacoes']
 	);
 	mysql_select_db($database_pulsar, $pulsar);
-		echo $insertSQL;
+// 		echo $insertSQL;
 	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+	$msg = "Arquivo incluído com sucesso!";
 
 }
 
@@ -470,7 +458,8 @@ else if($action == "copiarVideo") {
 	mysql_select_db($database_pulsar, $pulsar);
 // 		echo $insertSQL;
 	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-
+	$msg = "Arquivo incluído com sucesso!";
+	
 }
 else if($action == "enviarEmail") {
 
@@ -549,9 +538,49 @@ $headers .= "Return-Path: ".($_POST["responder"])."\n";
 // echo $message;
 
 mail($to,$subject,$message,$headers);
+$msg = "Email enviado com sucesso!";
 }
 ?>
 <?php 
+
+
+mysql_select_db($database_pulsar, $pulsar);
+$query_diretorios = "SELECT ftp.id_ftp,   cadastro.login, cadastro.empresa,   ftp.id_login, cadastro.nome, cadastro.email FROM cadastro  INNER JOIN ftp ON (cadastro.id_cadastro=ftp.id_login) ORDER BY cadastro.nome";
+$diretorios = mysql_query($query_diretorios, $pulsar) or die(mysql_error());
+$totalRows_diretorios = mysql_num_rows($diretorios);
+
+$sql3="select * from log_download2 where id_login = ".$idLogin." order by id_log desc";
+
+mysql_select_db($database_pulsar, $pulsar);
+$formulario = mysql_query($sql3, $pulsar) or die(mysql_error());
+$row_formulario = mysql_fetch_assoc($formulario);
+$totalRows_formulario = mysql_num_rows($formulario);
+
+$queryLastImage = "select * from log_download2 where id_login = ".$idLogin." AND arquivo RLIKE '^[0-9]' order by id_log desc limit 1";
+$rsLastImage = mysql_query($queryLastImage, $sig) or die(mysql_error());
+$totalLastImage = mysql_num_rows($rsLastImage);
+$rowLastImage = mysql_fetch_array($rsLastImage);
+if($totalLastImage > 0) {
+	$queryLastImageUso = "select Id, id_tipo, id_utilizacao, id_tamanho, id_formato, id_distribuicao, id_periodicidade, id_descricao from USO where id = ".$rowLastImage['uso'];
+	mysql_select_db($database_sig, $sig);
+	$rsLastImageUso = mysql_query($queryLastImageUso, $sig) or die(mysql_error());
+	$rowLastImageUso = mysql_fetch_assoc($rsLastImageUso);
+	$totalLastImageUso = mysql_num_rows($rsLastImageUso);
+}
+
+mysql_select_db($database_pulsar, $pulsar);
+$queryLastVideo = "select * from log_download2 where id_login = ".$idLogin." AND arquivo NOT RLIKE '^[0-9]' order by id_log desc limit 1";
+$rsLastVideo = mysql_query($queryLastVideo, $sig) or die(mysql_error());
+$totalLastVideo = mysql_num_rows($rsLastVideo);
+$rowLastVideo = mysql_fetch_array($rsLastVideo);
+
+if($totalLastVideo > 0) {
+	$queryLastVideoUso = "select Id, id_tipo, id_utilizacao, id_tamanho, id_formato, id_distribuicao, id_periodicidade, id_descricao from USO where id = ".$rowLastVideo['uso'];
+	mysql_select_db($database_sig, $sig);
+	$rsLastVideoUso = mysql_query($queryLastVideoUso, $sig) or die(mysql_error());
+	$rowLastVideoUso = mysql_fetch_assoc($rsLastVideoUso);
+	$totalLastVideoUso = mysql_num_rows($rsLastVideoUso);
+}
 
 $colname_arquivos = "-1";
 if ($idLogin!=-1) {
@@ -559,6 +588,7 @@ if ($idLogin!=-1) {
 }
 mysql_select_db($database_pulsar, $pulsar);
 $query_arquivos = sprintf("SELECT * FROM ftp_arquivos WHERE id_ftp = %s ORDER BY nome", $colname_arquivos);
+
 // echo $query_arquivos; 
 $arquivos = mysql_query($query_arquivos, $pulsar) or die(mysql_error());
 $row_arquivos = mysql_fetch_assoc($arquivos);

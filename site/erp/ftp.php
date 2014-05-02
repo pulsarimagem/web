@@ -26,6 +26,12 @@
       <div class="container-fluid">
 
         <div class="row-fluid">
+<?php if(isset($msg) && $msg != "") { ?>
+            <div class="alert alert-success">
+              <?php echo $msg?>
+              <a href="#" data-dismiss="alert" class="close">×</a>
+            </div>
+<?php } ?>   	        
           <form class="form-inline">
             <div class="span7">
               <select class="span10" name="id_login" data-placeholder="usuario">
@@ -36,7 +42,7 @@
   			  </select>	
             </div>
             <div class="span1">
-              <button type="submit" class="btn btn-success">Enviar</button>
+              <button type="submit" class="btn btn-success">Consultar</button>
             </div>
             <div class="span2">
               <a class="btn btn-primary" href="ftp_criar.php">Criar Novo</a>
@@ -52,11 +58,11 @@
             <?php if ($idLogin!=-1) { ?>
           <form class="form-inline" method="post">
 
-	  <input type="button" class="btn btn-success" id="btnFtpCopy" name="Submit6" value="Copiar arquivo de Alta" onClick="MM_openBrWindow('adm_ftp_copy.php?id=<?php echo $idLogin; ?>','','width=800,height=250')">
-	  <input type="button" class="btn btn-primary" id="btnFtpVideo" name="Submit7" value="Copiar Videos" onClick="MM_openBrWindow('adm_ftp_video.php?id=<?php echo $idLogin; ?>','','width=800,height=250')">
+	  <input type="button" class="btn btn-success" id="btnFtpCopy" name="Submit6" value="Copiar arquivo de Alta">
+	  <input type="button" class="btn btn-primary" id="btnFtpVideo" name="Submit7" value="Copiar Videos">
 	  <input <?php if ($totalRows_arquivos > 0) { // Show if recordset not empty ?>disabled <?php } ?>type="submit"  class="btn btn-danger" name="Submit4" value="remover pasta">
       <input name="diretorioxxx" type="hidden" id="diretorioxxx" value="<?php echo $idLogin; ?>">
-      <input type="button" class="btn btn-warning" id="btnFtpEmail" name="Submit5" value="enviar email" onClick="MM_openBrWindow('adm_ftp_email3.php?to=<?php echo $idLogin; ?>','','width=720,height=450')">
+      <input type="button" class="btn btn-warning" id="btnFtpEmail" name="Submit5" value="enviar email">
 		</form>
 		
       </div>
@@ -72,9 +78,19 @@
         <div id="ftpCopy" class="row-fluid" style="display:none">
     	<div class="span12">
 
-    	
+<?php 
+$MMColParam_dados_foto = "12SDM000";
+$sufix = "F";
+$rowUso = $rowLastImageUso;
+?>    	
 <form id="form1" name="form1" method="post">
-  <table width="500" border="0" cellspacing="0" cellpadding="0">
+<?php if ($totalLastImageUso > 0) { ?>
+    <tr>
+		<td></td>
+	  	<td><input name="" type="button" value="Copiar dados do ultimo arquivo salvo" class="button" onclick="copiar<?php echo $sufix?>();"/></td>
+    </tr>
+<?php } ?>
+   <table width="500" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td><span class="style14">Codigo:</span></td>
       <td><input name="tombo" type="text" id="tombo" size="60" /></td>
@@ -82,22 +98,18 @@
     <tr>
       <td><span class="style14">Validade: </span></td>
       <td><span class="style14">
-        <input name="validade" type="text" id="validade" size="7" /> dias</span></td>
+        <input name="validade" type="text" id="validade" size="7" value="<?php echo (isset($_POST['validade'])?$_POST['validade']:"");?>"/> dias</span></td>
     </tr>
     <tr>
       <td><span class="style14">Observa&ccedil;&otilde;es: </span></td>
-      <td><input name="observacoes" type="text" id="observacoes" size="60" /></td>
+      <td><input name="observacoes" type="text" id="observacoes" size="60" value="<?php echo (isset($_POST['observacoes'])?$_POST['observacoes']:"");?>"/></td>
     </tr>
     <tr>
-    
                         <label>* Título do livro/projeto:</label>
-	                    <input id="titulo" name="titulo" type="text" class="titulo<?php if($titulo_error) echo " error"?>" value="<?php echo $titulo?>" size="" />
-	                    <input id="titulo_ant" name="titulo_ant" type="hidden" value="<?php echo $row_formulario['projeto']; ?>"/>
+	                    <input id="titulo<?php echo $sufix?>" name="titulo" type="text" class="titulo<?php if($titulo_error) echo " error"?>" value="<?php echo $titulo?>" size="" />
+	                    <input id="titulo_ant<?php echo $sufix?>" name="titulo_ant" type="hidden" value="<?php echo $rowLastImage['projeto']; ?>"/>
 
-<?php 
-$MMColParam_dados_foto = "12SDM000";
-$sufix = "F";
-include("part_form_uso.php");?>
+<?php include("part_form_uso.php");?>
     <tr>
       <td>&nbsp;</td>
       <td><input name="diretorio" type="hidden" id="diretorio" value="<?php echo $idLogin?>" /></td>
@@ -120,7 +132,18 @@ include("part_form_uso.php");?>
         <div id="ftpVideo" class="row-fluid" style="display:none">
     	<div class="span12">
 
+<?php 
+$MMColParam_dados_foto = "SDM120000";
+$sufix = "V";
+$rowUso = $rowLastVideoUso;
+?>    	
 <form id="form1" name="form1" method="post">
+<?php if ($totalLastVideoUso > 0) { ?>
+    <tr>
+		<td></td>
+	  	<td><input name="" type="button" value="Copiar dados do ultimo arquivo salvo" class="button" onclick="copiar<?php echo $sufix?>();"/></td>
+    </tr>
+<?php } ?>
   <table width="500" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td><span class="style14">Codigo:</span></td>
@@ -129,22 +152,19 @@ include("part_form_uso.php");?>
     <tr>
       <td><span class="style14">Validade: </span></td>
       <td><span class="style14">
-        <input name="validade" type="text" id="validade" size="7" /> dias</span></td>
+        <input name="validade" type="text" id="validade" size="7" value="<?php echo (isset($_POST['validade'])?$_POST['validade']:"");?>"/> dias</span></td>
     </tr>
     <tr>
       <td><span class="style14">Observa&ccedil;&otilde;es: </span></td>
-      <td><input name="observacoes" type="text" id="observacoes" size="60" /></td>
+      <td><input name="observacoes" type="text" id="observacoes" size="60" value="<?php echo (isset($_POST['observacoes'])?$_POST['observacoes']:"");?>"/></td>
     </tr>
     <tr>
     
                         <label>* Título do livro/projeto:</label>
-	                    <input id="titulo" name="titulo" type="text" class="titulo<?php if($titulo_error) echo " error"?>" value="<?php echo $titulo?>" size="" />
-	                    <input id="titulo_ant" name="titulo_ant" type="hidden" value="<?php echo $row_formulario['projeto']; ?>"/>
+	                    <input id="titulo<?php echo $sufix?>" name="titulo" type="text" class="titulo<?php if($titulo_error) echo " error"?>" value="<?php echo $titulo?>" size="" />
+	                    <input id="titulo_ant<?php echo $sufix?>" name="titulo_ant" type="hidden" value="<?php echo $row_formulario['projeto']; ?>"/>
 
-<?php 
-$MMColParam_dados_foto = "SDM120000";
-$sufix = "V";
-include("part_form_uso.php");?>
+<?php include("part_form_uso.php");?>
     <tr>
       <td>&nbsp;</td>
       <td><input name="diretorio" type="hidden" id="diretorio" value="<?php echo $idLogin?>" /></td>
@@ -281,79 +301,79 @@ include("part_form_uso.php");?>
 	<div class="row-fluid">
 	<form name="upload" action="adm_ftp2.php" method="post" enctype="multipart/form-data" >
     <div class="span12">
-	<table>
-        <tr>
-          <td>
-          	<table class="table table-bordered table-striped">
-            <tr>
-              <td colspan="2">Arquivo1: <input name="arquivo1" type="file" id="arquivo1" size="60"></td>
-            </tr>
-            <tr>
-              <td>Validade: <input name="validade1" type="text" id="validade1" value="15" size="5"><span> dias </span></td>
-              <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes1" type="text" id="observacoes1" value="" size="60"></td>
-            </tr>
-          	</table>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          	<table class="table table-bordered table-striped">
-            <tr>
-              <td colspan="2">Arquivo2: <input name="arquivo2" type="file" id="arquivo2" size="60"></td>
-            </tr>
-            <tr>
-              <td>Validade: <input name="validade2" type="text" id="validade2" value="15" size="5"><span> dias </span></td>
-              <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes2" type="text" id="observacoes2" value="" size="60"></td>
-            </tr>
-          	</table>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          	<table class="table table-bordered table-striped">
-            <tr>
-              <td colspan="2">Arquivo3: <input name="arquivo3" type="file" id="arquivo3" size="60"></td>
-            </tr>
-            <tr>
-              <td>Validade: <input name="validade3" type="text" id="validade3" value="15" size="5"><span> dias </span></td>
-              <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes3" type="text" id="observacoes3" value="" size="60"></td>
-            </tr>
-          	</table>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          	<table class="table table-bordered table-striped">
-            <tr>
-              <td colspan="2">Arquivo4: <input name="arquivo4" type="file" id="arquivo4" size="60"></td>
-            </tr>
-            <tr>
-              <td>Validade: <input name="validade4" type="text" id="validade4" value="15" size="5"><span> dias </span></td>
-              <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes4" type="text" id="observacoes4" value="" size="60"></td>
-            </tr>
-          	</table>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          	<table class="table table-bordered table-striped">
-            <tr>
-              <td colspan="2">Arquivo5: <input name="arquivo5" type="file" id="arquivo5" size="60"></td>
-            </tr>
-            <tr>
-              <td>Validade: <input name="validade5" type="text" id="validade5" value="15" size="5"><span> dias </span></td>
-              <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes5" type="text" id="observacoes5" value="" size="60"></td>
-            </tr>
-          	</table>
-          </td>
-        </tr>
-        <tr>
-          <td><div align="center">
+<!-- 	<table> -->
+<!--         <tr> -->
+<!--           <td> -->
+<!--           	<table class="table table-bordered table-striped"> -->
+<!--             <tr> -->
+<!--               <td colspan="2">Arquivo1: <input name="arquivo1" type="file" id="arquivo1" size="60"></td> -->
+<!--             </tr> -->
+<!--             <tr> -->
+<!--               <td>Validade: <input name="validade1" type="text" id="validade1" value="15" size="5"><span> dias </span></td> -->
+<!--               <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes1" type="text" id="observacoes1" value="" size="60"></td> -->
+<!--             </tr> -->
+<!--           	</table> -->
+<!--           </td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--           <td> -->
+<!--           	<table class="table table-bordered table-striped"> -->
+<!--             <tr> -->
+<!--               <td colspan="2">Arquivo2: <input name="arquivo2" type="file" id="arquivo2" size="60"></td> -->
+<!--             </tr> -->
+<!--             <tr> -->
+<!--               <td>Validade: <input name="validade2" type="text" id="validade2" value="15" size="5"><span> dias </span></td> -->
+<!--               <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes2" type="text" id="observacoes2" value="" size="60"></td> -->
+<!--             </tr> -->
+<!--           	</table> -->
+<!--           </td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--           <td> -->
+<!--           	<table class="table table-bordered table-striped"> -->
+<!--             <tr> -->
+<!--               <td colspan="2">Arquivo3: <input name="arquivo3" type="file" id="arquivo3" size="60"></td> -->
+<!--             </tr> -->
+<!--             <tr> -->
+<!--               <td>Validade: <input name="validade3" type="text" id="validade3" value="15" size="5"><span> dias </span></td> -->
+<!--               <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes3" type="text" id="observacoes3" value="" size="60"></td> -->
+<!--             </tr> -->
+<!--           	</table> -->
+<!--           </td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--           <td> -->
+<!--           	<table class="table table-bordered table-striped"> -->
+<!--             <tr> -->
+<!--               <td colspan="2">Arquivo4: <input name="arquivo4" type="file" id="arquivo4" size="60"></td> -->
+<!--             </tr> -->
+<!--             <tr> -->
+<!--               <td>Validade: <input name="validade4" type="text" id="validade4" value="15" size="5"><span> dias </span></td> -->
+<!--               <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes4" type="text" id="observacoes4" value="" size="60"></td> -->
+<!--             </tr> -->
+<!--           	</table> -->
+<!--           </td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--           <td> -->
+<!--           	<table class="table table-bordered table-striped"> -->
+<!--             <tr> -->
+<!--               <td colspan="2">Arquivo5: <input name="arquivo5" type="file" id="arquivo5" size="60"></td> -->
+<!--             </tr> -->
+<!--             <tr> -->
+<!--               <td>Validade: <input name="validade5" type="text" id="validade5" value="15" size="5"><span> dias </span></td> -->
+<!--               <td valign="top">Observa&ccedil;&otilde;es: <input name="observacoes5" type="text" id="observacoes5" value="" size="60"></td> -->
+<!--             </tr> -->
+<!--           	</table> -->
+<!--           </td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--           <td><div align="center"> -->
             <input name="id_login" type="hidden" id="id_login" value="<?php echo $idLogin; ?>">
-            <input type="submit" class="btn btn-success" name="enviar" value="Upload!">
-          </div></td>
-        </tr>
-      </table>
+<!--             <input type="submit" class="btn btn-success" name="enviar" value="Upload!"> -->
+<!--           </div></td> -->
+<!--         </tr> -->
+<!--       </table> -->
 	  <br>
 <?php }; ?>
 	  

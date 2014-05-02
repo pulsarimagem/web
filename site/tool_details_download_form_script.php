@@ -194,17 +194,6 @@ function check_select(select_id) {
 function copiar() {
 	document.getElementById('usuario').value = document.getElementById('usuario_ant').value;
 	document.getElementById('titulo').value = document.getElementById('titulo_ant').value;
-//	$.when(update_utilizacao(document.getElementById('tipo_ant').value, document.getElementById('utilizacao_ant').value)).done(function() {
-//		$.when(update_formato(document.getElementById('utilizacao_ant').value, document.getElementById('formato_ant').value)).done(function() {
-//			$.when(update_distribuicao(document.getElementById('formato_ant').value, document.getElementById('distribuicao_ant').value)).done(function() {
-//				$.when(update_periodicidade(document.getElementById('distribuicao_ant').value, document.getElementById('periodicidade_ant').value)).done(function() {
-//					$.when(update_tamanho(document.getElementById('periodicidade_ant').value, document.getElementById('tamanho_ant').value	)).done(function() {
-//						update_uso(document.getElementById('tamanho_ant').value);				
-//					});
-//				});
-//			});
-//		});
-//	});
 
 	var idTipo = document.getElementById('tipo_ant').value;
 	var idUtilizacao = document.getElementById('utilizacao_ant').value;
@@ -229,6 +218,35 @@ function copiar() {
 	document.getElementById('tamanho').value = document.getElementById('tamanho_ant').value;
 	
 	document.getElementById('obs').value = document.getElementById('obs_ant').value;
+};
+
+function copiar<?php echo $sufix?>() {
+	document.getElementById('usuario').value = document.getElementById('usuario_ant').value;
+	document.getElementById('titulo<?php echo $sufix?>').value = document.getElementById('titulo_ant<?php echo $sufix?>').value;
+
+	var idTipo = document.getElementById('tipo_ant<?php echo $sufix?>').value;
+	var idUtilizacao = document.getElementById('utilizacao_ant<?php echo $sufix?>').value;
+	var idFormato = document.getElementById('formato_ant<?php echo $sufix?>').value;
+	var idDistribuicao = document.getElementById('distribuicao_ant<?php echo $sufix?>').value;
+	var idPeriodicidade = document.getElementById('periodicidade_ant<?php echo $sufix?>').value;
+	var idTamanho = document.getElementById('tamanho_ant<?php echo $sufix?>').value;
+	var idUso = document.getElementById('uso_ant<?php echo $sufix?>').value;
+
+	update_utilizacao<?php echo $sufix?>(idTipo, idUtilizacao);
+	update_formato<?php echo $sufix?>(idTipo, idUtilizacao, idFormato);
+	update_distribuicao<?php echo $sufix?>(idTipo, idUtilizacao, idFormato, idDistribuicao);
+	update_periodicidade<?php echo $sufix?>(idTipo, idUtilizacao, idFormato, idDistribuicao, idPeriodicidade);
+	update_tamanho<?php echo $sufix?>(idTipo, idUtilizacao, idFormato, idDistribuicao, idPeriodicidade, idTamanho);
+	update_descricao<?php echo $sufix?>(idUso);		
+	
+	document.getElementById('tipo<?php echo $sufix?>').value = document.getElementById('tipo_ant<?php echo $sufix?>').value;
+	document.getElementById('utilizacao<?php echo $sufix?>').value = document.getElementById('utilizacao_ant<?php echo $sufix?>').value;
+	document.getElementById('formato<?php echo $sufix?>').value = document.getElementById('formato_ant<?php echo $sufix?>').value;
+	document.getElementById('distribuicao<?php echo $sufix?>').value = document.getElementById('distribuicao_ant<?php echo $sufix?>').value;
+	document.getElementById('periodicidade<?php echo $sufix?>').value = document.getElementById('periodicidade_ant<?php echo $sufix?>').value;
+	document.getElementById('tamanho<?php echo $sufix?>').value = document.getElementById('tamanho_ant<?php echo $sufix?>').value;
+	
+	document.getElementById('obs<?php echo $sufix?>').value = document.getElementById('obs_ant<?php echo $sufix?>').value;
 };
 
 

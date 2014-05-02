@@ -38,7 +38,7 @@ else if($novoIntegra) {
 		$id_contato = "NULL";
 	$idContratoDesc = $_POST['contrato_desc'];
 	$descricao = $_POST['descricao'];
-	$strSQL = "INSERT INTO CONTRATOS (DATA, ID_CONTRATO_DESC, ID_CLIENTE, ID_CONTATO, DESCRICAO, id_owner) values (NOW(),$idContratoDesc,$id_cliente,$id_contato,'$descricao',".$row_login['id'].")";
+	$strSQL = "INSERT INTO CONTRATOS (DATA, ID_CONTRATO_DESC, ID_CLIENTE, ID_CONTATO, DESCRICAO, id_owner) values (NOW(),$idContratoDesc,$id_cliente,$id_contato,'".mysql_real_escape_string($descricao)."',".$row_login['id'].")";
 	if($siteDebug)
 		echo $strSQL;
 	$objRS = mysql_query($strSQL, $sig) or die(mysql_error());
@@ -53,7 +53,7 @@ else if($novoIntegra) {
 		$query = "SELECT * FROM log_download2 WHERE id_log = ".$fat;
 		$doQuery = mysql_query($query, $pulsar) or die(mysql_error());
 		$row_query = mysql_fetch_assoc($doQuery);
-		$query = "UPDATE log_download2 SET faturado=1 WHERE arquivo LIKE '".$row_query['arquivo']."' AND EXTRACT(DAY FROM data_hora) = EXTRACT(DAY FROM '".$row_query['data_hora']."') AND projeto LIKE '".$row_query['projeto']."' AND id_login = ".$row_query['id_login'];
+		$query = "UPDATE log_download2 SET faturado=1 WHERE arquivo LIKE '".$row_query['arquivo']."' AND EXTRACT(DAY FROM data_hora) = EXTRACT(DAY FROM '".$row_query['data_hora']."') AND projeto LIKE '".mysql_real_escape_string($row_query['projeto'])."' AND id_login = ".$row_query['id_login'];
 		$doQuery = mysql_query($query, $pulsar) or die(mysql_error());
 		mysql_select_db($database_sig, $sig);
 	}
