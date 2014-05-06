@@ -33,6 +33,10 @@ if($novo) {
 else if($novoIntegra) { 
 //	$id_cliente	= $_GET['id_cliente'];	
 	$id_cliente	= $_POST['id_cliente_sig'];	
+	if($id_cliente == "") {
+		header("location: ".$_SESSION['back']."&error=Selecione cliente SIG antes de Gerar LR!");
+		die();
+	}
 	$id_contato = $_POST['qcontato'];	
 	if($id_contato == "")
 		$id_contato = "NULL";

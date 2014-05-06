@@ -72,27 +72,27 @@
 		        <div class="span2">
 		        	Padrão:
 	                <input type="radio" name="padrao" <?php if ($editar && (ord($row_objId['padrao']) == 0 || ord($row_objId['padrao']) == 48)) { echo "checked"; } ?> value="0"/>Não
-	                <input type="radio" name="padrao" <?php if ($editar && (ord($row_objId['padrao']) == 1 || ord($row_objId['padrao']) == 49)) { echo "checked"; } else { echo "checked";}?> value="1"/>Sim
+	                <input type="radio" name="padrao" <?php if ($editar && (ord($row_objId['padrao']) == 1 || ord($row_objId['padrao']) == 49)) { echo "checked"; } else if(!$editar) { echo "checked";}?> value="1"/>Sim
 		        </div>
 		        <div class="span3">
 		        	Assinatura Digital:
 	                <input type="radio" name="assinatura" <?php if ($editar && (ord($row_objId['assinatura']) == 0 || ord($row_objId['assinatura']) == 48)) { echo "checked"; } ?> value="0"/>Não
-	                <input type="radio" name="assinatura" <?php if ($editar && (ord($row_objId['assinatura']) == 1 || ord($row_objId['assinatura']) == 49)) { echo "checked"; } else { echo "checked";}?> value="1"/>Sim
+	                <input type="radio" name="assinatura" <?php if ($editar && (ord($row_objId['assinatura']) == 1 || ord($row_objId['assinatura']) == 49)) { echo "checked"; } else if(!$editar) { echo "checked";}?> value="1"/>Sim
 		        </div>
 		        <div class="span2">
 		        	Indio:
-	                <input type="radio" name="indio" <?php if ($editar && (ord($row_objId['indio']) == 0 || ord($row_objId['indio']) == 48)) { echo "checked"; } else { echo "checked";}?> value="0"/>Não
+	                <input type="radio" name="indio" <?php if ($editar && (ord($row_objId['indio']) == 0 || ord($row_objId['indio']) == 48)) { echo "checked"; } else if(!$editar) { echo "checked";}?> value="0"/>Não
 	                <input type="radio" name="indio" <?php if ($editar && (ord($row_objId['indio']) == 1 || ord($row_objId['indio']) == 49)) { echo "checked"; } ?> value="1"/>Sim
 		        </div>
 		        <div class="span2">
 		        	Tipo:
-	                <input type="radio" name="tipo" <?php if ($editar && ($row_objId['tipo'] == "F")) { echo "checked"; } else { echo "checked";}?> value="F"/>Foto
+	                <input type="radio" name="tipo" <?php if ($editar && ($row_objId['tipo'] == "F")) { echo "checked"; } else if(!$editar) { echo "checked";}?> value="F"/>Foto
 	                <input type="radio" name="tipo" <?php if ($editar && ($row_objId['tipo'] == "V")) { echo "checked"; } ?> value="V"/>Video
 		        </div>
 		        <div class="span2">
 		        	Habilitado:
 	                <input type="radio" name="status" <?php if ($editar && (ord($row_objId['status']) == 0 || ord($row_objId['status']) == 48)) { echo "checked"; } ?> value="0"/>Não
-	                <input type="radio" name="status" <?php if ($editar && (ord($row_objId['status']) == 1 || ord($row_objId['status']) == 49)) { echo "checked"; } else { echo "checked";}?> value="1"/>Sim
+	                <input type="radio" name="status" <?php if ($editar && (ord($row_objId['status']) == 1 || ord($row_objId['status']) == 49)) { echo "checked"; } else if(!$editar) { echo "checked";}?> value="1"/>Sim
 		        </div>
 		    </div>
       		<div class="row-fluid novoContrato">

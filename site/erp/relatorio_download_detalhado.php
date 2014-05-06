@@ -32,7 +32,18 @@ $(document).ready(function() {
         <a href="#" class="current">Relatórios</a>
       </div>
       <div class="container-fluid">
-
+<?php if(isset($msg) && $msg != "") { ?>
+            <div class="alert alert-success">
+              <?php echo $msg?>
+              <a href="#" data-dismiss="alert" class="close">×</a>
+            </div>
+<?php } ?>        
+<?php if(isset($error) && $error != "") { ?>
+            <div class="alert alert-error">
+              <?php echo $error?>
+              <a href="#" data-dismiss="alert" class="close">×</a>
+            </div>
+<?php } ?> 
         <div class="row-fluid">
           <div class="span12">
   			<a class="btn btn-success" href="<?php echo $_SESSION['back2']?>">Voltar</a>

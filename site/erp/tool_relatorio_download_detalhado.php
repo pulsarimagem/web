@@ -7,6 +7,13 @@ $retirar = array(".jpg",".JPG");
 
 $_SESSION['back'] = $_SERVER['REQUEST_URI'];
 
+if(isset($_GET['msg'])) {
+	$msg = $_GET['msg'];
+}
+if(isset($_GET['error'])) {
+	$error = $_GET['error'];
+}
+
 $colname_arquivos = "-1";
 if (isset($_GET['id_login'])) {
 	$colname_arquivos = (get_magic_quotes_gpc()) ? $_GET['id_login'] : addslashes($_GET['id_login']);

@@ -14,10 +14,14 @@ if ($action == 'incluir') {
 // if (isset($_POST['inclui']) ) {    
 //print_r($_POST);
 //echo "<br>";
-	$sqlInsere = "insert into CONTRATOS_DESC(titulo,condicoes,padrao,assinatura, indio, status, tipo) values('" . $_POST['txtTitulo'] . "' , '" . str_ireplace("'", "''", $_POST['FCKeditor1']) . "' ," . $_POST['padrao'] . " ," . $_POST['assinatura'] . " ," . $_POST['indio'] . " ," . $_POST['status'] . ",'" . $_POST['tipo'] . "')";
-// echo $sqlInsere;
+	$sqlInsere = "insert into CONTRATOS_DESC (titulo,condicoes,padrao,assinatura, indio, status, tipo) values('" . $_POST['txtTitulo'] . "' , '" . str_ireplace("'", "''", $_POST['FCKeditor1']) . "' ," . $_POST['padrao'] . " ," . $_POST['assinatura'] . " ," . $_POST['indio'] . " ," . $_POST['status'] . ",'" . $_POST['tipo'] . "')";
+ echo $sqlInsere."<br>";
 	$rs = mysql_query($sqlInsere, $sig) or die(mysql_error());
 	$id_gravar = mysql_insert_id($rs);
+	$sql = "SELECT LAST_INSERT_ID() as id";
+	$rs = mysql_query($sql, $sig) or die(mysql_error());
+	$row = mysql_fetch_array($rs);
+	$id_gravar = $row['id'];
     $clientes = $_POST['clientes'];
 	foreach ($clientes as $cliente) {
 		$sqlInsert = "INSERT INTO rel_contratosdesc_clientes (id_contratodesc, id_cliente) VALUES ($id_gravar,$cliente)";
