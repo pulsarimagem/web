@@ -1,6 +1,7 @@
 <?php include('video_toolkit.php')?>
 <?php
-require_once('excel_reader2.php');
+// require_once('excel_reader2.php');
+require_once('PHPExcel.php');
 
 $load_file = false;
 $insert_cnt = 0;
@@ -15,34 +16,47 @@ $debug = "";
 if(isset($_FILES['excel']) && $_FILES['excel']['type']=="application/vnd.ms-excel")
 	$load_file = true;
 
+// $load_file = true;
+
 if($load_file) {
-	$planilha = new Spreadsheet_Excel_Reader($_FILES['excel']['tmp_name']);
-	$excel_row = $planilha->rowcount();
-	$excel_col = $planilha->colcount();
+	$inputFileName = $_FILES['excel']['tmp_name'];
+//  	$inputFileName = "C:/videos6.xls";
+	/**  Identify the type of $inputFileName  **/
+	$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+	/**  Create a new Reader of the type that has been identified  **/
+	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+	/**  Load $inputFileName to a PHPExcel Object  **/
+// 	$objReader->setReadDataOnly(true);
+	$objPHPExcel = $objReader->load($inputFileName);
+	$planilha = $objPHPExcel->getActiveSheet();
+	
+	$excel_row = $planilha->getHighestRow();
+	$excel_col = $planilha->getHighestColumn();
 	
 	$debug .= "Row: $excel_row<br> Column: $excel_col<br>";
 	
 	for($row = 2; $row <= $excel_row; $row++) {
 		$rowcnt = 1;
-		$filename = $planilha->val($row,$rowcnt++);
+		$filename = utf8_decode($planilha->getCellByColumnAndRow(0,$row)->getValue());
 		$tombo = generate_codigo($inicial,$filename,$pulsar);
 		if($filename != "") {		
 			$lista_files[$filename] = $tombo;
-			$assunto = $planilha->val($row,$rowcnt++);
-			$extra = $planilha->val($row,$rowcnt++);
+			$assunto = utf8_decode($planilha->getCellByColumnAndRow(1,$row)->getValue());
+			$extra = utf8_decode($planilha->getCellByColumnAndRow(2,$row)->getValue());
 		//	$rowcnt++;
-			$data_obj = DateTime::createFromFormat($planilha->format($row,$rowcnt), $planilha->val($row,$rowcnt++));
-			$data = $data_obj->format("Ym");
+			$data = PHPExcel_Style_NumberFormat::toFormattedString($planilha->getCellByColumnAndRow(3,$row)->getValue(),'YYYYMM' );
+//			$data_obj = DateTime::createFromFormat("YYYY-MM",PHPExcel_Style_NumberFormat::toFormattedString($planilha->getCellByColumnAndRow(3,$row),'YYYY-MM')); 
+//			$data = $data_obj->format("Ym");
 		//	echo "**".$data_obj->format("m/Y")."<br>";
-			$cidade = $planilha->val($row,$rowcnt++);
+			$cidade = utf8_decode($planilha->getCellByColumnAndRow(4,$row)->getValue());
 			
-			$estado = $planilha->val($row,$rowcnt++);
+			$estado = utf8_decode($planilha->getCellByColumnAndRow(5,$row)->getValue());
 			$query_select_estado = sprintf("SELECT * FROM Estados WHERE Sigla like '%s'", $estado);
 			$select_estado = mysql_query($query_select_estado, $pulsar) or die(mysql_error());
 			$row_select_estado = mysql_fetch_assoc($select_estado);
 			$id_estado = $row_select_estado['id_estado'];
 			
-			$pais = $planilha->val($row,$rowcnt++);
+			$pais = utf8_decode($planilha->getCellByColumnAndRow(6,$row)->getValue());
 			$query_select_pais = sprintf("SELECT * FROM paises WHERE nome like '%s'", $pais);
 			$select_pais = mysql_query($query_select_pais, $pulsar) or die(mysql_error());
 			$row_select_pais = mysql_fetch_assoc($select_pais);
@@ -50,8 +64,8 @@ if($load_file) {
 			
 			
 	//		$rowcnt++; //temas
-			$descritores = $planilha->val($row,$rowcnt++);
-			$descritores .= ";".$planilha->val($row,$rowcnt++);
+			$descritores = utf8_decode($planilha->getCellByColumnAndRow(7,$row)->getValue());
+			$descritores .= ";".utf8_decode($planilha->getCellByColumnAndRow(8,$row)->getValue());
 		//}
 		
 		// INSERIR NA TABELA FOTO
@@ -112,7 +126,7 @@ if($load_file) {
 			$data = file_get_contents($cloud_server.'move_video.php?user='.$user.'&tombo='.$filename.'&codigo='.$tombo);
 			
 			$debug .= "Data: $data<br>";
-			
+
 	//		$data = curl_request_async($cloud_server.'create_thumbs.php', $param, "GET");
 	//		$data = curl_request_async($cloud_server.'create_video_thumbpop.php', $param, "GET");
 	//		$data = curl_request_async($cloud_server.'copy_thumbs.php', $param, "GET");

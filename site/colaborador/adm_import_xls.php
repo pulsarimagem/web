@@ -43,7 +43,7 @@ if($load_file) {
 //	echo $planilha->dump(true,true);
 	echo $print_report;
 	
-	$debug .= "<br><br> ** Dump ** <br>".$planilha->dump(true,true)."<br>";
+	$debug .= "<br><br> ** Dump ** <br>".utf8_decode(var_export($planilha->toArray(null,true,true,true),true))."<br>";
 	
 // 	echo $debug;
 	
@@ -80,6 +80,8 @@ if($load_file) {
 	$headers .= "bcc: ".$fullcc."\n";
 	
 	mail($to,$subject,$message,$headers);
+	
+// 	echo $message;
 }
 ?>
 				<div class="clear"></div>
