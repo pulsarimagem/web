@@ -143,15 +143,15 @@ $Result2 = mysql_query($deleteextraSQL, $pulsar) or die(mysql_error());
                        GetSQLValueString($_POST['extra'], "text"),
                        GetSQLValueString($_POST['tombo'], "text"));
 	*/
-if($_POST['extra'] != "") {
+// if($_POST['extra'] != "") {
 
-$updateextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
-                       GetSQLValueString($_POST['tombo'], "text"),
-                       GetSQLValueString($_POST['extra'], "text"));
+// $updateextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
+//                        GetSQLValueString($_POST['tombo'], "text"),
+//                        GetSQLValueString($_POST['extra'], "text"));
 
-mysql_select_db($database_pulsar, $pulsar);
-$Result3 = mysql_query($updateextraSQL, $pulsar) or die(mysql_error());
-}
+// mysql_select_db($database_pulsar, $pulsar);
+// $Result3 = mysql_query($updateextraSQL, $pulsar) or die(mysql_error());
+// }
 /*
   $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
                        GetSQLValueString($_POST['tombo'], "text"),

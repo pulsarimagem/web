@@ -762,11 +762,10 @@ class pesquisaPulsar {
 					  Fotos.data_foto,
 					  Fotos.dim_a,
 					  Fotos.dim_b,
-					  Fotos_extra.extra,
+					  Fotos.extra,
 					  videos_extra.resolucao
 					  FROM $this->lastTmp as tmp 
 					  LEFT JOIN Fotos ON tmp.Id_Foto = Fotos.Id_Foto
-					  LEFT JOIN Fotos_extra ON Fotos.tombo = Fotos_extra.tombo
 					  LEFT JOIN videos_extra ON Fotos.tombo = videos_extra.tombo
 					  LEFT JOIN Estados ON Fotos.id_estado = Estados.id_estado
 					  LEFT JOIN paises ON Fotos.id_pais = paises.id_pais
@@ -849,10 +848,9 @@ class pesquisaPulsar {
 			Fotos.dim_a,
 			Fotos.dim_b,
 			Fotos.direito_img,
-			Fotos_extra.extra,
+			Fotos.extra,
 			videos_extra.resolucao
 			FROM Fotos
-			LEFT JOIN Fotos_extra ON Fotos.tombo = Fotos_extra.tombo
 			LEFT JOIN videos_extra ON Fotos.tombo = videos_extra.tombo
 			LEFT JOIN Estados ON Fotos.id_estado = Estados.id_estado
 			LEFT JOIN paises ON Fotos.id_pais = paises.id_pais

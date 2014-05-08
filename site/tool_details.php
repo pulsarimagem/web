@@ -98,11 +98,11 @@ if($row_dados_foto['dim_a'] == "") {
 }
 $isVideo = isVideo($row_dados_foto['tombo']);
 
-mysql_select_db($database_pulsar, $pulsar);
-$query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $MMColParam_dados_foto);
-$extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
-$row_extra_foto = mysql_fetch_assoc($extra_foto);
-$totalRows_extra_foto = mysql_num_rows($extra_foto);
+// mysql_select_db($database_pulsar, $pulsar);
+// $query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $MMColParam_dados_foto);
+// $extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
+// $row_extra_foto = mysql_fetch_assoc($extra_foto);
+// $totalRows_extra_foto = mysql_num_rows($extra_foto);
 
 $query_extra_video = sprintf("SELECT * FROM videos_extra WHERE tombo = '%s'", $MMColParam_dados_foto);
 $extra_video = mysql_query($query_extra_video, $pulsar) or die(mysql_error());

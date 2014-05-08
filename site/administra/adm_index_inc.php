@@ -133,14 +133,14 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 
   $Ultimo_Id = mysql_insert_id();
   
-  if($_POST['extra'] != "") {
-	  $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
-	                       GetSQLValueString($_POST['tombo'], "text"),
-	                       GetSQLValueString($_POST['extra'], "text"));
+//   if($_POST['extra'] != "") {
+// 	  $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
+// 	                       GetSQLValueString($_POST['tombo'], "text"),
+// 	                       GetSQLValueString($_POST['extra'], "text"));
 	
-	  mysql_select_db($database_pulsar, $pulsar);
-	  $Result2 = mysql_query($insertextraSQL, $pulsar) or die(mysql_error());
-  }
+// 	  mysql_select_db($database_pulsar, $pulsar);
+// 	  $Result2 = mysql_query($insertextraSQL, $pulsar) or die(mysql_error());
+//   }
   
   
   
