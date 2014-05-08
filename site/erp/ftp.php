@@ -92,7 +92,7 @@ $rowUso = $rowLastImageUso;
 <?php } ?>
    <table width="500" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td><span class="style14">Codigo:</span></td>
+      <td><span class="style14">Codigos:</span></td>
       <td><input name="tombo" type="text" id="tombo" size="60" /></td>
     </tr>
     <tr>
@@ -146,7 +146,7 @@ $rowUso = $rowLastVideoUso;
 <?php } ?>
   <table width="500" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td><span class="style14">Codigo:</span></td>
+      <td><span class="style14">Codigos:</span></td>
       <td><input name="tombo" type="text" id="tombo" size="60" /></td>
     </tr>
     <tr>

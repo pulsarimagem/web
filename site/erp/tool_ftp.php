@@ -3,6 +3,8 @@ $idLogin = -1;
 $idLogin = isset($_GET['id_login'])?$_GET['id_login']:$idLogin;
 $idLogin = isset($_POST['id_login'])?$_POST['id_login']:$idLogin;
 
+$msg = "";
+
 if (isset($_POST['MM_Del'])) {
 unlink($homeftp.$idLogin."/".$_POST['arquivo']);
 $deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
@@ -12,205 +14,6 @@ $deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
 mysql_select_db($database_pulsar, $pulsar);
 $Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
 }
-
-// Incluir Arquivos 1
-
-/* Defina aqui o tamanho mï¿½ximo do arquivo em bytes: */
-
-if(isset($_FILES['arquivo1'])) { 
-	if($_FILES['arquivo1']['size'] > 102400000) {
-	print "<SCRIPT> alert('Seu arquivo não poderá ser maior que 100mb'); window.history.go(-1); </SCRIPT>\n";
-	exit;
-	}
-	
-	/* Defina aqui o diretï¿½rio destino do upload */
-	$arquivo1 = $_FILES['arquivo1']['name'];
-	if (!empty($arquivo1)) {
-	$caminho1=$homeftp.$idLogin."/";
-	$caminho1=$caminho1.$arquivo1;
-	
-	/* Defina aqui o tipo de arquivo suportado */
-	if ((eregi(".gif$", $arquivo1)) || (eregi(".jpg$", $arquivo1)) || (eregi(".tif$", $arquivo1)) || (eregi(".rar$", $arquivo1)) || (eregi(".zip$", $arquivo1))){
-	$copy = copy($_FILES['arquivo1']['tmp_name'],$caminho1);
-	print "<script>alert('Arquivo enviado com sucesso!')</script>";
-	}
-	else{
-	print "<script>alert('Arquivo não enviado!!!!!!! - Caminho ou nome inválido!')</script>";
-	}
-	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-				GetSQLValueString($idLogin, "int"),
-				GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-				GetSQLValueString($arquivo1, "text"),
-				GetSQLValueString($_FILES['arquivo1']['size'], "long"),
-				GetSQLValueString($_POST["validade1"], "int"),
-				GetSQLValueString($_POST["observacoes1"], "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	}
-}
-
-// Incluir Arquivos 2
-
-/* Defina aqui o tamanho mï¿½ximo do arquivo em bytes: */
-
-if(isset($_FILES['arquivo2'])) {
-	if($_FILES['arquivo2']['size'] > 102400000) {
-	print "<SCRIPT> alert('Seu arquivo não poderá ser maior que 100mb'); window.history.go(-1); </SCRIPT>\n";
-	exit;
-	}
-	
-	/* Defina aqui o diretï¿½rio destino do upload */
-	$arquivo2 = $_FILES['arquivo2']['name'];
-	if (!empty($arquivo2)) {
-	$caminho2=$homeftp.$idLogin."/";
-	$caminho2=$caminho2.$arquivo2;
-	
-	/* Defina aqui o tipo de arquivo suportado */
-	if ((eregi(".gif$", $arquivo2)) || (eregi(".jpg$", $arquivo2)) || (eregi(".tif$", $arquivo2)) || (eregi(".rar$", $arquivo2)) || (eregi(".zip$", $arquivo2))){
-	$copy = copy($_FILES['arquivo2']['tmp_name'],$caminho2);
-	print "<script>alert('Arquivo enviado com sucesso!')</script>";
-	}
-	else{
-	print "<script>alert('Arquivo não enviado!!!!!!! - Caminho ou nome inválido!')</script>";
-	}
-	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-				GetSQLValueString($idLogin, "int"),
-				GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-				GetSQLValueString($arquivo2, "text"),
-				GetSQLValueString($_FILES['arquivo2']['size'], "long"),
-				GetSQLValueString($_POST["validade2"], "int"),
-				GetSQLValueString($_POST["observacoes2"], "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result2 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	}
-}
-
-// Incluir Arquivos 3
-
-/* Defina aqui o tamanho mï¿½ximo do arquivo em bytes: */
-
-if(isset($_FILES['arquivo3'])) {
-	if($_FILES['arquivo3']['size'] > 102400000) {
-	print "<SCRIPT> alert('Seu arquivo não poderá ser maior que 100mb'); window.history.go(-1); </SCRIPT>\n";
-	exit;
-	}
-	
-	/* Defina aqui o diretï¿½rio destino do upload */
-	$arquivo3 = $_FILES['arquivo3']['name'];
-	if (!empty($arquivo3)) {
-	$caminho3=$homeftp.$idLogin."/";
-	$caminho3=$caminho3.$arquivo3;
-	
-	/* Defina aqui o tipo de arquivo suportado */
-	if ((eregi(".gif$", $arquivo3)) || (eregi(".jpg$", $arquivo3)) || (eregi(".tif$", $arquivo3)) || (eregi(".rar$", $arquivo3)) || (eregi(".zip$", $arquivo3))){
-	$copy = copy($_FILES['arquivo3']['tmp_name'],$caminho3);
-	print "<script>alert('Arquivo enviado com sucesso!')</script>";
-	}
-	else{
-	print "<script>alert('Arquivo não enviado!!!!!!! - Caminho ou nome inváido!')</script>";
-	}
-	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-				GetSQLValueString($idLogin, "int"),
-				GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-				GetSQLValueString($arquivo3, "text"),
-				GetSQLValueString($_FILES['arquivo3']['size'], "long"),
-				GetSQLValueString($_POST["validade3"], "int"),
-				GetSQLValueString($_POST["observacoes3"], "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result3 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	}
-}
-
-// Incluir Arquivos 4
-
-/* Defina aqui o tamanho mï¿½ximo do arquivo em bytes: */
-
-if(isset($_FILES['arquivo4'])) {
-	if($_FILES['arquivo4']['size'] > 102400000) {
-	print "<SCRIPT> alert('Seu arquivo não poderá ser maior que 100mb'); window.history.go(-1); </SCRIPT>\n";
-	exit;
-	}
-	
-	/* Defina aqui o diretï¿½rio destino do upload */
-	$arquivo4 = $_FILES['arquivo4']['name'];
-	if (!empty($arquivo4)) {
-	$caminho4=$homeftp.$idLogin."/";
-	$caminho4=$caminho4.$arquivo4;
-	
-	/* Defina aqui o tipo de arquivo suportado */
-	if ((eregi(".gif$", $arquivo4)) || (eregi(".jpg$", $arquivo4)) || (eregi(".tif$", $arquivo4)) || (eregi(".rar$", $arquivo4)) || (eregi(".zip$", $arquivo4))){
-	$copy = copy($_FILES['arquivo4']['tmp_name'],$caminho4);
-	print "<script>alert('Arquivo enviado com sucesso!')</script>";
-	}
-	else{
-	print "<script>alert('Arquivo não enviado!!!!!!! - Caminho ou nome inválido!')</script>";
-	}
-	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-				GetSQLValueString($idLogin, "int"),
-				GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-				GetSQLValueString($arquivo4, "text"),
-				GetSQLValueString($_FILES['arquivo4']['size'], "long"),
-				GetSQLValueString($_POST["validade4"], "int"),
-				GetSQLValueString($_POST["observacoes4"], "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result4 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	}
-}
-	
-// Incluir Arquivos 5
-
-/* Defina aqui o tamanho mï¿½ximo do arquivo em bytes: */
-
-if(isset($_FILES['arquivo5'])) {
-	if($_FILES['arquivo5']['size'] > 102400000) {
-	print "<SCRIPT> alert('Seu arquivo não poderá ser maior que 100mb'); window.history.go(-1); </SCRIPT>\n";
-	exit;
-	}
-	
-	/* Defina aqui o diretï¿½rio destino do upload */
-	$arquivo5 = $_FILES['arquivo5']['name'];
-	if (!empty($arquivo5)) {
-	$caminho5=$homeftp.$idLogin."/";
-	$caminho5=$caminho5.$arquivo5;
-	
-	/* Defina aqui o tipo de arquivo suportado */
-	if ((eregi(".gif$", $arquivo5)) || (eregi(".jpg$", $arquivo5)) || (eregi(".tif$", $arquivo5)) || (eregi(".rar$", $arquivo5)) || (eregi(".zip$", $arquivo5))){
-	$copy = copy($_FILES['arquivo5']['tmp_name'],$caminho5);
-	print "<script>alert('Arquivo enviado com sucesso!')</script>";
-	}
-	else{
-	print "<script>alert('Arquivo não enviado!!!!!!! - Caminho ou nome inválido!')</script>";
-	}
-	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-				GetSQLValueString($idLogin, "int"),
-				GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-				GetSQLValueString($arquivo5, "text"),
-				GetSQLValueString($_FILES['arquivo5']['size'], "long"),
-				GetSQLValueString($_POST["validade5"], "int"),
-				GetSQLValueString($_POST["observacoes5"], "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result5 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	}
-}
-	
-
-// ----
-
 ?>
 <?php
 
@@ -362,104 +165,116 @@ $action  = isset($_POST['action'])?$_POST['action']:"";
 if($action == "copiarFoto") {
 	include("../toolkit/inc_IPTC4.php");
 	
-	$file = $_POST['tombo'].'.jpg';
-	$source_file = '/var/fotos_alta/'.$file;
-	$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
+	$tombos = $_POST['tombo'];
+	$tombos_arr = explode(";",$tombos);
 	
-	if (!copy($source_file, $dest_file)) {
-		$file = $_POST['tombo'].'.JPG';
-		$source_file = '/var/fotos_alta/'.$file;
-		$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
-		if (!copy($source_file, $dest_file)) {
-			$erro = "nok";
-		} else {
-			$erro = "ok";
-			$fp = fopen($dest_file, "r");
-			$s_array=fstat($fp);
-			$tamanho = $s_array["size"];
-			fclose($fp);
+	foreach ($tombos_arr as $tombo) {
+		if(strlen($tombo) > 4) {
+			$file = $tombo.'.jpg';
+			$source_file = '/var/fotos_alta/'.$file;
+			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
+			
+			if (!copy($source_file, $dest_file)) {
+				$file = $tombo.'.JPG';
+				$source_file = '/var/fotos_alta/'.$file;
+				$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
+				if (!copy($source_file, $dest_file)) {
+					$erro = "nok";
+				} else {
+					$erro = "ok";
+					$fp = fopen($dest_file, "r");
+					$s_array=fstat($fp);
+					$tamanho = $s_array["size"];
+					fclose($fp);
+				}
+			} else {
+				$erro = "ok";
+				$fp = fopen($dest_file, "r");
+				$s_array=fstat($fp);
+				$tamanho = $s_array["size"];
+				fclose($fp);
+			}
+			
+			coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+			
+			
+			$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
+					GetSQLValueString($_POST['diretorio'], "int"),
+					GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
+					GetSQLValueString($file, "text"),
+					GetSQLValueString($tamanho, "long"),
+					GetSQLValueString($_POST["validade"], "int"),
+					GetSQLValueString($_POST["observacoes"], "text")
+			);
+			
+			mysql_select_db($database_pulsar, $pulsar);
+			$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+			
+			$insertSQL = sprintf("INSERT INTO log_download2 (arquivo, data_hora, ip, id_login, usuario, projeto, formato, uso, obs) VALUES ('%s','%s','%s',%s,'%s','%s','%s','%s','%s')",
+					$file,
+					date("Y-m-d h:i:s", strtotime('now')),
+					"FTP",
+					$_POST['diretorio'],
+					$row_login['login'],
+					$_POST['titulo'],
+					$_POST['tamanho'],
+					$_POST['uso'],
+					$_POST['observacoes']
+			);
+			mysql_select_db($database_pulsar, $pulsar);
+		// 		echo $insertSQL;
+			$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+			$msg .= "Arquivo $tombo incluído com sucesso! ";
 		}
-	} else {
-		$erro = "ok";
-		$fp = fopen($dest_file, "r");
-		$s_array=fstat($fp);
-		$tamanho = $s_array["size"];
-		fclose($fp);
 	}
-	
-	coloca_iptc($_POST['tombo'], $dest_file, $database_pulsar, $pulsar);
-	
-	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-			GetSQLValueString($_POST['diretorio'], "int"),
-			GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-			GetSQLValueString($file, "text"),
-			GetSQLValueString($tamanho, "long"),
-			GetSQLValueString($_POST["validade"], "int"),
-			GetSQLValueString($_POST["observacoes"], "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	
-	$insertSQL = sprintf("INSERT INTO log_download2 (arquivo, data_hora, ip, id_login, usuario, projeto, formato, uso, obs) VALUES ('%s','%s','%s',%s,'%s','%s','%s','%s','%s')",
-			$file,
-			date("Y-m-d h:i:s", strtotime('now')),
-			"FTP",
-			$_POST['diretorio'],
-			$row_login['login'],
-			$_POST['titulo'],
-			$_POST['tamanho'],
-			$_POST['uso'],
-			$_POST['observacoes']
-	);
-	mysql_select_db($database_pulsar, $pulsar);
-// 		echo $insertSQL;
-	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	$msg = "Arquivo incluído com sucesso!";
-
 }
 
 else if($action == "copiarVideo") {
-	
-	$queryTamanho = "SELECT descricao_br as tamanho from $database_sig.USO_DESC WHERE Id = ".$_POST['tamanho'];
-	$rsTamanho = mysql_query($queryTamanho, $pulsar) or die(mysql_error());
-	$rowTamanho = mysql_fetch_assoc($rsTamanho);
-	
-	$flag_tamanho = ($rowTamanho['tamanho'] == "SD"?"S":"H");
-	
 
-	$file = $_POST['tombo'];
+	$videos = $_POST['tombo'];
+	$videos_arr = explode(";",$videos);
 	
-	$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes,flag) VALUES (%s,%s,%s,%s,%s,%s,%s)",
-			GetSQLValueString($_POST['diretorio'], "int"),
-			GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-			GetSQLValueString($_POST["tombo"], "text"),
-			GetSQLValueString(0, "long"),
-			GetSQLValueString($_POST["validade"], "int"),
-			GetSQLValueString($_POST["observacoes"], "text"),
-			GetSQLValueString("V$flag_tamanho", "text")
-	);
-	
-	mysql_select_db($database_pulsar, $pulsar);
-	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	
-	$insertSQL = sprintf("INSERT INTO log_download2 (arquivo, data_hora, ip, id_login, usuario, projeto, formato, uso, obs) VALUES ('%s','%s','%s',%s,'%s','%s','%s','%s','%s')",
-			$file,
-			date("Y-m-d h:i:s", strtotime('now')),
-			"FTP",
-			$_POST['diretorio'],
-			$row_login['login'],
-			$_POST['titulo'],
-			$_POST['tamanho'],
-			$_POST['uso'],
-			$_POST['observacoes']
-	);
-	mysql_select_db($database_pulsar, $pulsar);
-// 		echo $insertSQL;
-	$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-	$msg = "Arquivo incluído com sucesso!";
-	
+	foreach ($videos_arr as $file) {
+		if(strlen($file) > 4) {
+			$queryTamanho = "SELECT descricao_br as tamanho from $database_sig.USO_DESC WHERE Id = ".$_POST['tamanho'];
+			$rsTamanho = mysql_query($queryTamanho, $pulsar) or die(mysql_error());
+			$rowTamanho = mysql_fetch_assoc($rsTamanho);
+			
+			$flag_tamanho = ($rowTamanho['tamanho'] == "SD"?"S":"H");
+			
+		
+		// 	$file = $_POST['tombo'];
+			
+			$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes,flag) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+					GetSQLValueString($_POST['diretorio'], "int"),
+					GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
+					GetSQLValueString($file, "text"),
+					GetSQLValueString(0, "long"),
+					GetSQLValueString($_POST["validade"], "int"),
+					GetSQLValueString($_POST["observacoes"], "text"),
+					GetSQLValueString("V$flag_tamanho", "text")
+			);
+			
+			mysql_select_db($database_pulsar, $pulsar);
+			$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+			
+			$insertSQL = sprintf("INSERT INTO log_download2 (arquivo, data_hora, ip, id_login, usuario, projeto, formato, uso, obs) VALUES ('%s','%s','%s',%s,'%s','%s','%s','%s','%s')",
+					$file,
+					date("Y-m-d h:i:s", strtotime('now')),
+					"FTP",
+					$_POST['diretorio'],
+					$row_login['login'],
+					$_POST['titulo'],
+					$_POST['tamanho'],
+					$_POST['uso'],
+					$_POST['observacoes']
+			);
+			mysql_select_db($database_pulsar, $pulsar);
+		// 		echo $insertSQL;
+			$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+			$msg .= "Arquivo $file incluído com sucesso! ";
+		}
+	}	
 }
 else if($action == "enviarEmail") {
 
