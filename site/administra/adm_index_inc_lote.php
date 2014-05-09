@@ -178,14 +178,14 @@ if($siteDebug) {
 	
 		  $Ultimo_Id = mysql_insert_id();
 		  
-		  if($_POST['extra'] != "") {
-			  $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
-				               GetSQLValueString($tombo, "text"),
-				               GetSQLValueString($_POST['extra'], "text"));
+// 		  if($_POST['extra'] != "") {
+// 			  $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
+// 				               GetSQLValueString($tombo, "text"),
+// 				               GetSQLValueString($_POST['extra'], "text"));
 		
-			  mysql_select_db($database_pulsar, $pulsar);
-			  $Result2 = mysql_query($insertextraSQL, $pulsar) or die(mysql_error());
-		  }
+// 			  mysql_select_db($database_pulsar, $pulsar);
+// 			  $Result2 = mysql_query($insertextraSQL, $pulsar) or die(mysql_error());
+// 		  }
 		  
 		  
 		  
@@ -279,12 +279,12 @@ $temas = mysql_query($query_temas, $pulsar) or die(mysql_error());
 $row_temas = mysql_fetch_assoc($temas);
 $totalRows_temas = mysql_num_rows($temas);
 
-//Foto extra
-mysql_select_db($database_pulsar, $pulsar);
-$query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $row_dados_foto['tombo']);
-$extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
-$row_extra_foto = mysql_fetch_assoc($extra_foto);
-$totalRows_extra_foto = mysql_num_rows($extra_foto);
+// //Foto extra
+// mysql_select_db($database_pulsar, $pulsar);
+// $query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $row_dados_foto['tombo']);
+// $extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
+// $row_extra_foto = mysql_fetch_assoc($extra_foto);
+// $totalRows_extra_foto = mysql_num_rows($extra_foto);
 
 // Deteccao de fotografo
 $inicial = strtoupper(ereg_replace("[^A-Za-z]","", $tombos[0]));
@@ -527,7 +527,7 @@ document.form2.submit();
           </tr>
         <tr>
           <td width="150" class="style2">Informa&ccedil;&atilde;o Adicional: </td>
-          <td class="style2"><input name="extra" type="text" id="extra" value="<?php echo $row_extra_foto['extra']; ?>" size="70">
+          <td class="style2"><input name="extra" type="text" id="extra" value="<?php echo $row_dados_foto['extra']; ?>" size="70">
             <input name="Id_Foto" type="hidden" id="Id_Foto" value="<?php echo $row_dados_foto['Id_Foto']; ?>"></td>
         </tr>
         <tr>

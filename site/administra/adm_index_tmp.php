@@ -142,14 +142,14 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 
   $Ultimo_Id = mysql_insert_id();
   
-  if($_POST['extra'] != "") {
-	  $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
-	                       GetSQLValueString($_POST['tombo'], "text"),
-	                       GetSQLValueString($_POST['extra'], "text"));
+//   if($_POST['extra'] != "") {
+// 	  $insertextraSQL = sprintf("INSERT INTO Fotos_extra (tombo, extra) VALUES (%s, %s)",
+// 	                       GetSQLValueString($_POST['tombo'], "text"),
+// 	                       GetSQLValueString($_POST['extra'], "text"));
 	
-	  mysql_select_db($database_pulsar, $pulsar);
-	  $Result2 = mysql_query($insertextraSQL, $pulsar) or die(mysql_error());
-  }
+// 	  mysql_select_db($database_pulsar, $pulsar);
+// 	  $Result2 = mysql_query($insertextraSQL, $pulsar) or die(mysql_error());
+//   }
   
   
   
@@ -288,11 +288,11 @@ $row_temas = mysql_fetch_assoc($temas);
 $totalRows_temas = mysql_num_rows($temas);
 
 //Foto extra
-mysql_select_db($database_pulsar, $pulsar);
-$query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $row_dados_foto['tombo']);
-$extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
-$row_extra_foto = mysql_fetch_assoc($extra_foto);
-$totalRows_extra_foto = mysql_num_rows($extra_foto);
+// mysql_select_db($database_pulsar, $pulsar);
+// $query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $row_dados_foto['tombo']);
+// $extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
+// $row_extra_foto = mysql_fetch_assoc($extra_foto);
+// $totalRows_extra_foto = mysql_num_rows($extra_foto);
 
 if (isset($_GET['copiar_tema'])||isset($_GET['copiar'])) {  // COPIA TEMAS E DESCRITORES
 	if(isset($_GET['copiar_tema']))
@@ -865,6 +865,6 @@ mysql_free_result($temas);
 
 mysql_free_result($login);
 
-mysql_free_result($extra_foto);
+// mysql_free_result($extra_foto);
 
 ?>

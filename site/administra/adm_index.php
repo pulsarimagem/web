@@ -133,11 +133,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
 
 mysql_select_db($database_pulsar, $pulsar);
 $Result1 = mysql_query($updateSQL, $pulsar) or die(mysql_error());
-  $deleteextraSQL = sprintf("DELETE from Fotos_extra WHERE tombo=%s",
-                       GetSQLValueString($_POST['tombo'], "text"));
+//   $deleteextraSQL = sprintf("DELETE from Fotos_extra WHERE tombo=%s",
+//                        GetSQLValueString($_POST['tombo'], "text"));
 					   
-mysql_select_db($database_pulsar, $pulsar);
-$Result2 = mysql_query($deleteextraSQL, $pulsar) or die(mysql_error());
+// mysql_select_db($database_pulsar, $pulsar);
+// $Result2 = mysql_query($deleteextraSQL, $pulsar) or die(mysql_error());
 /*
   $updateextraSQL = sprintf("UPDATE Fotos_extra SET extra=%s WHERE tombo=%s",
                        GetSQLValueString($_POST['extra'], "text"),
@@ -289,11 +289,11 @@ $dados_foto = mysql_query($query_dados_foto, $pulsar) or die(mysql_error());
 $row_dados_foto = mysql_fetch_assoc($dados_foto);
 $totalRows_dados_foto = mysql_num_rows($dados_foto);
 
-mysql_select_db($database_pulsar, $pulsar);
-$query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $colname_dados_foto);
-$extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
-$row_extra_foto = mysql_fetch_assoc($extra_foto);
-$totalRows_extra_foto = mysql_num_rows($extra_foto);
+// mysql_select_db($database_pulsar, $pulsar);
+// $query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $colname_dados_foto);
+// $extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
+// $row_extra_foto = mysql_fetch_assoc($extra_foto);
+// $totalRows_extra_foto = mysql_num_rows($extra_foto);
 
 mysql_select_db($database_pulsar, $pulsar);
 $query_fotografos = "SELECT * FROM fotografos ORDER BY Nome_Fotografo ASC";
@@ -521,7 +521,7 @@ if (isset($_POST['tombo'])) { echo $_POST['tombo']; }
         </tr>
         <tr>
           <td width="150" class="style2">Informa&ccedil;&atilde;o Adicional: </td>
-          <td class="style6"><input name="extra" type="text" id="extra" value="<?php echo $row_extra_foto['extra']; ?>" size="70">
+          <td class="style6"><input name="extra" type="text" id="extra" value="<?php echo $row_dados_foto['extra']; ?>" size="70">
             <input name="Id_Foto" type="hidden" id="Id_Foto" value="<?php echo $row_dados_foto['Id_Foto']; ?>"></td>
         </tr>
         <tr>
