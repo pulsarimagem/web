@@ -232,13 +232,6 @@ $totalRows_dados_foto = mysql_num_rows($dados_foto);
 if($totalRows_dados_foto > 0) {
 	$tomboExists = true;
 }
-
-mysql_select_db($database_pulsar, $pulsar);
-$query_extra_foto = sprintf("SELECT * FROM Fotos_extra WHERE tombo = '%s'", $colname_dados_foto);
-$extra_foto = mysql_query($query_extra_foto, $pulsar) or die(mysql_error());
-$row_extra_foto = mysql_fetch_assoc($extra_foto);
-$totalRows_extra_foto = mysql_num_rows($extra_foto);
-
 mysql_select_db($database_pulsar, $pulsar);
 $query_fotografos = "SELECT * FROM fotografos ORDER BY Nome_Fotografo ASC";
 $fotografos = mysql_query($query_fotografos, $pulsar) or die(mysql_error());

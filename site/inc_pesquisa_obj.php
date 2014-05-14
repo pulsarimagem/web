@@ -428,6 +428,7 @@ class pesquisaPulsar {
 					if($pesquisa->not!=true) {
 						foreach($pesquisa->arrPalavras as $palavra=>$idioma) {
 							$raw_palavra = $palavra;
+							$palavra = str_ireplace("d", "[d\']{1,2}", $palavra);
 							$palavra = str_ireplace("a", "[aавдгб]", $palavra);
 							$palavra = str_ireplace("e", "[eиклй]", $palavra);
 							$palavra = str_ireplace("i", "[iмопн]", $palavra);
@@ -1211,6 +1212,7 @@ class pesquisaPulsar {
 						$rawPalavraCutted = str_ireplace("~", "", $palavra);
 						$rawPalavraCutted = str_ireplace("^", "", $rawPalavraCutted );
 						
+						$palavra = str_ireplace("d", "[d\']{1,2}", $palavra);
 						$palavra = str_ireplace("a", "[aавдгб]", $palavra);
 						$palavra = str_ireplace("e", "[eиклй]", $palavra);
 						$palavra = str_ireplace("i", "[iмопн]", $palavra);
