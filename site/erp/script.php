@@ -1,5 +1,6 @@
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../video/jwplayer.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 
 <?php echo isset($addScript)?$addScript:"";?>
 <script type="text/javascript">
@@ -95,6 +96,11 @@ jQuery(document).ready(function() {
 	$('.novoIndioBtn').click(function () {
 		$('.novoIndio').toggle();
 	});
+
+	CKEDITOR.replace( 'FCKeditor1', {
+		allowedContent: true
+	});
+		
 
 	$('#indexSelectAutorFotos').change(function (){
 		var id=$(this).val();

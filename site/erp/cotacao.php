@@ -190,19 +190,19 @@
   </tr>
   <tr>
     <td>Mensagem:</td>
-    <td><?php
-include("./fckeditor/fckeditor.php");
+    <td>
+    	<textarea name="FCKeditor1" id="FCKeditor1">
+			<br><br>
+      		<font face="Verdana, Arial, Helvetica, sans-serif" color="#48493F" size="1">Pulsar Imagens<br></font> 
+        	<font face="Verdana, Arial, Helvetica, sans-serif" color="#999999" size="1">
+        		www.pulsarimagens.com.br<br>
+ 				pulsar@pulsarimagens.com.br
+ 			</font>
+      			
+    	</textarea>
+    </td>
+  </tr>
 
-$oFCKeditor = new FCKeditor('FCKeditor1') ;
-$oFCKeditor->BasePath = './fckeditor/';
-$oFCKeditor->Value = '
-		<br><br>
-      <font face="Verdana, Arial, Helvetica, sans-serif" color="#48493F" size="1">Pulsar Imagens<br>
-        </font> <font face="Verdana, Arial, Helvetica, sans-serif" color="#999999" size="1">www.pulsarimagens.com.br<br>
-      pulsar@pulsarimagens.com.br</font></td></tr>
-		';
-$oFCKeditor->Create() ;
-	?>
   <tr>
     <td colspan="2"><div align="center">      
       <p><br>
