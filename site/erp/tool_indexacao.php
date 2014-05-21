@@ -191,7 +191,35 @@ else if($action == "gravar") {
 			}
 		}
 		
-
+		if(isset($_POST['descritores_inline'])&&$_POST['descritores_inline']!="") {
+			$iptcpal = $_POST['descritores_inline'];
+			
+			$pal_chave_arr = explode(";",str_replace(",",";",$iptcpal));
+			mysql_select_db($database_pulsar, $pulsar);
+			
+			foreach($pal_chave_arr as $pc) {
+				$pc = trim($pc);
+				if($pc == "")
+					continue;
+				$pc = (get_magic_quotes_gpc()) ? $pc : addslashes($pc);
+				$query_pal_chave = sprintf("SELECT * FROM pal_chave WHERE Pal_Chave = '%s'", $pc);
+				$pal_chave = mysql_query($query_pal_chave, $pulsar) or die(mysql_error());
+				$row_pal_chave = mysql_fetch_assoc($pal_chave);
+				$totalRows_pal_chave = mysql_num_rows($pal_chave);
+			
+				$idPc = $row_pal_chave['Id'];
+			
+				if($totalRows_pal_chave != 0) {
+					$querySelectPc = "SELECT * FROM rel_fotos_pal_ch WHERE id_foto = $id_foto and id_palavra_chave = $idPc";
+					$selectPc = mysql_query($querySelectPc, $pulsar) or die(mysql_error());
+					$totalSelectPc = mysql_num_rows($selectPc);
+					if($totalSelectPc == 0) {
+						$querySaveIptc = "INSERT INTO rel_fotos_pal_ch (id_foto,id_palavra_chave) VALUES ($id_foto,$idPc)";
+						$saveIptc = mysql_query($querySaveIptc, $pulsar) or die(mysql_error());
+					}
+				}
+			}
+		}
 	// 	$tombo = $_POST['tombo'];
 		$path = $thumbpop;
 		$dest_file = $path."/".$tombo.".jpg";

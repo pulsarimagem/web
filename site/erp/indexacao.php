@@ -146,7 +146,7 @@
 <?php if(!isVideo($colname_dados_foto)) { ?>										
 											<div class="span12">
 <?php foreach($tombos as $tombo) { ?>											
-												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" />
+												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" onclick="MM_openBrWindow('http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg','','resizable=yes,width=550,height=550')"/>
 <?php } ?>
 											</div>
 										</div>
@@ -351,6 +351,15 @@ do {
 										</div>
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label">Descritores Inline</label>
+									<div class="controls clearfix">
+										<div class="span8">
+											<input type="text" name="descritores_inline" value="">
+										</div>
+									</div>
+								</div>
+								
 <?php if($iptc_pal!="") {?>								
 								<div class="control-group">
 									<label class="control-label">Descritores IPTC</label>
