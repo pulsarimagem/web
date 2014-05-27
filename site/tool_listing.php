@@ -195,11 +195,11 @@ if(!isset($_SESSION['ultima_pesquisa'])) {
 			$query = implode(" ",$_GET['pc_arr']);
 			$_GET['query'] = $query;
 		}
-		$query = $_GET['query'];
+		$query = mb_strtolower($_GET['query'],'iso-8859-1');
 	
 		$query_arr = explode(" ", str_ireplace("-", " ", $query));
 		foreach($query_arr as $palavra) {
-			if(strlen($palavra)>2) {
+			if(strlen($palavra) > 1 && !in_array($palavra,$arrIgnoreWords)) {
 				$pesq = new elementoPesquisa();
 				$pesq->arrPalavras[$palavra] = $lingua;
 				$pesq->setAll();
@@ -239,7 +239,7 @@ if(!isset($_SESSION['ultima_pesquisa'])) {
 		if(isset($_GET['palavra1']) && $_GET['palavra1']!="") {
 			$pc1_arr = explode(" ",str_ireplace("-", " ", $_GET['palavra1']));
 			foreach ($pc1_arr as $pc1) {
-				if(strlen($pc1)>2) {
+				if(strlen($pc1) > 1 && !in_array($pc1,$arrIgnoreWords)) {
 					$pesq = new elementoPesquisa();
 					$pesq->arrPalavras[$pc1] = $lingua;
 					$pesq->arrCampos['pc'] = true;
@@ -255,7 +255,7 @@ if(!isset($_SESSION['ultima_pesquisa'])) {
 		if(isset($_GET['palavra2']) && $_GET['palavra2']!="") {
 			$pc2_arr = explode(" ",str_ireplace("-", " ", $_GET['palavra2']));
 			foreach ($pc2_arr as $pc2) {
-				if(strlen($pc2)>2) {
+				if(strlen($pc2) > 1 && !in_array($pc2,$arrIgnoreWords)) {
 					$pesq = new elementoPesquisa();
 					$pesq->arrPalavras[$pc2] = $lingua;
 					$pesq->arrCampos['pc'] = true;
@@ -271,7 +271,7 @@ if(!isset($_SESSION['ultima_pesquisa'])) {
 		if(isset($_GET['palavra3']) && $_GET['palavra3']!="") {
 			$pc3_arr = explode(" ",str_ireplace("-", " ", $_GET['palavra3']));
 			foreach ($pc3_arr as $pc3) {
-				if(strlen($pc3)>2) {
+				if(strlen($pc3) > 1 && !in_array($pc3,$arrIgnoreWords)) {
 					$pesq = new elementoPesquisa();
 					$pesq->arrPalavras[$pc3] = $lingua;
 					$pesq->arrCampos['pc'] = true;

@@ -1,5 +1,7 @@
 <?php require_once('Connections/pulsar.php'); ?>
 <?php
+$arrIgnoreWords = array("os","as","ao","no","na","do","da","de","em","um");
+
 class elementoPesquisa {
 	public $arrCampos = array("tombo"=>false,"pc"=>false,"assunto"=>false,"extra"=>false,"cidade"=>false,"estado"=>false,"id_estado"=>false,"pais"=>false,"id_temas"=>false,"temas"=>false,"id_autor"=>false,"email_id"=>false);
 	public $fracao = false;
@@ -76,6 +78,8 @@ class pesquisaPulsar {
 	public $total = 0;
 	public $isEnable = false;
 	public $toTranslate = false;//true;
+	
+	public $arrIgnoreWords = array("os","as","ao","no","na","do","da","de","em","um");
 	
 	public $arrFiltros = array("direito_aut"=>true,"horizontal"=>true,"vertical"=>true,"foto"=>true,"video"=>true,"id_autor"=>true,"not_id_autor"=>true,"id_tema"=>true,"data"=>true,"dia"=>true,"mes"=>true,"ano"=>true);
 	public $arrPosFiltros = array("foto"=>false,"video"=>false,"fullhd"=>false,"hd"=>false,"sd"=>false,"h"=>false,"v"=>false);
@@ -1015,10 +1019,10 @@ class pesquisaPulsar {
 			if($this->idioma != "br" && $this->toTranslate) {
 				$traduzidos = $this->translateEn($this->implode_key(" ", $pesquisa->arrPalavras));
 				foreach($traduzidos as $traduzido) {
-					if(strlen($traduzido) > 2) {
+					if(strlen($traduzido) > 1 && !in_array($traduzido,$arrIgnoreWords)) {
 						$traduzido_arr = explode(" ", mb_strtolower($traduzido));
 						foreach($traduzido_arr as $palavra_br) {
-							if(strlen($palavra_br) > 2) {
+							if(strlen($palavra_br) > 1 && !in_array($traduzido,$arrIgnoreWords)) {
 								if(!isset($pesquisa->arrPalavras[$palavra_br]))
 									$pesquisa->arrPalavras[$palavra_br] = "br";
 							}
