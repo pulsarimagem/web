@@ -49,6 +49,9 @@ jQuery(document).ready(function() {
 	$('#btnFtpEmail').click(function () {
 		$('#ftpEmail').toggle();
 	});
+	$('#btnFtpDelall').click(function () {
+		return confirm("Deseja apagar todas?");
+	});
 	
 	$('.showNovo').click(function () {
 		$('.novo').toggle();

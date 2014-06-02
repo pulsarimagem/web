@@ -44,23 +44,24 @@
 	            <table class="table table-bordered table-striped">
 	              <thead>
 	                  <tr>
-	                      <th colspan="6">Geração de Licença N° <?php echo $id_contrato?></th>
+	                      <th colspan="2">Geração de Licença N° <?php echo $id_contrato?></th>
+	                      <th colspan="2">Data de criação <?php echo $creationDate?></th>
 	                  </tr>
 <?php 
 if($baixado == "S") {
 	if(!$editar) { 
 ?>
 	                  <tr>
-	                  	<th colspan="3">Nota N° <?php echo $nota?></th>
-	                  	<th colspan="3">Data Baixa <?php echo $data_nota?></th>
+	                  	<th colspan="2">Nota N° <?php echo $nota?></th>
+	                  	<th colspan="2">Data Baixa <?php echo $data_nota?></th>
 	                  </tr>
 <?php 
 	}
 	else {
 ?>
 	                  <tr>
-	                  	<th colspan="3">Nota N° <input name="nota" type="text" value="<?php echo $nota?>"/></th>
-	                  	<th colspan="3">Data Baixa <input name="data_nota" class="calendar" type="text" value="<?php echo $data_nota?>"/></th>
+	                  	<th colspan="2">Nota N° <input name="nota" type="text" value="<?php echo $nota?>"/></th>
+	                  	<th colspan="2">Data Baixa <input name="data_nota" class="calendar" type="text" value="<?php echo $data_nota?>"/></th>
 	                  </tr>
 <?php 
 	}
@@ -383,8 +384,8 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
         </div>
           
            <div class="row-fluid">
-        <div class="span7"></div>
-        <div class="span5">
+        <div class="span6"></div>
+        <div class="span6">
         	<form method="post" class="formOnclick">
 	        	<input type="hidden" value="<?php echo FormatNumber($total,2)?>" name="valor_total"/>
 	        	<input type="hidden" value="<?php echo $id_contrato?>" name="id_contrato"/>
@@ -394,9 +395,12 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 <?php if($editar) { ?>	        	
 	        	<a class="btn btn-primary unbind_unload submitOnclick" href="#">Finalizar</a>&nbsp;<a class="btn btn-danger unbind_unload confirmOnclick" href="administrativo_licencas_nova.php?excluir=true&id_contrato=<?php echo $id_contrato?>">Excluir</a>
 <?php } else { ?>
-	        	<a class="btn btn-success" href="administrativo_licencas_nova.php?novo=true">Novo</a>
-		        <a class="btn btn-success" href="administrativo_licencas_nova.php?copiar=true&editar=true">Copiar</a>
-	        	<a class="btn btn-primary unbind_unload" href="contrato_print.php?contratos[]=<?php echo $id_contrato?>" target="_blank">Imprimir</a>&nbsp;<a class="btn btn-primary unbind_unload" href="administrativo_licencas_nova.php?editar=true&id_contrato=<?php echo $id_contrato?>">Editar</a>&nbsp;<a class="btn btn-danger unbind_unload confirmOnclick" href="administrativo_licencas_nova.php?excluir=true&id_contrato=<?php echo $id_contrato?>">Excluir</a>
+				<a class="btn btn-success" href="administrativo_licencas_nova.php?novo=true">Novo</a>&nbsp;
+		        <a class="btn btn-success" href="administrativo_licencas_nova.php?copiar=true&editar=true">Copiar</a>&nbsp;
+	        	<a class="btn btn-warning" href="tool_gerar_boleto_bb.php?id_contrato=<?php echo $id_contrato?>" target="_blank">Gerar Boleto</a>&nbsp;
+		        <a class="btn btn-primary unbind_unload" href="contrato_print.php?contratos[]=<?php echo $id_contrato?>" target="_blank">Imprimir</a>&nbsp;
+		        <a class="btn btn-primary unbind_unload" href="administrativo_licencas_nova.php?editar=true&id_contrato=<?php echo $id_contrato?>">Editar</a>&nbsp;
+		        <a class="btn btn-danger unbind_unload confirmOnclick" href="administrativo_licencas_nova.php?excluir=true&id_contrato=<?php echo $id_contrato?>">Excluir</a>
 <?php }?>
 	        </form>
         </div>

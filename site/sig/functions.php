@@ -90,7 +90,7 @@ function isIndioOld($tipo_contrato) {
 }
 function get_tribos() {
 //	$indios = array("Kalapalo" => 0, "Caingangue" => 0, "Bororo" => 0, "Yanomami" => 0, "Kamayurá" => 0, "Xavante" => 0, "Yawalapiti" => 0, "Guarani" => 0, "Kambeba" => 0, "Kolulu" => 0, "Kaingang" => 0, "Tukano" => 0, "Kayapo" => 0, "Kayapó" => 0, "Kuikuro" => 0, "Maiá" => 0, "Maturacá" => 0 , "Guarani-Kaiowa" => 0, "Guarani-Kaiowas" => 0);
-	$indios = array("Kalapalo" => 0,  "Yanomami" => 0, "Kamayurá" => 0, "Xavante" => 0, "Yawalapiti" => 0, "Guarani" => 0, "Kambeba" => 0, "Tukano" => 0, "Kayapo" => 0, "Kayapó" => 0, "Kuikuro" => 0, "Maiá" => 0, "Maturacá" => 0 , "Guarani-Kaiowa" => 0, "Guarani-Kaiowá" => 0, "Surui" => 0, "Suruí" => 0, "Paresi" => 0, "Kapinawá" => 0, "Kapinawa" => 0, "Guató" => 0, "Guato" => 0, "Umutina" => 0, "Waurá" => 0, "Waujá" => 0, "Umutina" => 0, "Enawene nawe" => 0, "Enawenê nawê" => 0); //"Guarani-Kaiowas" => 0, "Guarani-Kaiowás" => 0
+	$indios = array("Kalapalo" => 0,  "Yanomami" => 0, "Kamayurá" => 0, "Xavante" => 0, "Yawalapiti" => 0, "Guarani" => 0, "Kambeba" => 0, "Tukano" => 0, "Kayapo" => 0, "Kayapó" => 0, "Kuikuro" => 0, "Maiá" => 0, "Maturacá" => 0 , "Guarani-Kaiowa" => 0, "Guarani-Kaiowá" => 0, "Surui" => 0, "Suruí" => 0, "Paresi" => 0, "Kapinawá" => 0, "Kapinawa" => 0, "Guató" => 0, "Guato" => 0, "Umutina" => 0, "Waurá" => 0, "Waujá" => 0, "Umutina" => 0, "Enawene nawe" => 0, "Enawenê nawê" => 0, "Bororo" => 0); //"Guarani-Kaiowas" => 0, "Guarani-Kaiowás" => 0
 	return $indios;	
 }
 

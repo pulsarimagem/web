@@ -177,7 +177,7 @@ if($finalizar) {
 if (isset($_POST['editaCromo']) && $_POST['editaCromo'] == "sim") {
 	$_GET['editaCromo'] = "sim";
 }
-$strSQL 		= "SELECT ID_CLIENTE, ID_CONTATO,ID_CONTRATO_DESC, DESCRICAO, DATA, BAIXADO, FINALIZADO, NOTA_FISCAL, DATA_PAGTO FROM CONTRATOS WHERE ID=".$id_contrato;
+$strSQL 		= "SELECT ID_CLIENTE, ID_CONTATO,ID_CONTRATO_DESC, DESCRICAO, DATA, BAIXADO, FINALIZADO, NOTA_FISCAL, DATA_PAGTO, creation_date FROM CONTRATOS WHERE ID=".$id_contrato;
 $objRS	= mysql_query($strSQL, $sig) or die(mysql_error());
 $row_objRS = mysql_fetch_assoc($objRS);
 $id_cliente	= $row_objRS['ID_CLIENTE'];
@@ -185,6 +185,7 @@ $id_contato	= $row_objRS['ID_CONTATO'];
 $descricao	= $row_objRS['DESCRICAO'];
 $contratoDesc = $row_objRS['ID_CONTRATO_DESC'];
 $data		= $row_objRS['DATA'];
+$creationDate = date("d/m/y",strtotime($row_objRS['creation_date']));
 
 $finalizado		= $row_objRS['FINALIZADO'];
 $baixado		= $row_objRS['BAIXADO'];

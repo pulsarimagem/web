@@ -3,6 +3,8 @@ $idLogin = -1;
 $idLogin = isset($_GET['id_login'])?$_GET['id_login']:$idLogin;
 $idLogin = isset($_POST['id_login'])?$_POST['id_login']:$idLogin;
 
+$isDelall = (isset($_GET['delall'])?true:false);
+
 $msg = "";
 
 if (isset($_POST['MM_Del'])) {
@@ -13,6 +15,24 @@ $deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
 );
 mysql_select_db($database_pulsar, $pulsar);
 $Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
+}
+
+if($isDelall) {
+	mysql_select_db($database_pulsar, $pulsar);
+	$query_arquivos = sprintf("SELECT * FROM ftp_arquivos WHERE id_ftp = %s ORDER BY nome", $idLogin);
+	// echo $query_arquivos;
+	$arquivos = mysql_query($query_arquivos, $pulsar) or die(mysql_error());
+	
+	$totalRows_arquivos = mysql_num_rows($arquivos);
+	while($row_arquivos = mysql_fetch_assoc($arquivos)) {
+		unlink($homeftp.$idLogin."/".$row_arquivos['nome']);
+		$deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
+				GetSQLValueString($row_arquivos['nome'], "text"),
+				GetSQLValueString($idLogin, "int")
+		);
+		$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
+// echo $deleteSQL;
+	}
 }
 ?>
 <?php
@@ -115,7 +135,7 @@ alert("Diretório removido com sucesso!!!");
 </script><?php
 
 			} else {
-				echo "Erro ao apagar diretï¿½rio!!!!"; die();
+				echo "Erro ao apagar diretório!!!!"; die();
 			}
 
 			$deleteSQL = sprintf("DELETE FROM ftp WHERE id_login = %s",
@@ -173,6 +193,9 @@ if($action == "copiarFoto") {
 			$file = $tombo.'.jpg';
 			$source_file = '/var/fotos_alta/'.$file;
 			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
+			if (!file_exists($homeftp.$_POST['diretorio'])) {
+				mkdir($homeftp.$_POST['diretorio'],0770);
+			}
 			
 			if (!copy($source_file, $dest_file)) {
 				$file = $tombo.'.JPG';
@@ -358,7 +381,6 @@ $msg = "Email enviado com sucesso!";
 ?>
 <?php 
 
-
 mysql_select_db($database_pulsar, $pulsar);
 $query_diretorios = "SELECT ftp.id_ftp,   cadastro.login, cadastro.empresa,   ftp.id_login, cadastro.nome, cadastro.email FROM cadastro  INNER JOIN ftp ON (cadastro.id_cadastro=ftp.id_login) ORDER BY cadastro.nome";
 $diretorios = mysql_query($query_diretorios, $pulsar) or die(mysql_error());
@@ -375,7 +397,8 @@ $queryLastImage = "select * from log_download2 where id_login = ".$idLogin." AND
 $rsLastImage = mysql_query($queryLastImage, $sig) or die(mysql_error());
 $totalLastImage = mysql_num_rows($rsLastImage);
 $rowLastImage = mysql_fetch_array($rsLastImage);
-if($totalLastImage > 0) {
+
+if($totalLastImage > 0 && $rowLastImage['uso'] != "") {
 	$queryLastImageUso = "select Id, id_tipo, id_utilizacao, id_tamanho, id_formato, id_distribuicao, id_periodicidade, id_descricao from USO where id = ".$rowLastImage['uso'];
 	mysql_select_db($database_sig, $sig);
 	$rsLastImageUso = mysql_query($queryLastImageUso, $sig) or die(mysql_error());

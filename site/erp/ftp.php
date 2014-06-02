@@ -56,17 +56,18 @@
           <div class="span12">
           
             <?php if ($idLogin!=-1) { ?>
-          <form class="form-inline" method="post">
-
-	  <input type="button" class="btn btn-success" id="btnFtpCopy" name="Submit6" value="Copiar arquivo de Alta">
-	  <input type="button" class="btn btn-primary" id="btnFtpVideo" name="Submit7" value="Copiar Videos">
-	  <input <?php if ($totalRows_arquivos > 0) { // Show if recordset not empty ?>disabled <?php } ?>type="submit"  class="btn btn-danger" name="Submit4" value="remover pasta">
-      <input name="diretorioxxx" type="hidden" id="diretorioxxx" value="<?php echo $idLogin; ?>">
-      <input type="button" class="btn btn-warning" id="btnFtpEmail" name="Submit5" value="enviar email">
-		</form>
+	          <form class="form-inline" method="post">
+	
+				  <input type="button" class="btn btn-success" id="btnFtpCopy" name="Submit6" value="Copiar arquivo de Alta">
+				  <input type="button" class="btn btn-primary" id="btnFtpVideo" name="Submit7" value="Copiar Videos">
+				  <input <?php if ($totalRows_arquivos > 0) { // Show if recordset not empty ?>disabled <?php } ?>type="submit"  class="btn btn-danger" name="Submit4" value="remover pasta">
+			      <input name="diretorioxxx" type="hidden" id="diretorioxxx" value="<?php echo $idLogin; ?>">
+			      <input type="button" class="btn btn-warning" id="btnFtpEmail" name="Submit5" value="enviar email">
+			      <a href="ftp.php?id_login=<?php echo $idLogin; ?>&delall=true" class="btn btn-danger" id="btnFtpDelall">Apagar todas</a>
+			 </form>
 		
-      </div>
-	</div>
+          </div>
+	    </div>
 
         <div class="row-fluid">
     	<div class="span12">
