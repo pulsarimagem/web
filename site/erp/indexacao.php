@@ -244,7 +244,7 @@
             <?php
 do {  
 ?>
-            <option value="<?php echo $row_fotografos['id_fotografo']?>"<?php if ((!(strcmp($row_fotografos['id_fotografo'], $form_autor)))||(!(strcmp($row_fotografos['id_fotografo'], $row_ini_fotografo['id_fotografo'])))) {echo "SELECTED";}?>><?php echo $row_fotografos['Nome_Fotografo']?></option>
+            <option value="<?php echo $row_fotografos['id_fotografo']?>"<?php if (!(strcmp($row_fotografos['id_fotografo'], $form_autor))) {echo "SELECTED";}?>><?php echo $row_fotografos['Nome_Fotografo']?></option>
             <?php
 } while ($row_fotografos = mysql_fetch_assoc($fotografos));
   $rows = mysql_num_rows($fotografos);
@@ -255,7 +255,7 @@ do {
 ?>
 										</select>
 <?php if ($autor_encontrado) { ?>          
-			<input name="autor" type="hidden" value="<?php echo ($row_ini_fotografo['id_fotografo']); ?>"/>
+			<input name="autor" type="hidden" value="<?php echo ($form_autor); ?>"/>
 <?php } ?>											
 									</div>
 								</div>

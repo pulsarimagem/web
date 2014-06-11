@@ -66,40 +66,41 @@ do {
 		}
 ?>
   <br><form>
-    <table width="600" border="1" cellspacing="0">
-      
+    <table width="600" border="2" cellspacing="0">
       <tr>
-        <td class="style1 style4"><div align="left"><b>C&oacute;digo: <?php echo strtoupper(str_replace(".jpg","",$row_arquivos['arquivo'])); ?></b></div>          <div align="left"></div></td>
-        <td class="style1 style4"><div align="left">Data: <?php $data = explode(" ",$row_arquivos['data_hora']); echo date("d/m/Y", strtotime($data[0]));?></div></td>
+        <td class="style1 style4"><b>C&oacute;digo: <?php echo strtoupper(str_replace(".jpg","",$row_arquivos['arquivo'])); ?></b></td>
+        <td class="style1 style4">Data: <?php $data = explode(" ",$row_arquivos['data_hora']); echo date("d/m/Y", strtotime($data[0]));?></td>
       </tr>
 
       <tr>
-        <td colspan="2" class="style1 style4"><div align="left">Assunto: <?php echo $row_arquivos['assunto_principal']; ?></td>
+        <td colspan="2" class="style1 style4">Assunto: <?php echo $row_arquivos['assunto_principal']; ?></td>
       </tr>
       
       <tr>
-        <td colspan="2" class="style1 style4"><div align="left">T&iacute;tulo: <?php echo $row_arquivos['projeto']; ?></div>          <div align="left"></div></td>
+        <td colspan="2" class="style1 style4">T&iacute;tulo: <?php echo $row_arquivos['projeto']; ?></td>
       </tr>
 <?php if($relTipo != "layout") { ?>      
       <tr>
 <?php 	if(is_numeric($row_arquivos['uso'])) { ?>
-<!--          <td width="422" class="style1 style4"><div align="left">Uso: <?php echo $row_arquivos['uso_desc']; ?></div></td>-->
-		<td width="422" class="style1 style4"><div align="left">Uso: <?php echo $row_uso['tipo']." | ".$row_uso['utilizacao']; ?></div></td>
+<!--          <td width="422" class="style1 style4">Uso: <?php echo $row_arquivos['uso_desc']; ?></td>-->
+		<td width="422" class="style1 style4">Uso: <?php echo $row_uso['tipo']." | ".$row_uso['utilizacao']; ?></td>
 <?php 	} else { ?>
-        <td width="422" class="style1 style4"><div align="left">Uso: <?php echo $row_arquivos['uso']; ?></div></td>
+        <td width="422" class="style1 style4">Uso: <?php echo $row_arquivos['uso']; ?></td>
 <?php 	} ?>
 <?php 	if(is_numeric($row_arquivos['uso'])) { ?>
-        <td width="168" class="style1 style4">Tamanho: <?php echo $row_uso['tamanho']; ?></div></td>
+        <td width="168" class="style1 style4">Tamanho: <?php echo $row_uso['tamanho']; ?></td>
 <?php 	} else { ?>                             
-        <td width="168" class="style1 style4">Tamanho: <?php echo $row_arquivos['formato']; ?></div></td>
+        <td width="168" class="style1 style4">Tamanho: <?php echo $row_arquivos['formato']; ?></td>
 <?php 	} ?>        
       </tr>
 <?php } ?>      
       <tr>
-        <td colspan="2" class="style1 style4"><div align="left">Obs: <?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", $row_arquivos['obs']); ?></div></td>
+<?php if($row_arquivos['obs'] != "") { ?>      
+        <td colspan="2" class="style1 style4">Obs: <?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", $row_arquivos['obs']); ?></td>
+<?php } ?>        
       </tr>
     </table>
-    </form><br />
+    </form>
 <?php
 	}
 } while ($row_arquivos = mysql_fetch_assoc($arquivos));

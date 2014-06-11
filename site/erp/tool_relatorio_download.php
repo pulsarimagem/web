@@ -117,7 +117,7 @@ $row_tabela2 = mysql_fetch_assoc($tabela2);
 $totalRows_tabela2 = mysql_num_rows($tabela2);
 
 mysql_select_db($database_pulsar, $pulsar);
-$query_diretorios = "SELECT * FROM cadastro ORDER BY cadastro.nome"; //WHERE download RLIKE 'S' OR temporario RLIKE 'S' 
+$query_diretorios = "SELECT * FROM cadastro WHERE str_status != 'D' ORDER BY cadastro.nome"; //WHERE download RLIKE 'S' OR temporario RLIKE 'S' 
 $diretorios = mysql_query($query_diretorios, $pulsar) or die(mysql_error());
 $totalRows_diretorios = mysql_num_rows($diretorios);
 

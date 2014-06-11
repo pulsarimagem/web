@@ -234,7 +234,7 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
         <td><div align="left">Tiragem: <?php echo $row_arquivos['tiragem']; ?></div></td>
       </tr>
       <tr>
-        <td><div align="left">T&iacute;tulo: <?php echo $row_arquivos['projeto']; ?></div></td>
+        <td><div align="left"><div  class="editable" id="<?php echo $row_arquivos['id_log']?>">T&iacute;tulo: <?php echo $row_arquivos['projeto']; ?></div></div></td>
 <?php 	if(is_numeric($row_arquivos['uso'])) { ?>
 <!--          <td><div align="left">Tamanho: <?php echo $row_arquivos['tamanho_desc']; ?></div></td> -->
           <td><div align="left">Tamanho: <?php echo $row_uso['tamanho']; ?></div></td>

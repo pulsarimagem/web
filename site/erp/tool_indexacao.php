@@ -522,6 +522,9 @@ if($tomboExists) {
 $form_assunto = $row_dados_foto['assunto_principal'];
 $form_extra = $row_dados_foto['extra'];
 $form_autor = $row_dados_foto['id_autor'];
+if($autor_encontrado) {
+	$form_autor = $row_ini_fotografo['id_fotografo'];
+}
 $form_dirimg = $row_dados_foto['direito_img'];
 $form_data = $row_dados_foto['data_foto'];
 $form_cidade = $row_dados_foto['cidade'];

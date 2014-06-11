@@ -62,7 +62,7 @@ if($isEdit>0) {
 }
 if($isDel > 0) {
 	$isNew = false;
-	$queryDelUsers = "UPDATE cadastro SET status = 'D' WHERE id_cadastro = $isDel";
+	$queryDelUsers = "UPDATE cadastro SET str_status = 'D' WHERE id_cadastro = $isDel";
 	$rsDelUsers = mysql_query($queryDelUsers, $pulsar) or die(mysql_error());
 	if($siteDebug)
 		echo $queryDelUsers;

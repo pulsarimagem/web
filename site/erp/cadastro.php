@@ -71,7 +71,7 @@
  								<td><?php echo $rowUsers['empresa']?></td>
  								<td><?php echo $rowUsers['email']?></td>
  								<td><?php echo $rowUsers['telefone']?></td>
- 								<td><?php echo (false?"Excluído":"Válido")?></td>
+ 								<td><?php echo ($rowUsers['str_status']=="D"?"Excluído":"Válido")?></td>
 								<td>
 									<a class="btn btn-primary" href="cadastro_cadastro.php?idUser=<?php echo $rowUsers['id_cadastro']?>">Editar</a>&nbsp;
 									<a class="btn btn-danger confirmOnclick" href="cadastro_cadastro.php?delUser=<?php echo $rowUsers['id_cadastro']?>">Excluir</a>

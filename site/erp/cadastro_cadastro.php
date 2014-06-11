@@ -160,7 +160,7 @@
 <?php } ?>						
 						<a class="btn btn-secundary" href="cadastro.php">Voltar</a>&nbsp;
 						<a class="btn btn-primary submitOnclick">Salvar</a>&nbsp;
-						<a class="btn btn-danger confirmOnclick" href="clientes_cadastro.php?delUser=<?php echo $isEdit?>">Excluir</a>
+						<a class="btn btn-danger confirmOnclick" href="cadastro_cadastro.php?delUser=<?php echo $isEdit?>">Excluir</a>
 					</div>
 				</div>
 				<?php include('page_bottom.php'); ?>

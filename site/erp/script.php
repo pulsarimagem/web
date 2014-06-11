@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.jeditable.mini.js"></script>
 <script type="text/javascript" src="../video/jwplayer.js"></script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 
@@ -100,10 +101,25 @@ jQuery(document).ready(function() {
 		$('.novoIndio').toggle();
 	});
 
-	CKEDITOR.replace( 'FCKeditor1', {
-		allowedContent: true
+	$('.editable').editable("tool_ajax_jedit.php", {
+	      data: function(value, settings) {
+			        /* Convert <br> to newline. */
+			        var retval = value.replace('Título: ', '');
+			        return retval;
+		  		},
+	      tooltip   : "Pressione duas vezes para editar!",
+	      event     : "dblclick",
+	      style  : "inherit",
+	      callback : function(value, settings) {
+	    	  location.reload();
+	      }
 	});
-		
+	
+	if($('#FCKeditor1').length > 0) {
+		CKEDITOR.replace( 'FCKeditor1', {
+			allowedContent: true
+		});
+	}		
 
 	$('#indexSelectAutorFotos').change(function (){
 		var id=$(this).val();
