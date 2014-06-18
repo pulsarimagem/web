@@ -196,7 +196,7 @@ $rowUso = $rowLastVideoUso;
 		      <?php
 		do {  
 		?>
-		      <option value="<?php echo $row_emails['email']?>"<?php if (!(strcmp($row_emails['email'], $_SESSION['MM_Username']))) {echo "selected=\"selected\"";} ?>><?php echo $row_emails['login']?> - <?php echo $row_emails['email']?></option>
+		      <option value="<?php echo $row_emails['email']?>"<?php if (!(strcmp($row_emails['email'], $_SESSION['MM_Username_erp']))) {echo "selected=\"selected\"";} ?>><?php echo $row_emails['login']?> - <?php echo $row_emails['email']?></option>
 		      <?php
 		} while ($row_emails = mysql_fetch_assoc($emails));
 		  $rows = mysql_num_rows($emails);
@@ -214,15 +214,11 @@ $rowUso = $rowLastVideoUso;
 		  </tr>
 		  <tr>
 		    <td class="style4">Mensagem:</td>
-		    <td><?php
-		    include("fckeditor/fckeditor.php");
-		    
-		    $oFCKeditor = new FCKeditor('FCKeditor1') ;
-		    $oFCKeditor->BasePath = './fckeditor/';
-		    
-			$oFCKeditor->Value = '<br><br>Suas imagens já estão disponíveis em nosso FTP.<br><br>Para acessa-las basta seguir estes passos:<br><br>1. Clique no link <a href="http://www.pulsarimagens.com.br/login_ftp">http://www.pulsarimagens.com.br/login_ftp</a>  ou copie-o e cole no campo de endereço de seu navegador de internet. <br>2. Use seu login e senha cadastrados em nosso site para ter acesso à sua área de FTP. <br>3. Baixe e salve em seu computador as imagens solicitadas.<br><br> Todas as informações de identificação estão no site ou no File Info do Photoshop.<br>Seus arquivos estarão disponíveis por um prazo de 15 dias a partir da data deste e-mail.<br><br>Caso encontre alguma dificuldade, por favor entre em contato.<br><br><br>Obrigado.<br><br>Equipe Pulsar Imagens.<br>';
-			$oFCKeditor->Create() ;
-			?><br>
+		    <td>
+		    <textarea name="FCKeditor1" id="FCKeditor1">
+		    	<br><br>Suas imagens já estão disponíveis em nosso FTP.<br><br>Para acessa-las basta seguir estes passos:<br><br>1. Clique no link <a href="http://www.pulsarimagens.com.br/login_ftp">http://www.pulsarimagens.com.br/login_ftp</a>  ou copie-o e cole no campo de endereço de seu navegador de internet. <br>2. Use seu login e senha cadastrados em nosso site para ter acesso à sua área de FTP. <br>3. Baixe e salve em seu computador as imagens solicitadas.<br><br> Todas as informações de identificação estão no site ou no File Info do Photoshop.<br>Seus arquivos estarão disponíveis por um prazo de 15 dias a partir da data deste e-mail.<br><br>Caso encontre alguma dificuldade, por favor entre em contato.<br><br><br>Obrigado.<br><br>Equipe Pulsar Imagens.<br>
+			</textarea>
+			<br>
 		      <font face="Verdana, Arial, Helvetica, sans-serif" color="#48493F" size="1">Pulsar Imagens<br>
 		        </font> <font face="Verdana, Arial, Helvetica, sans-serif" color="#999999" size="1">www.pulsarimagens.com.br<br>
 		      pulsar@pulsarimagens.com.br</font></td></tr>

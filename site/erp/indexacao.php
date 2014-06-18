@@ -385,6 +385,9 @@ if($multiLoad) {
 } else { ?>
 										<input type="hidden" name="id_fotos[]" value="<?php echo $idFoto?>"/>
 <?php } ?>										
+<?php if($isFotoTmp) { ?>
+										<input type="hidden" name="deleteVideoTmp" value="true"/>
+<?php } ?>
 										<button type="submit" name="action" value="gravar" class="btn btn-primary">Gravar</button>
 										<a class="btn btn-danger confirmOnclick" href="indexacao.php?action=excluir&id_fotos[]=<?php echo $idFoto?>">Excluir</a>
 									</div>

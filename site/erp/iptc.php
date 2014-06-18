@@ -70,7 +70,7 @@ foreach ($exif as $key => $section) {
 */
 
    $output_str = $exif["IFD0"]["ImageDescription"]; 
-   if($output_str == null || $output_str == "") {
+   if($output_str == null || $output_str == "" || strlen($output_str) < 2) {
    	$output_str = get_iptc_caption($fotosalta.$_GET['foto'].'.jpg');
    }
 

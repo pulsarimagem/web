@@ -43,7 +43,8 @@ function output_iptc_data( $image_path ) {
 	$size = getimagesize ( $image_path, $info);
 	if(is_array($info)) {
 		$iptc = iptcparse($info["APP13"]);
-
+		if(isset($_GET['siteDebug']))
+			print_r($iptc);
 		$c = count ($iptc["2#025"]);
 
 		for ($i=0; $i <$c; $i++)
@@ -147,6 +148,8 @@ $exif = exif_read_data($fotosalta.$_GET['foto'].'.jpg', 'IFD0');
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 'IFD0');
 echo $exif===false ? "No header data found.<br />\n" : "";
 $exif = exif_read_data($fotosalta.$_GET['foto'].'.jpg', 0, true);
+if(isset($_GET['siteDebug']))
+	print_r($exif);
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 0, true);
 
 /*
@@ -158,10 +161,10 @@ foreach ($exif as $key => $section) {
 */
 
    $output_str = $exif["IFD0"]["ImageDescription"]; 
-   if($output_str == null || $output_str == "") {
-   	$output_str = get_iptc_caption($fotosalta.$_GET['foto'].'.jpg');
+   if($output_str == null || $output_str == "" || strlen($output_str) < 2) {
+		$output_str = get_iptc_caption($fotosalta.$_GET['foto'].'.jpg');
    }
-
+    
    $fff = preg_replace($tipo1,$tipo2,$output_str);
 	$array_final = split(";",$fff);
 	

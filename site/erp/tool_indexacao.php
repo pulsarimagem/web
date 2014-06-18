@@ -4,6 +4,7 @@ $multiLoad = false;
 $tomboExists = false;
 $tombos = array();
 $isFotoTmp = (isset($_GET['fotoTmp'])?true:false);
+$deleteFotoTmp = (isset($_POST['deleteVideoTmp'])?true:false); 
 $isCopy = (isset($_GET['copiar'])?true:false);;
 $action = isset($_GET['action'])?strtolower($_GET['action']):"";
 $action = isset($_POST['action'])?strtolower($_POST['action']):$action;
@@ -226,6 +227,11 @@ else if($action == "gravar") {
 		coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
 		$dest_file = $path."/".$tombo."p.jpg";
 		coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+		
+		if($deleteFotoTmp) {
+			$deleteSQL = "DELETE FROM Fotos_tmp WHERE tombo='$tombo'";
+			$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
+		}
 		$msg = "Gravado com sucesso!";
 	}
 }
@@ -482,10 +488,12 @@ if($tomboExists) {
 	
 	$output_str = $exif ["IFD0"] ["ImageDescription"];
 	
-	if ($output_str == "" || $output_str == null) {
-		$output_str = output_iptc_caption ( $fotosalta . $colname_dados_foto . '.jpg' );
+	if ($output_str == "" || $output_str == null || strlen($output_str) < 2) {
+		$output_str = get_iptc_caption ( $fotosalta . $colname_dados_foto . '.jpg' );
 	}
-	$output_str = mb_convert_encoding ( $output_str, "iso-8859-1", "UTF-8" );
+	else {
+		$output_str = mb_convert_encoding ( $output_str, "iso-8859-1", "UTF-8" );
+	}
 	$fff = preg_replace ( $tipo1, $tipo2, $output_str );
 	$array_final = split ( ";", $fff );
 	

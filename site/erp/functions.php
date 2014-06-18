@@ -499,7 +499,7 @@ function output_iptc_caption($image_path) {
 		 */
 		$caption = str_replace ( "\000", "", $iptc ["2#120"] [0] );
 		if (isset ( $iptc ["1#090"] ) && $iptc ["1#090"] [0] == "\x1B%G")
-			$caption = utf8_decode ( $IPTC_Caption );
+			$caption = utf8_decode ( $caption );
 	}
 	return $caption;
 }

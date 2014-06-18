@@ -24,6 +24,8 @@ jQuery(document).ready(function() {
 	    }
 	});
 
+	$('.gimefocus').focus();
+
 	$('.unbind_unload').click(function() {
 		$(window).unbind('beforeunload');
 	});

@@ -123,7 +123,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 	
   $direito_img = $_POST['dir_img'];
 	
-  $insertSQL = sprintf("INSERT INTO Fotos (tombo, id_autor, data_foto, cidade, id_estado, id_pais, orientacao, assunto_principal, dim_a, dim_b, direito_img, extra) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+  $insertSQL = sprintf("REPLACE INTO Fotos (tombo, id_autor, data_foto, cidade, id_estado, id_pais, orientacao, assunto_principal, dim_a, dim_b, direito_img, extra) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['tombo'], "text"),
                        GetSQLValueString($_POST['autor'], "int"),
                        GetSQLValueString($_POST['data'], "text"),

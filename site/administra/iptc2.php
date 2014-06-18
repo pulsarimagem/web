@@ -51,24 +51,16 @@ function output_iptc_data( $image_path ) {
 }
 
 function output_iptc_caption( $image_path ) {
-	$caption = "";
+	$IPTC_Caption = "";
 	$size = getimagesize ( $image_path, $info);
 	if(is_array($info)) {
 		$iptc = iptcparse($info["APP13"]);
-/*
-		if (valid_utf8($iptc["2#120"][0])) {
-			$iptc["2#120"][0]=mb_convert_encoding($iptc["2#120"][0],"iso-8859-1","UTF-8");
-		}
-		$caption = $iptc["2#120"][0];
-		if(isset($iptc["1#090"]) && $iptc["1#090"][0] == "\x1B%G")
-            $caption = utf8_decode($IPTC_Caption); 
-*/
-        $caption = str_replace( "\000", "", $iptc["2#120"][0] );
+
+        $IPTC_Caption = str_replace( "\000", "", $iptc["2#120"][0] );
         if(isset($iptc["1#090"]) && $iptc["1#090"][0] == "\x1B%G")
-            $caption = utf8_decode($IPTC_Caption); 
-		
+            $IPTC_Caption = utf8_decode($IPTC_Caption); 
 	}
-	return $caption;
+	return $IPTC_Caption;
 }
 
 function get_iptc_caption( $image_path ) {
@@ -167,11 +159,11 @@ foreach ($exif as $key => $section) {
 */
 
    $output_str = $exif["IFD0"]["ImageDescription"]; 
-
-   if($output_str=="" || $output_str==null) {
+   if($output_str=="" || $output_str==null || strlen($output_str) < 2) {
    		$output_str = output_iptc_caption($fotosalta.$_GET['tombo'].'.jpg');
    }
-	$output_str = mb_convert_encoding($output_str,"iso-8859-1","UTF-8");
+   else
+		$output_str = mb_convert_encoding($output_str,"iso-8859-1","UTF-8");
    	$fff = preg_replace($tipo1,$tipo2,$output_str);
 	$array_final = split(";",$fff);
 	
