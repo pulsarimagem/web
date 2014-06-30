@@ -189,7 +189,7 @@ if($action == "copiarFoto") {
 	$tombos_arr = explode(";",$tombos);
 	
 	foreach ($tombos_arr as $tombo) {
-		if(strlen($tombo) > 4) {
+		if(strlen($tombo) > 2) {
 			$file = $tombo.'.jpg';
 			$source_file = '/var/fotos_alta/'.$file;
 			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
@@ -258,7 +258,7 @@ else if($action == "copiarVideo") {
 	$videos_arr = explode(";",$videos);
 	
 	foreach ($videos_arr as $file) {
-		if(strlen($file) > 4) {
+		if(strlen($file) > 2) {
 			$queryTamanho = "SELECT descricao_br as tamanho from $database_sig.USO_DESC WHERE Id = ".$_POST['tamanho'];
 			$rsTamanho = mysql_query($queryTamanho, $pulsar) or die(mysql_error());
 			$rowTamanho = mysql_fetch_assoc($rsTamanho);

@@ -384,8 +384,8 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
         </div>
           
            <div class="row-fluid">
-        <div class="span6"></div>
-        <div class="span6">
+        <div class="span5"></div>
+        <div class="span7">
         	<form method="post" class="formOnclick">
 	        	<input type="hidden" value="<?php echo FormatNumber($total,2)?>" name="valor_total"/>
 	        	<input type="hidden" value="<?php echo $id_contrato?>" name="id_contrato"/>
@@ -397,8 +397,9 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 <?php } else { ?>
 				<a class="btn btn-success" href="administrativo_licencas_nova.php?novo=true">Novo</a>&nbsp;
 		        <a class="btn btn-success" href="administrativo_licencas_nova.php?copiar=true&editar=true">Copiar</a>&nbsp;
-	        	<a class="btn btn-warning" href="tool_gerar_boleto_bb.php?id_contrato=<?php echo $id_contrato?>" target="_blank">Gerar Boleto</a>&nbsp;
-		        <a class="btn btn-primary unbind_unload" href="contrato_print.php?contratos[]=<?php echo $id_contrato?>" target="_blank">Imprimir</a>&nbsp;
+	        	<a class="btn btn-warning" href="tool_gerar_boleto_bradesco.php?id_contrato=<?php echo $id_contrato?>" target="_blank">Gerar Boleto</a>&nbsp;
+	        	<a class="btn btn-warning" href="tool_nfe.php?id_contrato[]=<?php echo $id_contrato?>" target="_blank">Gerar NFSe-SP</a>&nbsp;
+	        	<a class="btn btn-primary unbind_unload" href="contrato_print.php?contratos[]=<?php echo $id_contrato?>" target="_blank">Imprimir</a>&nbsp;
 		        <a class="btn btn-primary unbind_unload" href="administrativo_licencas_nova.php?editar=true&id_contrato=<?php echo $id_contrato?>">Editar</a>&nbsp;
 		        <a class="btn btn-danger unbind_unload confirmOnclick" href="administrativo_licencas_nova.php?excluir=true&id_contrato=<?php echo $id_contrato?>">Excluir</a>
 <?php }?>

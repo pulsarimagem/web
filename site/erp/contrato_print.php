@@ -307,7 +307,7 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 <table width="100%" style="margin-top:0px;">	
 	<tr><td align="center"><img src="../images/pulsarimagens.png"></td></tr>
 	<tr><td width="90%" align="center">
-	        <b>LICENÇA DE REPRODUÇÃO - DIGITAL</b><br />
+	        <b>LICENÇA DE REPRODUÇÃO</b><br />
 	        <a href="administrativo_licencas_nova.php?id_contrato=<?php echo $id_contrato ?>">Contrato: <b><?php echo $id_contrato?></b></a>
 	    </td>
 	</tr>
