@@ -307,7 +307,7 @@ if (isset($_GET['action'])) {
 	}
 }
 if($isFotoTmp) {
-	$query_dados_foto = sprintf("SELECT * FROM Fotos_tmp WHERE tombo = '%s'", $colname_dados_foto);
+	$query_dados_foto = sprintf("SELECT * FROM Fotos_tmp LEFT JOIN codigo_video ON Fotos_tmp.tombo = codigo_video.codigo WHERE tombo = '%s'", $colname_dados_foto);
 	$dados_foto = mysql_query($query_dados_foto, $pulsar) or die(mysql_error());
 	$row_dados_foto = mysql_fetch_assoc($dados_foto);
 	$row_dados_foto_tmp = $row_dados_foto; 
@@ -315,6 +315,7 @@ if($isFotoTmp) {
 	if($totalRows_dados_foto > 0) {
 		$tomboExists = true;
 		$form_tombo = $row_dados_foto['tombo'];
+		$form_filename = $row_dados_foto['arquivo'];
 // 		$idFoto = $row_dados_foto['Id_Foto'];
 		if($isCopy) {
 			$copyTombo = $_GET['copy_tombo'];

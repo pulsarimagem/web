@@ -1,5 +1,5 @@
 <?php
-$_SESSION['last_detail'] = $_SERVER['REQUEST_URI'];
+$_SESSION['last_detail_erp'] = $_SERVER['REQUEST_URI'];
 
 $lingua="br";
 // include('../language_br.php');
@@ -254,8 +254,8 @@ $ordem_prev = -1;
 $ordem_next = -1;
 $ordem_foto = -1;
 $total_foto = -1;
-if(isset($_SESSION['ultima_pesquisa'])&&isset($_GET['ordem_foto'])&&isset($_GET['total_foto'])) {
-	$tombo_array = explode('|',$_SESSION['ultima_pesquisa']);
+if(isset($_SESSION['ultima_pesquisa_erp'])&&isset($_GET['ordem_foto'])&&isset($_GET['total_foto'])) {
+	$tombo_array = explode('|',$_SESSION['ultima_pesquisa_erp']);
 	$ordem_foto = $_GET['ordem_foto'];
 	$scroll_startpos = $ordem_foto;
 	$total_foto = $_GET['total_foto'];

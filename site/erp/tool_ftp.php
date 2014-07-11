@@ -8,13 +8,30 @@ $isDelall = (isset($_GET['delall'])?true:false);
 $msg = "";
 
 if (isset($_POST['MM_Del'])) {
-unlink($homeftp.$idLogin."/".$_POST['arquivo']);
-$deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
-			GetSQLValueString($_POST['arquivo'], "text"),
-			GetSQLValueString($idLogin, "int")
-);
-mysql_select_db($database_pulsar, $pulsar);
-$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
+	$arquivo = $_POST['arquivo'];
+	mysql_select_db($database_pulsar, $pulsar);
+	if(isset($_POST['cancela'])) {
+		$query_arquivos = sprintf("SELECT * FROM ftp_arquivos WHERE id_ftp = %s AND nome = '$arquivo' ORDER BY nome", $idLogin);
+		// echo $query_arquivos;
+		$arquivos = mysql_query($query_arquivos, $pulsar) or die(mysql_error());
+		$totalRows_arquivos = mysql_num_rows($arquivos);
+		
+		while($row_arquivos = mysql_fetch_assoc($arquivos)) {
+			$deleteSQL = sprintf("DELETE FROM log_download2 WHERE arquivo = '%s' AND date(data_hora) = date(now()) AND id_login = %s AND usuario = '%s'",
+					$arquivo,
+					$idLogin,
+					$row_login['login']
+			);
+			$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
+			// echo $deleteSQL;
+		}
+	}
+	unlink($homeftp.$idLogin."/".$arquivo);
+	$deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
+				GetSQLValueString($arquivo, "text"),
+				GetSQLValueString($idLogin, "int")
+	);
+	$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
 }
 
 if($isDelall) {
@@ -186,6 +203,7 @@ if($action == "copiarFoto") {
 	include("../toolkit/inc_IPTC4.php");
 	
 	$tombos = $_POST['tombo'];
+	$tombos = str_replace(",",";",$tombos);
 	$tombos_arr = explode(";",$tombos);
 	
 	foreach ($tombos_arr as $tombo) {
@@ -255,6 +273,7 @@ if($action == "copiarFoto") {
 else if($action == "copiarVideo") {
 
 	$videos = $_POST['tombo'];
+	$videos = str_replace(",",";",$videos);
 	$videos_arr = explode(";",$videos);
 	
 	foreach ($videos_arr as $file) {
@@ -303,9 +322,9 @@ else if($action == "enviarEmail") {
 
 $to      = $_POST['to'] . "\n";
 $subject = $_POST['subject'];
-if (1==2) {
-	$subject = $subject."<br><strong>Atenção: utilize o login e senha abaixo.<br><br>Login:"."<br>Senha:"."</stong><br>";
-}
+// if (1==2) {
+// 	$subject = $subject."<br><strong>Atenção: utilize o login e senha abaixo.<br><br>Login:"."<br>Senha:"."</stong><br>";
+// }
 $subject = $subject."\n";
 $message = '
 <html>

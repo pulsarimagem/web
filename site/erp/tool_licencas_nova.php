@@ -196,7 +196,8 @@ $isBaixado = $baixado == "S"?true:false;
 $isFinalizado = $finalizado == "S"?true:false;
 
 
-if(isset($_POST['action']) && ($_POST['action'] == "Inserir"||$_POST['action'] == "InserirNew")) {
+if((isset($_POST['qcodigo']) && ($_POST['qcodigo'] != "")||(isset($_POST['qautor'])&&$_POST['qautor'] != ""))) {
+// if(isset($_POST['action']) && ($_POST['action'] == "Inserir"||$_POST['action'] == "InserirNew")) {
 	//resgatando parâmetros enviados pelo método post
 	$id_cliente	= isset($_POST['id_cliente_sig'])?$_POST['id_cliente_sig']:$id_cliente;
 //	$data 		= $_POST['data'];
@@ -239,7 +240,7 @@ if(isset($_POST['action']) && ($_POST['action'] == "Inserir"||$_POST['action'] =
 	$row_rs['VALOR'] = str_replace(".", ",", (string) $row_rs['VALOR']);
 	
 	
-	if( $_POST['action'] == "InserirNew" ) {
+	if(isset($_POST['qautor'])&&$_POST['qautor'] != "") {
 		//		foreach($qcodigo_arr as $qcodigo) {
 		//'gravando cromo não cadastrado na tabela de cromos
 		$sql = "INSERT INTO CROMOS(ID_CONTRATO, ID_USO, CODIGO, ASSUNTO, AUTOR, VALOR, DESCONTO) VALUES(" . $id_contrato . "," . $id_uso . ",'','" . $qassunto . "','" . $qautor . "','" . $row_rs['VALOR'] . "','$desc_valor')";

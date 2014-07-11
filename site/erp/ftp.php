@@ -250,7 +250,7 @@ $rowUso = $rowLastVideoUso;
 
     <span>Arquivos:</span><br>
     <br>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped data-table">
     <thead>
       <tr>
         <th><strong>Arquivo</strong></th>
@@ -280,7 +280,10 @@ $rowUso = $rowLastVideoUso;
         <td><div align="center"><?php echo $row_arquivos['validade']; ?></div></td>
 		<td>
 			<form name="delete" method="post" >
-				<input class="btn btn-danger" type="submit" name="Submit3" value="Del">
+				<input class="btn btn-warning confirmOnclick" type="submit" name="deleta" value="Deleta">
+<?php if(date("Y-m-d",strtotime($row_arquivos['data_cria'])) == date("Y-m-d", strtotime('now'))) { ?>				
+				<input class="btn btn-danger confirmOnclick" type="submit" name="cancela" value="Cancela">
+<?php } ?>				
 		        <input name="id_login" type="hidden" id="id_login" value="<?php echo $_GET['id_login']; ?>">
 		        <input name="arquivo" type="hidden" id="arquivo" value="<?php echo $row_arquivos['nome']; ?>">
 		        <input name="MM_Del" type="hidden" id="MM_Del" value="delete">

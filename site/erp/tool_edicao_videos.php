@@ -124,7 +124,7 @@ function check_exist($id_pasta, $tombo, $database_pulsar, $pulsar) {
 	return false;
 }
 
-$_SESSION['last_search'] = $_SERVER['REQUEST_URI'];
+$_SESSION['last_search_erp'] = $_SERVER['REQUEST_URI'];
 $totalRows_retorno = 0;
 $query = "";
 
@@ -497,8 +497,8 @@ session_register("ultima_pesquisa");
 $GLOBALS['ultima_pesquisa_query'] = $query;
 session_register("ultima_pesquisa_query");
 */
-$_SESSION['ultima_pesquisa'] = $super_string;
-$_SESSION['ultima_pesquisa_query'] = $query;
+$_SESSION['ultima_pesquisa_erp'] = $super_string;
+$_SESSION['ultima_pesquisa_query_erp'] = $query;
 
 $query = stripslashes($query);
 //echo $super_string."<br>";
@@ -506,7 +506,7 @@ $query = stripslashes($query);
 
 if(isset($_GET['show_tombo'])) {
 	header("Location: details.php?tombo=".$_GET['show_tombo']."&ordem_foto=".$_GET['ordem_foto']."&total_foto=".$totalRows_retorno);
-	$_SESSION['last_search'] = "listing.php?email_action=&email_id=".$_GET['email_id'];
+	$_SESSION['last_search_erp'] = "listing.php?email_action=&email_id=".$_GET['email_id'];
 }
 ?>
 
@@ -515,15 +515,15 @@ if(isset($_GET['show_tombo'])) {
 
 <?php 
 
-$_SESSION['ultima_pesquisa'] = $super_string;
-$_SESSION['ultima_pesquisa_query'] = $query;
+$_SESSION['ultima_pesquisa_erp'] = $super_string;
+$_SESSION['ultima_pesquisa_query_erp'] = $query;
 
 //echo $super_string."<br>";
 //echo $query."<br>";
 
 if(isset($_GET['show_tombo'])) {
 	header("Location: details_video.php?tombo=".$_GET['show_tombo']."&ordem_foto=".$_GET['ordem_foto']."&total_foto=".$totalRows_retorno);
-	$_SESSION['last_search'] = "listing.php?email_action=&email_id=".$_GET['email_id'];
+	$_SESSION['last_search_erp'] = "listing.php?email_action=&email_id=".$_GET['email_id'];
 }
 
 

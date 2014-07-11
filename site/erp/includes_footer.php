@@ -7,6 +7,7 @@
 <script src="js/pulsar.dashboard.js"></script>
 <script src="js/jquery.uniform.js"></script>
 <script src="js/jquery.chosen.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
 <!-- <script src="js/chosen.jquery.min.js"></script> -->
 <script src="js/pulsar.form_common.js"></script>
 <script src="js/pulsar.tables.js"></script>

@@ -195,6 +195,14 @@
 <?php }?>						
 									</div>
 								</div>
+<?php if($isFotoTmp && isVideo($colname_dados_foto)) { ?>								
+								<div class="control-group">
+									<label class="control-label">Nome do Arquivo</label>
+									<div class="controls clearfix">
+										<input type="text" name="filename_video" value="<?php echo $form_filename;?>" disabled="disabled"/>
+									</div>
+								</div>
+<?php } ?>																
 								<div class="control-group">
 									<label class="control-label">Copiar dados</label>
 									<div class="controls clearfix">

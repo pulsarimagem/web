@@ -1520,3 +1520,6 @@ float: right;
 		text-align: center;
 	}
 }
+div.DataTables_sort_wrapper {
+    display:flex
+}
