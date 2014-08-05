@@ -4,7 +4,7 @@
 $action = $_POST['action'];
 
 if($action == "salveIPTC") {
-	$iptcpal = $_POST['iptcPal'];
+	$iptcpal = utf8_decode($_POST['iptcPal']);
 	$idFoto = $_POST['idFoto'];
 	
 	$pal_chave_arr = explode(";",str_replace(",",";",$iptcpal));
@@ -178,6 +178,21 @@ else if($action == "clean_id_contato_sig") {
 		<option value="">--- Nenhum Video ---</option>
 <?php 				
 	}	
-}
+}else if($action == "checkExistQcodeUse") {
+	$idContrato = $_POST['id_contrato'];
+	$idUso = $_POST['id_uso'];
+	$qCode = $_POST['qcode'];
 
+	mysql_select_db($database_sig, $sig);
+	$query = "SELECT * FROM CROMOS LEFT JOIN CONTRATOS ON CONTRATOS.ID = CROMOS.ID_CONTRATO WHERE CONTRATOS.ID = $idContrato AND CROMOS.ID_USO = $idUso AND CROMOS.CODIGO = '$qCode'";
+	$rs = mysql_query($query, $sig) or die(mysql_error());
+
+	$total = mysql_num_rows($rs);
+	if($total > 0) {
+		echo "true";
+	}
+	else {
+		echo "false";
+	}	
+}
 ?>

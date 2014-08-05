@@ -39,7 +39,7 @@
 <?php } ?>     
         <div class="row-fluid">
           <div class="span12">
-      	    <form method="post">
+      	    <form method="post" class="checkForm">
           
 	            <table class="table table-bordered table-striped">
 	              <thead>
@@ -158,7 +158,7 @@ if($baixado == "S") {
                   </tr>
                   
                   <tr>
-                      <td colspan="2"><input type="text" placeholder="Código" class="gimefocus" name="qcodigo[]" /></td>
+                      <td colspan="2"><input type="text" placeholder="Código" class="gimefocus" id="qcodigo" name="qcodigo[]" /></td>
                       <td colspan="2"><select data-placeholder="- Escolha um uso -" name="id_uso" id="id_uso" class="span12 notChosen">
                           <option value=""> - Escolha um uso - </option>
 
@@ -204,7 +204,7 @@ if($baixado == "S") {
 	                      	<input class="btn btn-primary unbind_unload" type="submit" name="action" value="Inserir"/>
 	                      	<input class="btn btn-primary cadastrarCromo" type="button" value="Cromo Não Cadastrado"/>
 	                      	<input type="hidden" name="exec" value="cromo"/>
-	                      	<input type="hidden" name="id_contrato" value="<?php echo $id_contrato?>"/>
+	                      	<input type="hidden" id="id_contrato" name="id_contrato" value="<?php echo $id_contrato?>"/>
 	                     </td>
 	                  </tr>
 	              </tbody>

@@ -26,6 +26,33 @@ jQuery(document).ready(function() {
 
 	$('.gimefocus').focus();
 
+	$('.checkForm').submit(function(e) {
+		var qcode = $('#qcodigo').val();
+		var use = $('#id_uso').val();
+		var id = $('#id_contrato').val();
+		var self = this;
+		if(qcode != '' && use != '') {
+			e.preventDefault();
+			var dataString = 'action=checkExistQcodeUse&id_contrato='+id+'&id_uso='+use+'&qcode='+qcode;
+			$.ajax({
+				async: false, 
+				type: "POST",
+				url: "tool_ajax.php",
+				data: dataString,
+				cache: false,
+				success: function(html) {
+// 					alert("aswer: "+html);
+					if(html == "false")
+						self.submit();
+					else
+						if(confirm("Codigo "+qcode+" já existe para este uso. Confirma duplicação?")) {
+							self.submit();
+						}
+				} 
+			});
+		}
+	});
+
 	$('.unbind_unload').click(function() {
 		$(window).unbind('beforeunload');
 	});
