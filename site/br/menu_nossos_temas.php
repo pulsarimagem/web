@@ -15,7 +15,7 @@ if(mysql_num_rows($rsShowtmp) != 1) {
 
 	//	$query_temas_menu = "select * from temas left join (select distinct id_pai from lista_temas left join (select distinct id_tema from rel_fotos_temas left join (select id_foto from rel_fotos_temas left join (select id from temas where pai in (select id from temas where pai = 3 and Tema like \"".$row_estado['Estado']."\") union select id from temas where pai = 3 and Tema like \"".$row_estado['Estado']."\") as temas_estado on rel_fotos_temas.id_tema = temas_estado.id where id_tema = id) as fotos_tema_estado on rel_fotos_temas.id_foto = fotos_tema_estado.id_foto where rel_fotos_temas.id_foto = fotos_tema_estado.id_foto) as  id_temas_faltando on lista_temas.id_tema = id_temas_faltando.id_tema where lista_temas.id_tema = id_temas_faltando.id_tema) as temas_estado_id on temas.Id = temas_estado_id.id_pai where temas.Id = temas_estado_id.id_pai order by Pai,Tema ASC";
 	$query_temas_menu_adv = "
-		create table if not exists tmp_menu_fotos ENGINE = MEMORY select * from temas left join
+		create table if not exists tmp_menu_fotos select * from temas left join
 		(select distinct id_pai from lista_temas left join
 		(select distinct id_tema from rel_fotos_temas left join
 		(select distinct id_foto from Fotos where tombo NOT RLIKE '^[a-zA-Z]')

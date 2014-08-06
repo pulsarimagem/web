@@ -79,9 +79,10 @@ if($load_file) {
 	$headers .= "From: Pulsar Imagens <pulsarimagensltda@gmail.com>\n";
 	$headers .= "bcc: ".$fullcc."\n";
 	
-	mail($to,$subject,$message,$headers);
+	if(mail($to,$subject,$message,$headers))
+		echo "<!-- Email enviado! -->\n";
 	
-// 	echo $message;
+	echo "<!-- $message -->\n";
 }
 ?>
 				<div class="clear"></div>

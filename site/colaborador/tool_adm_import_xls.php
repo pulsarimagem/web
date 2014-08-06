@@ -13,7 +13,7 @@ $inicial = $row_top_login['Iniciais_Fotografo'];
 $debug = "";
 
 //$planilha = new Spreadsheet_Excel_Reader("indexaVideos.xls");
-if(isset($_FILES['excel']) && $_FILES['excel']['type']=="application/vnd.ms-excel")
+if(isset($_FILES['excel']) && ($_FILES['excel']['type']=="application/vnd.ms-excel"|| $_FILES['excel']['type']=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
 	$load_file = true;
 
 // $load_file = true;
