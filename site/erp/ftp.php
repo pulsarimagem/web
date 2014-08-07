@@ -31,7 +31,13 @@
               <?php echo $msg?>
               <a href="#" data-dismiss="alert" class="close">×</a>
             </div>
-<?php } ?>   	        
+<?php } ?>   
+<?php if(isset($error) && $error != "") { ?>
+            <div class="alert alert-error">
+              <?php echo $error?>
+              <a href="#" data-dismiss="alert" class="close">×</a>
+            </div>
+<?php } ?> 	        
           <form class="form-inline">
             <div class="span7">
               <select class="span10" name="id_login" data-placeholder="usuario">

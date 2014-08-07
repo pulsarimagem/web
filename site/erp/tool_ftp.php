@@ -208,6 +208,7 @@ if($action == "copiarFoto") {
 	
 	foreach ($tombos_arr as $tombo) {
 		if(strlen($tombo) > 2) {
+			$tombo = trim($tombo);
 			$file = $tombo.'.jpg';
 			$source_file = '/var/fotos_alta/'.$file;
 			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
@@ -220,52 +221,57 @@ if($action == "copiarFoto") {
 				$source_file = '/var/fotos_alta/'.$file;
 				$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
 				if (!copy($source_file, $dest_file)) {
-					$erro = "nok";
+					$isOk = false;
 				} else {
-					$erro = "ok";
+					$isOk = true;
 					$fp = fopen($dest_file, "r");
 					$s_array=fstat($fp);
 					$tamanho = $s_array["size"];
 					fclose($fp);
 				}
 			} else {
-				$erro = "ok";
+				$isOk = true;
 				$fp = fopen($dest_file, "r");
 				$s_array=fstat($fp);
 				$tamanho = $s_array["size"];
 				fclose($fp);
 			}
 			
-			coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
-			
-			
-			$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
-					GetSQLValueString($_POST['diretorio'], "int"),
-					GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
-					GetSQLValueString($file, "text"),
-					GetSQLValueString($tamanho, "long"),
-					GetSQLValueString($_POST["validade"], "int"),
-					GetSQLValueString($_POST["observacoes"], "text")
-			);
-			
-			mysql_select_db($database_pulsar, $pulsar);
-			$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-			
-			$insertSQL = sprintf("INSERT INTO log_download2 (arquivo, data_hora, ip, id_login, usuario, projeto, formato, uso, obs) VALUES ('%s','%s','%s',%s,'%s','%s','%s','%s','%s')",
-					$file,
-					date("Y-m-d h:i:s", strtotime('now')),
-					"FTP",
-					$_POST['diretorio'],
-					$row_login['login'],
-					$_POST['titulo'],
-					$_POST['tamanho'],
-					$_POST['uso'],
-					$_POST['observacoes']
-			);
-			mysql_select_db($database_pulsar, $pulsar);
-		// 		echo $insertSQL;
-			$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
-			$msg .= "Arquivo $tombo incluído com sucesso! ";
+			if($isOk) {
+				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+				
+				
+				$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
+						GetSQLValueString($_POST['diretorio'], "int"),
+						GetSQLValueString(date("Y-m-d h:i:s", strtotime('now')), "date"),
+						GetSQLValueString($file, "text"),
+						GetSQLValueString($tamanho, "long"),
+						GetSQLValueString($_POST["validade"], "int"),
+						GetSQLValueString($_POST["observacoes"], "text")
+				);
+				
+				mysql_select_db($database_pulsar, $pulsar);
+				$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+				
+				$insertSQL = sprintf("INSERT INTO log_download2 (arquivo, data_hora, ip, id_login, usuario, projeto, formato, uso, obs) VALUES ('%s','%s','%s',%s,'%s','%s','%s','%s','%s')",
+						$file,
+						date("Y-m-d h:i:s", strtotime('now')),
+						"FTP",
+						$_POST['diretorio'],
+						$row_login['login'],
+						$_POST['titulo'],
+						$_POST['tamanho'],
+						$_POST['uso'],
+						$_POST['observacoes']
+				);
+				mysql_select_db($database_pulsar, $pulsar);
+			// 		echo $insertSQL;
+				$Result1 = mysql_query($insertSQL, $pulsar) or die(mysql_error());
+				$msg .= "Arquivo $tombo incluído com sucesso! ";
+			}
+			else {
+				$error .= "Arquivo $tombo não encontrado!!! ";
+			}
 		}
 	}
 }
