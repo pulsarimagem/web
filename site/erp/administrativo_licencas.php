@@ -47,7 +47,7 @@
       		<div class="row-fluid">
 		          <div class="span5">
 					<div class="input-append calendar">
-	                   Cliente <select class="span12" name="id_cliente" data-placeholder="Escolha um cliente">
+	                   Cliente <select class="span12 do_submit" name="id_cliente" data-placeholder="Escolha um cliente">
 							<option value="">Escolha um cliente</option>
 <?php 	while($row_empresas = mysql_fetch_assoc($empresas)) { ?>
 							<option value="<?php echo $row_empresas['ID']?>" <?php echo ($row_empresas['ID']==$id_cliente?"selected":"")?>><?php echo $row_empresas['RAZAO']." / ".$row_empresas['FANTASIA']?></option>
@@ -81,7 +81,7 @@
 <!-- 		          </div> -->
 		          <div class="span1">
 <!-- 		              Cliente: <input class="input-large" name="cliente" type="text" placeholder="Nome fantasia ou Razão social" value="<?php echo $cliente?>"/> -->
-		              <button type="submit" name="action" value="enviar" class="btn btn-primary">Consultar</button>
+		              <button type="submit" name="action" value="enviar" class="btn btn-primary do_button">Consultar</button>
 		          </div>
 		        </div>
 <?php if($totalTotal > 0) { ?>		        

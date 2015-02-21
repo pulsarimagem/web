@@ -91,7 +91,7 @@
 									<label class="control-label"></label>
 									<div class="controls clearfix">
 										<div class="indexSelectFotos span3" <?php if($id_autor=="") echo "style=\"display:none\""?>>
-										   	<select name="tombos[]" id="indexSelectFotos" class="notChosen">
+										   	<select name="tombos[]" id="indexSelectFotos" class="notChosen do_submit">
 									   			<option value="nada">--- Tombo ---</option>
 <?php while ($row_fotos_tmp_select = mysql_fetch_assoc($fotos_tmp_select)){ ?>
 									   			<option value="<?php echo $row_fotos_tmp_select['tombo'];?>"><?php echo $row_fotos_tmp_select['tombo'];?></option>
@@ -100,7 +100,7 @@
 										</div>
 										<div class="indexSelectFotos span4" <?php if($id_autor=="") echo "style=\"display:none\""?>>
 											<input type="hidden" name="fotoTmp" value="true"/>
-											<button type="submit" name="action" value="consultar" class="btn btn-primary">Consultar</button>
+											<button type="submit" name="action" value="consultar" class="btn btn-primary do_button">Consultar</button>
 										</div>
 									</div>
 								</div>
@@ -123,7 +123,7 @@
 									<label class="control-label"></label>
 									<div class="controls clearfix">																				
 										<div class="indexSelectVideos span3" <?php if($id_autor=="") echo "style=\"display:none\""?>>
-										   <select name="tombos[]" id="indexSelectVideos" class="notChosen">
+										   <select name="tombos[]" id="indexSelectVideos" class="notChosen do_submit">
 										   		<option value="nada">--- Tombo ---</option>
 <?php while ($row_videos_tmp_select = mysql_fetch_assoc($videos_tmp_select)){ ?>
 										   		<option value="<?php echo $row_videos_tmp_select['tombo'];?>"><?php echo $row_videos_tmp_select['tombo'];?></option>
@@ -132,7 +132,7 @@
 										</div>
 										<div class="indexSelectVideos span4" <?php if($id_autor=="") echo "style=\"display:none\""?>>
 											<input type="hidden" name="fotoTmp" value="true"/>
-											<button type="submit" name="action" value="consultar" class="btn btn-primary">Consultar</button>
+											<button type="submit" name="action" value="consultar" class="btn btn-primary do_button">Consultar</button>
 										</div>
 									</div>
 								</div>

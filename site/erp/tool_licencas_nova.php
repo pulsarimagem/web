@@ -184,7 +184,7 @@ $id_cliente	= $row_objRS['ID_CLIENTE'];
 $id_contato	= $row_objRS['ID_CONTATO'];
 $descricao	= $row_objRS['DESCRICAO'];
 $contratoDesc = $row_objRS['ID_CONTRATO_DESC'];
-$data		= $row_objRS['DATA'];
+$data		= date("d/m/Y",strtotime($row_objRS['DATA']));
 $creationDate = date("d/m/y",strtotime($row_objRS['creation_date']));
 
 $finalizado		= $row_objRS['FINALIZADO'];

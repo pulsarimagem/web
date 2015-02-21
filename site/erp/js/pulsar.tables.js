@@ -12,6 +12,11 @@ $(document).ready(function(){
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 	
 	$('select').not('.notChosen').chosen({no_results_text: "Nada encontrado!"});
+	
+	$('.do_submit').on('change', function(){
+	    $('.do_button').trigger("click");
+	});
+	 
 	$('.chzn-drop').css({"width": "auto", "white-space": "nowrap"});
 //	$('#selectCliente_chzn').css({"max-width":"400px"});
 //	$('.chzn-container-single').css({"max-width":"40%"});

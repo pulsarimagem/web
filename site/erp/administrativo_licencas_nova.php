@@ -45,7 +45,7 @@
 	              <thead>
 	                  <tr>
 	                      <th colspan="2">Geração de Licença N° <?php echo $id_contrato?></th>
-	                      <th colspan="2">Data de criação <?php echo $creationDate?></th>
+	                      <th colspan="2">Data de criação <?php echo $data?></th>
 	                  </tr>
 <?php 
 if($baixado == "S") {
@@ -406,16 +406,20 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 	        </form>
         </div>
     </div>
-<?php if((!$is_indios && $has_indios)&&!$editar) { ?>
+<?php if((!$is_indios && $has_indios)) { ?>
+<?php //if((!$is_indios && $has_indios)&&!$editar) { ?>
 <script>alert("Contrato normal contendo fotos de indio!");</script>
 <?php } ?>
-<?php if(($is_indios && $has_normal)&&!$editar) { ?>
+<?php if(($is_indios && $has_normal)) { ?>
+<?php //if(($is_indios && $has_normal)&&!$editar) { ?>
 <script>alert("Contrato indio sem fotos de indio!");</script>
 <?php } ?>
-<?php if(($is_video && $has_foto)&&!$editar) { ?>
+<?php if(($is_video && $has_foto)) { ?>
+<?php //if(($is_video && $has_foto)&&!$editar) { ?>
 <script>alert("Contrato de video contendo foto!");</script>
 <?php } ?>
-<?php if((!$is_video && $has_video)&&!$editar) { ?>
+<?php if((!$is_video && $has_video)) { ?>
+<?php //if((!$is_video && $has_video)&&!$editar) { ?>
 <script>alert("Contrato de foto contendo video!");</script>
 <?php } ?>    
         <?php include('page_bottom.php'); ?>

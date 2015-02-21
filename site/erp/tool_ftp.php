@@ -26,12 +26,17 @@ if (isset($_POST['MM_Del'])) {
 			// echo $deleteSQL;
 		}
 	}
-	unlink($homeftp.$idLogin."/".$arquivo);
+	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/ftp/$idLogin/$arquivo";
+	// 			echo $cmd."<br>";
+	shell_exec($cmd);
+	
+// 	unlink($homeftp.$idLogin."/".$arquivo);
 	$deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
 				GetSQLValueString($arquivo, "text"),
 				GetSQLValueString($idLogin, "int")
 	);
 	$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
+	$msg .= "Arquivo $tombo removido com sucesso! ";
 }
 
 if($isDelall) {
@@ -42,13 +47,17 @@ if($isDelall) {
 	
 	$totalRows_arquivos = mysql_num_rows($arquivos);
 	while($row_arquivos = mysql_fetch_assoc($arquivos)) {
-		unlink($homeftp.$idLogin."/".$row_arquivos['nome']);
+		$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/ftp/$idLogin/".$row_arquivos['nome'];
+		// 			echo $cmd."<br>";
+		shell_exec($cmd);
+// 		unlink($homeftp.$idLogin."/".$row_arquivos['nome']);
 		$deleteSQL = sprintf("DELETE FROM ftp_arquivos WHERE nome = %s AND id_ftp = %s",
 				GetSQLValueString($row_arquivos['nome'], "text"),
 				GetSQLValueString($idLogin, "int")
 		);
 		$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
 // echo $deleteSQL;
+		$msg .= "Todos os arquivo removidos com sucesso! ";
 	}
 }
 ?>
@@ -208,38 +217,55 @@ if($action == "copiarFoto") {
 	
 	foreach ($tombos_arr as $tombo) {
 		if(strlen($tombo) > 2) {
-			$tombo = trim($tombo);
+			$tombo = trim(strtoupper_br($tombo));
 			$file = $tombo.'.jpg';
-			$source_file = '/var/fotos_alta/'.$file;
-			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
-			if (!file_exists($homeftp.$_POST['diretorio'])) {
-				mkdir($homeftp.$_POST['diretorio'],0770);
-			}
+			$dest_file = "/tmp/$tombo.jpg";
 			
-			if (!copy($source_file, $dest_file)) {
-				$file = $tombo.'.JPG';
-				$source_file = '/var/fotos_alta/'.$file;
-				$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
-				if (!copy($source_file, $dest_file)) {
-					$isOk = false;
-				} else {
-					$isOk = true;
-					$fp = fopen($dest_file, "r");
-					$s_array=fstat($fp);
-					$tamanho = $s_array["size"];
-					fclose($fp);
-				}
-			} else {
-				$isOk = true;
+			$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $dest_file";
+// 			echo $cmd."<br>";
+			shell_exec($cmd);
+			
+			if (file_exists($dest_file)) {
 				$fp = fopen($dest_file, "r");
 				$s_array=fstat($fp);
 				$tamanho = $s_array["size"];
-				fclose($fp);
+				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+				$cmd = "aws --profile pulsar s3 cp $dest_file s3://pulsar-media/ftp/".$_POST['diretorio']."/$tombo.jpg --acl public-read";
+				shell_exec($cmd);
+				$isOk = true;
 			}
 			
+// 			$source_file = '/var/fotos_alta/'.$file;
+// 			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
+// 			if (!file_exists($homeftp.$_POST['diretorio'])) {
+// 				mkdir($homeftp.$_POST['diretorio'],0770);
+// 			}
+			
+// 			if (!copy($source_file, $dest_file)) {
+// 				$file = $tombo.'.JPG';
+// 				$source_file = '/var/fotos_alta/'.$file;
+// 				$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
+// 				if (!copy($source_file, $dest_file)) {
+// 					$isOk = false;
+// 				} else {
+// 					$isOk = true;
+// 					$fp = fopen($dest_file, "r");
+// 					$s_array=fstat($fp);
+// 					$tamanho = $s_array["size"];
+// 					fclose($fp);
+// 				}
+// 			} else {
+// 				$isOk = true;
+// 				$fp = fopen($dest_file, "r");
+// 				$s_array=fstat($fp);
+// 				$tamanho = $s_array["size"];
+// 				fclose($fp);
+// 			}
+			
 			if($isOk) {
-				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+// 				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
 				
+				unlink($dest_file);
 				
 				$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
 						GetSQLValueString($_POST['diretorio'], "int"),

@@ -28,7 +28,7 @@
         <div class="row-fluid">
           <form class="form-inline">
             <div class="span7">
-              <select class="span11" name="id" data-placeholder="Tema">
+              <select class="span11 do_submit" name="id" data-placeholder="Tema">
 	          	<option></option>
 <?php while ($row_temas = mysql_fetch_assoc($temas)) { ?>
 				<option value="<?php echo $row_temas['Id']?>" <?php if($id == $row_temas['Id']) echo "selected"?>><?php echo $row_temas['Tema_total']?></option>
@@ -39,7 +39,7 @@
             	<input class="input-small" name="porcento" type="text" placeholder="Corte" value="<?php echo $porcento?>"/> %	
             </div>
             <div class="span3">
-              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button type="submit" class="btn btn-primary do_button">Enviar</button>
             </div>
           </form>
         </div>

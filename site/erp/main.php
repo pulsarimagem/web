@@ -65,7 +65,7 @@
 <?php while($row_lastadd = mysql_fetch_array($lastadd)) { ?>                  
            		  <li>
                     <div class="user-thumb">
-                      <img width="40" height="40" alt="User" src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $row_lastadd['tombo']?>p.jpg">
+                      <img width="40" height="40" alt="User" src="<?php echo $urlThumbs.$row_lastadd['tombo']?>p.jpg">
                     </div>
                     <div class="article-post">
                        <span class="user-info"><?php echo $row_lastadd['Nome_Fotografo']?></span>
@@ -91,7 +91,7 @@
 <?php while($row_pendings = mysql_fetch_array($pendings)) {?>
                   <li>
                     <div class="user-thumb">
-                      <img width="40" height="40" alt="User" src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $row_pendings['tombo']?>p.jpg">
+                      <img width="40" height="40" alt="User" src="<?php echo $urlThumbs.$row_pendings['tombo']?>p.jpg">
                     </div>
                     <div class="comments">
                       <span class="user-info"><?php echo $row_pendings['Nome_Fotografo']?> (<?php echo $row_pendings['pending']?>)</span>

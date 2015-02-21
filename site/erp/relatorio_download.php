@@ -28,7 +28,7 @@
         <form class="form-inline">
       		<div class="row-fluid">
       		  <div class="span4"> Período do Download: 
-              <select class="span5" name="periodo" data-placeholder="periodo do download">
+              <select class="span5 do_submit" name="periodo" data-placeholder="periodo do download">
 	          	<option value="TODOS">- Todos -</option>
               
 <?php while ($row_periodo = mysql_fetch_assoc($periodo)) { ?>
@@ -37,7 +37,7 @@
   			  </select>	
 	          </div>
             <div class="span4">
-              <select class="span10" name="id_login" data-placeholder="usuario">
+              <select class="span10 do_submit" name="id_login" data-placeholder="usuario">
 	          	<option value="TODOS">-- Todos os Usuários --</option>
 <?php while ($row_diretorios = mysql_fetch_assoc($diretorios)) { ?>
 			    <option value="<?php echo $row_diretorios['id_cadastro']?>"<?php if (isset($_GET['id_login']) && !(strcmp($row_diretorios['id_cadastro'], $_GET['id_login']))) {$limite = $row_diretorios['limite']; echo "selected=\"selected\"";} ?>><?php echo $row_diretorios['nome']?> / <?php echo $row_diretorios['empresa']?></option>
@@ -45,7 +45,7 @@
   			  </select>	
             </div>
       		  <div class="span4"> Tipo de Relatorio: 
-              <select class="span5" name="tipo" data-placeholder="tipo de relatorio">
+              <select class="span5 do_submit" name="tipo" data-placeholder="tipo de relatorio">
 	          	<option value="fotos" <?php echo ($relTipo=="fotos"?"selected":"")?>>Fotos</option>
                	<option value="videos" <?php echo ($relTipo=="videos"?"selected":"")?>>Videos</option>
                	<option value="layout" <?php echo ($relTipo=="layout"?"selected":"")?>>Layout</option>
@@ -54,7 +54,7 @@
           </div>
       	  <div class="row-fluid">
             <div class="span2">
-              <button type="submit" class="btn btn-primary">Consultar</button>
+              <button type="submit" class="btn btn-primary do_button">Consultar</button>
             </div>
           </div>
       		

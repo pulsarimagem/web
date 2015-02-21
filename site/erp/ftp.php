@@ -40,7 +40,7 @@
 <?php } ?> 	        
           <form class="form-inline">
             <div class="span7">
-              <select class="span10" name="id_login" data-placeholder="usuario">
+              <select class="span10 do_submit" name="id_login" data-placeholder="usuario">
 	          	<option value="">-- Escolha o Usuário --</option>
 <?php while ($row_diretorios = mysql_fetch_assoc($diretorios)) { ?>
 			    <option value="<?php echo $row_diretorios['id_login']?>"<?php if (isset($idLogin) && !(strcmp($row_diretorios['id_login'], $idLogin))) {echo "selected=\"selected\"";} ?>><?php echo $row_diretorios['nome']?>/<?php echo $row_diretorios['empresa']?></option>
@@ -48,7 +48,7 @@
   			  </select>	
             </div>
             <div class="span1">
-              <button type="submit" class="btn btn-success">Consultar</button>
+              <button type="submit" class="btn btn-success do_button">Consultar</button>
             </div>
             <div class="span2">
               <a class="btn btn-primary" href="ftp_criar.php">Criar Novo</a>
