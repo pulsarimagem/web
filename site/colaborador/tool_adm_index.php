@@ -244,7 +244,7 @@ if($totalRows_toindex == 0 && !isset($_GET['updated']) && !isset($_GET['tombo'])
 
 // se ï¿½ nova indexaï¿½ï¿½o vai para outra tela
 if ($totalRows_dados_foto == 0) { 
-  if (($_GET['tombo'] != "") && ($_POST['del_cromo'] == "")) {
+  if ((isset($_GET['tombo']) && ($_GET['tombo'] != "")) && ($_POST['del_cromo'] == "")) {
     header(sprintf("Location: adm_index_inc.php?tombo=%s", $_GET['tombo']));
   }
 }
@@ -257,8 +257,13 @@ if(isset($_GET['tombo'])) {
 	}
 }
 // Se nao existir foto alta, imprime mensagem
-if(strlen($_GET['tombo']) > 4) {
-	if(!file_exists($fotosalta.$_GET['tombo'].".jpg") && !file_exists($fotosalta.$_GET['tombo'].".JPG")) {
+if(isset($_GET['tombo']) && strlen($_GET['tombo']) > 4) {
+	$orig = "/tmp/".$_GET['tombo'].".jpg";
+	if(!file_exists($orig)) {
+		$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/".$_GET['tombo'].".jpg $orig";
+		shell_exec($cmd);
+	}
+	if(!file_exists($orig)) {
 ?>
 <script>
 alert('Tombo <?php echo $_GET['tombo']?> não presente no <?php echo $fotosalta?>');

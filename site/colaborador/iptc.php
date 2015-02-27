@@ -136,10 +136,17 @@ function get_iptc_caption( $image_path ) {
   $tipo2[4] = "; Data:";
   $tipo2[5] = "; Autor:";
 
-$exif = exif_read_data($fotosalta.$_GET['tombo'].'.jpg', 'IFD0');
+  
+  $orig = "/tmp/".$_GET['tombo'].".jpg";
+  if(!file_exists($orig)) {
+  	$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$colname_dados_foto.jpg $orig";
+  	shell_exec($cmd);
+  }
+  
+$exif = exif_read_data($orig, 'IFD0');
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 'IFD0');
 echo $exif===false ? "No EXIF data found.<br />\n" : "";
-$exif = exif_read_data($fotosalta.$_GET['tombo'].'.jpg', 0, true);
+$exif = exif_read_data($orig, 0, true);
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 0, true);
 
 /*
@@ -153,7 +160,7 @@ foreach ($exif as $key => $section) {
    $output_str = $exif["IFD0"]["ImageDescription"]; 
 
    if($output_str=="" || $output_str==null) {
-   		$output_str = output_iptc_caption($fotosalta.$_GET['tombo'].'.jpg');
+   		$output_str = output_iptc_caption($orig);
    }
 	$output_str = mb_convert_encoding($output_str,"iso-8859-1","UTF-8");
    	$fff = preg_replace($tipo1,$tipo2,$output_str);
@@ -176,7 +183,7 @@ else {
 
 echo "<br /><br /><strong>---Pal. Chaves---</strong><br />\n";
 
-$iptc_pal = output_iptc_data($fotosalta.$_GET['tombo'].'.jpg');
+$iptc_pal = output_iptc_data($orig);
 //output_iptc_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg');
 
 //$iptc_assunto = str_replace(" ","+",str_replace(";","&",str_replace(":", "=", $fff)));

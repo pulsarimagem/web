@@ -26,7 +26,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 //if(isset($_GET['tombo']))
 //	$_GET['tombo'] = strtoupper($_GET['tombo']);
 
-$tombo = $_GET['tombo'];
+$tombo = isset($_GET['tombo'])?$_GET['tombo']:"";
 
 // INSERIR NA TABELA FOTO
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {

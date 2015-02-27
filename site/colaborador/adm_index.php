@@ -20,7 +20,7 @@
         <div class="alteracao">
 	        <div class="image">
 	           	<div class="thumb">
-	               	<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $row_dados_foto['tombo']; ?>p.jpg" onclick="MM_openBrWindow('http://www.pulsarimagens.com.br/bancoImagens/<?php echo $_GET['tombo']; ?>.jpg','','resizable=yes,width=550,height=550')"/>
+	               	<img src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $row_dados_foto['tombo']; ?>p.jpg" onclick="MM_openBrWindow('https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $_GET['tombo']; ?>.jpg','','resizable=yes,width=550,height=550')"/>
 	        		<input name="" type="button" id="button" value="Extra IPTC" style="float: none;" onclick="MM_openBrWindow('<?php echo $homeurl;?>toolkit/Example.php?jpeg_fname=<?php echo $row_dados_foto['tombo']; ?>','','scrollbars=yes,resizable=yes,width=600,height=800')"/>
 	            </div>
 <!-- 	            <p>
