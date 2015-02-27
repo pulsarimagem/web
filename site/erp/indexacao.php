@@ -146,7 +146,7 @@
 <?php if(!isVideo($colname_dados_foto)) { ?>										
 											<div class="span12">
 <?php foreach($tombos as $tombo) { ?>											
-												<img src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg" onclick="MM_openBrWindow('http://www.pulsarimagens.com.br/bancoImagens/<?php echo $tombo?>.jpg','','resizable=yes,width=550,height=550')"/>
+												<img src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $tombo?>.jpg" onclick="MM_openBrWindow('https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $tombo?>.jpg','','resizable=yes,width=550,height=550')"/>
 <?php } ?>
 											</div>
 										</div>
@@ -157,7 +157,7 @@
 									<div class="controls">
 										<div class="row-fluid">
 											<div class="span12">
-<?php if(file_exists($fotosalta.$form_tombo.'.jpg')) { ?>											
+<?php if(file_exists($orig)) { ?>											
 												<IFRAME ID=IFrame1 FRAMEBORDER=0 SCROLLING=YES SRC="iptc.php?foto=<?php echo $form_tombo; ?>"></IFRAME>
 <?php } ?>
 											</div>
@@ -178,7 +178,7 @@
 								<div class="control-group">
 									<label class="control-label"></label>
 									<div class="controls">
-										<button type="button" class="btn btn-primary" onclick="window.open('<?php echo $homeurl ?>toolkit/Example.php?jpeg_fname=<?php echo $colname_dados_foto?>','','scrollbars=yes,resizable=yes,width=600,height=800')">Extra IPTC</button>
+										<button type="button" class="btn btn-primary" onclick="window.open('<?php //echo $homeurl ?>./toolkit/Example.php?jpeg_fname=<?php echo $colname_dados_foto?>','','scrollbars=yes,resizable=yes,width=600,height=800')">Extra IPTC</button>
 									</div>
 								</div>
 								<div class="control-group">

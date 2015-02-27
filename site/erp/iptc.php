@@ -54,11 +54,17 @@ for ($i=0; $i <$c; $i++)
   $tipo2[2] = "; Pais";
   $tipo2[3] = "; Data";
   $tipo2[4] = "; Autor";
+  
+  $orig = "/tmp/".$_GET['foto'].".jpg";
+  if(!file_exists($orig)) {
+  	$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $orig";
+  	shell_exec($cmd);
+  }
 
-$exif = exif_read_data($fotosalta.$_GET['foto'].'.jpg', 'IFD0');
+$exif = exif_read_data($orig, 'IFD0');
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 'IFD0');
 echo $exif===false ? "No header data found.<br />\n" : "";
-$exif = exif_read_data($fotosalta.$_GET['foto'].'.jpg', 0, true);
+$exif = exif_read_data($orig, 0, true);
 //$exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 0, true);
 
 /*
@@ -71,7 +77,7 @@ foreach ($exif as $key => $section) {
 
    $output_str = $exif["IFD0"]["ImageDescription"]; 
    if($output_str == null || $output_str == "" || strlen($output_str) < 2) {
-   	$output_str = get_iptc_caption($fotosalta.$_GET['foto'].'.jpg');
+   	$output_str = get_iptc_caption($orig);
    }
 
    $fff = preg_replace($tipo1,$tipo2,$output_str);
@@ -94,7 +100,7 @@ else {
 
 echo "<br /><br /><strong>---Pal. Chaves---</strong><br />\n";
 
-$pal_html = output_iptc_data($fotosalta.$_GET['foto'].'.jpg');
+$pal_html = output_iptc_data($orig);
 $pal_html = str_ireplace(";", "<br>", $pal_html);
 echo $pal_html;
 //output_iptc_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg');

@@ -36,7 +36,7 @@ if (isset($_POST['MM_Del'])) {
 				GetSQLValueString($idLogin, "int")
 	);
 	$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
-	$msg .= "Arquivo $tombo removido com sucesso! ";
+	$msg .= "Arquivo $arquivo removido com sucesso! ";
 }
 
 if($isDelall) {

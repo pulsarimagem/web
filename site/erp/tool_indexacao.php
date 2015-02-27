@@ -31,7 +31,9 @@ else if($action == "criar" || $isFotoTmp) {
 			mysql_query($sql, $pulsar) or die(mysql_error());
 			$idFoto = mysql_insert_id();
 			if(!isFotoTmp) {
-				$msg = "Criado com sucesso!";
+				$data = file_get_contents($cloud_server.'send_photoS3.php?tombo='.$colname_dados_foto);
+				
+				$msg = "Criado com sucesso! $data";
 				header("location: indexacao.php?tombos[]=$tombo&action=consultar&msg=Criado com sucesso!");
 			}
 		}
@@ -43,7 +45,7 @@ else if($action == "criar" || $isFotoTmp) {
 }
 else if($action == "gravar") {
 	// Insere o IPTC no arquivo
-	include('../toolkit/inc_IPTC4.php');
+	include('./toolkit/inc_IPTC4.php');
 	
 	$id_fotos = $_POST['id_fotos'];
 	foreach ($id_fotos as $id_foto) {
@@ -53,16 +55,22 @@ else if($action == "gravar") {
 		$row = mysql_fetch_array($rs);
 		$tombo = $row['tombo'];
 		
+		$orig = "/tmp/$tombo.jpg";
+		if(!file_exists($orig)) {
+			$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $orig";
+			shell_exec($cmd);
+		}
+		
 		// ROTINA DE PEGAR AS DIMENSOES DA FOTO
 		
 		$orientacao = 'H';
 		$width = 0;
 		$height = 0;
 		
-		$file = "/var/fotos_alta/".$tombo.".jpg";
+		$file = "/tmp/".$tombo.".jpg";
 		
 		if (!file_exists($file)) {				// check se o arquivo existe com extensao jpg e JPG
-			$file = "/var/fotos_alta/".$tombo.".JPG";
+			$msg .= "Arquivo em alta não encontrado!";
 		}
 		
 		if (file_exists($file)) {				// se existir, abre e imprime a resolucao
@@ -222,17 +230,39 @@ else if($action == "gravar") {
 			}
 		}
 	// 	$tombo = $_POST['tombo'];
-		$path = $thumbpop;
-		$dest_file = $path."/".$tombo.".jpg";
+	
+		$thumbs = "/tmp/".$tombo."t.jpg";
+		$pop = "/tmp/".$tombo."p.jpg";
+		
+		$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/previews/$tombo.jpg $thumbs";
+		shell_exec($cmd);
+		$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/previews/".$tombo."p.jpg $pop";
+		shell_exec($cmd);
+		
+		$dest_file = $thumbs;
 		coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
-		$dest_file = $path."/".$tombo."p.jpg";
+		$dest_file = $pop;
 		coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+		
+		$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/$tombo.jpg";
+		shell_exec($cmd);
+		$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$tombo."p.jpg";
+		shell_exec($cmd);
+		
+		$cmd = "aws --profile pulsar s3 cp $thumbs s3://pulsar-media/fotos/previews/$tombo.jpg --acl public-read";
+		shell_exec($cmd);
+		$cmd = "aws --profile pulsar s3 cp $pop s3://pulsar-media/fotos/previews/".$tombo."p.jpg --acl public-read";
+		shell_exec($cmd);
 		
 		if($deleteFotoTmp) {
 			$deleteSQL = "DELETE FROM Fotos_tmp WHERE tombo='$tombo'";
 			$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
 		}
-		$msg = "Gravado com sucesso!";
+		
+		unlink($thumbs);
+		unlink($pop);
+		unlink($orig);
+		$msg .= "Gravado com sucesso!";
 	}
 }
 else if ($action == "excluir") {
@@ -284,7 +314,8 @@ if (isset($_GET['action'])) {
 			$rs = mysql_query($sql, $pulsar) or die(mysql_error());
 			$row = mysql_fetch_array($rs);
 			$id_fotos[] = $row['Id_Foto'];
-			
+
+			$data = file_get_contents($cloud_server.'send_photoS3.php?tombo='.$colname_dados_foto);
 		}
 		$colname_dados_foto = $tombos[0];
 		$multiLoad = true;
@@ -417,9 +448,14 @@ if($totalRows_ini_fotografo > 0) {
 if($toLoad && $tomboExists && !$multiLoad) {
 	if(!isVideo($colname_dados_foto)) { 
 		if($tomboExists) {
-			if(!file_exists($fotosalta.$colname_dados_foto.".jpg") && !file_exists($fotosalta.$colname_dados_foto.".JPG")) {
+			$orig = "/tmp/$colname_dados_foto.jpg";
+			if(!file_exists($orig)) {
+				$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$colname_dados_foto.jpg $orig";
+				shell_exec($cmd);
+			}
+			if(!file_exists($orig)) {
 				$addScript="<script>
-								alert('Tombo $colname_dados_foto não presente no $fotosalta');
+								alert('Tombo $colname_dados_foto não presente no $orig');
 							</script>";
 			}
 		}
@@ -481,16 +517,22 @@ if($tomboExists) {
 	$tipo2[3] = "; Data";
 	$tipo2[4] = "; Autor";
 	
+	$orig = "/tmp/$colname_dados_foto.jpg";
+	if(!file_exists($orig)) {
+		$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$colname_dados_foto.jpg $orig";
+		shell_exec($cmd);
+	}
+	
 // 	$exif = exif_read_data ( $fotosalta . $colname_dados_foto . '.jpg', 'IFD0' );
 	// $exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 'IFD0');
 // 	echo $exif === false ? "No EXIF data found.<br />\n" : "";
-	$exif = exif_read_data ( $fotosalta . $colname_dados_foto . '.jpg', 0, true );
+	$exif = exif_read_data ( $orig, 0, true );
 	// $exif = exif_read_data('/var/www/www.pulsarimagens.com.br/bancoImagens/'.$_GET['foto'].'.jpg', 0, true);
 	
 	$output_str = $exif ["IFD0"] ["ImageDescription"];
 	
 	if ($output_str == "" || $output_str == null || strlen($output_str) < 2) {
-		$output_str = get_iptc_caption ( $fotosalta . $colname_dados_foto . '.jpg' );
+		$output_str = get_iptc_caption ( $orig );
 	}
 	else {
 		$output_str = mb_convert_encoding ( $output_str, "iso-8859-1", "UTF-8" );
@@ -498,7 +540,7 @@ if($tomboExists) {
 	$fff = preg_replace ( $tipo1, $tipo2, $output_str );
 	$array_final = split ( ";", $fff );
 	
-	$iptc_pal = output_iptc_data($fotosalta . $colname_dados_foto . '.jpg');
+	$iptc_pal = output_iptc_data($orig);
 
 	foreach ( $array_final as $aa => $bb ) {
 		if (valid_utf8($bb)) {

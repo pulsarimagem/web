@@ -337,7 +337,19 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 					  <input type="hidden" name="id<?php echo  $contador?>" value="<?php echo  $row_objRS5['ID'] ?>" />
                       <tr>
                           <td><?php echo $row_objRS5['CODIGO']?></td>
-                          <td><?php echo mb_strtoupper($row_objRS5['ASSUNTO'])?><br /><?php echo $uso?></td>
+                          <td><?php echo mb_strtoupper($row_objRS5['ASSUNTO'])?><br/><?php echo $uso?>
+<?php 
+	$query = "SELECT CROMOS.CODIGO, CONTRATOS.ID AS LR, CONTRATOS.ID_CLIENTE, CONTRATOS.DATA FROM CROMOS
+				LEFT JOIN CONTRATOS ON CROMOS.ID_CONTRATO = CONTRATOS.ID 
+				WHERE YEAR(CONTRATOS.DATA) = YEAR(NOW()) AND CROMOS.CODIGO LIKE '".$row_objRS5['CODIGO']."' AND CONTRATOS.ID_CLIENTE = '$id_cliente' AND CONTRATOS.ID != '$id_contrato';";
+	
+	$rs 	= mysql_query($query, $sig) or die(mysql_error());
+
+	while($row = mysql_fetch_assoc($rs)) {
+		echo "<br/><span style='color:red;font-weight:bold'>Código já licenciado na LR ".$row['LR']." em ".date("d/m/Y",strtotime($row['DATA']))." para esse cliente!</span>";
+	}
+?>
+                          </td>
                           <td><?php echo $row_objRS5['AUTOR']?></td>
 <?php If ($editar && !$isBaixado) { ?>
 							<td>R$ <input class="span7" type="text" name="valor<?php echo $contador?>" id="valor<?php echo $contador?>" value="<?php echo $row_objRS5['VALOR']?>"/></td>
