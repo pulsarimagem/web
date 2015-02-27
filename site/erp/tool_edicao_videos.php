@@ -471,7 +471,7 @@ if (isset($_GET['palavra'])) {
 	$MMColParam_uniao = "";
 }
 
-include_once("../tool_buildnavigation.php");
+include_once("./tool_buildnavigation.php");
 
 $nav_bar = buildNavigation($pageNum_retorno, $maxRows_retorno, $totalRows_retorno);
 
