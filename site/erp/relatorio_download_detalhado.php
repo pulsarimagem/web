@@ -207,7 +207,7 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
 ?>
     <table class="table table-bordered table-striped">
       <tr>
-        <td width="150" rowspan="9" valign="top"><img src="http://www.pulsarimagens.com.br/bancoImagens/<?php
+        <td width="150" rowspan="9" valign="top"><img src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php
 		 echo strtoupper(str_replace($retirar,"",$row_arquivos['arquivo'])); ?>p.jpg" /></td>
         <td colspan="2"><div align="left">Assunto: <?php echo $row_arquivos['assunto_principal']; ?></div></td>
       </tr>

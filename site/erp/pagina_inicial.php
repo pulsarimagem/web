@@ -66,7 +66,7 @@
 		            <td><?php echo $row_fotos_home['tombo']; ?></td>
 		        	<td>        	
 		        		<div style="width: 150px; height: 47px; overflow: hidden">
-	        				<img src="<?php echo "http://www.pulsarimagens.com.br/" //$homeurl; ?>bancoImagens/<?php echo $row_fotos_home['tombo']; ?>p.jpg" title="" style="margin:-27px 0px -27px 0px" onclick="document.location.href='http://www.pulsarimagens.com.br/images/home/<?php echo $row_fotos_home['tombo']; ?>.jpg'"/> 
+	        				<img src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $row_fotos_home['tombo']; ?>p.jpg" title="" style="margin:-27px 0px -27px 0px" onclick="document.location.href='http://www.pulsarimagens.com.br/images/home/<?php echo $row_fotos_home['tombo']; ?>.jpg'"/> 
         				</div>
         			</td>
                     <td>
