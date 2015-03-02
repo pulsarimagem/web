@@ -502,7 +502,7 @@ $iptc_estado = "";
 $iptc_data = "";
 $iptc_pal = "";
 
-if($tomboExists) {
+if($tomboExists && !isVideo($colname_dados_foto)) {
 	$output_str = "";
 	$tipo1[0] = "/Assunto/";
 	$tipo1[1] = "/Local/";

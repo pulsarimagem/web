@@ -23,12 +23,31 @@ $fotos_site = array();
 $thumbs_site = array();
 $altas_site = array();
 
+
+$cmd = "aws --profile pulsar s3 ls s3://pulsar-media/fotos/previews/";
+$out = shell_exec($cmd);
+$out_arr = explode("\n", $out);
+foreach($out_arr as $line) {
+	if(strstr($line, ".jpg")!==false) {
+		$words = explode(" ",$line);
+		$oneFile = end($words);
+		$thisFileType = strtolower(substr($oneFile,-5));
+		if (strlen($oneFile) > 5 && preg_match('/^[0-9]/',$oneFile)) {
+			if ($thisFileType == "p.jpg") {
+				$fotos_site[] = substr($oneFile,0,-5);
+			} else {
+				$thumbs_site[] = substr($oneFile,0,-4);
+			}
+		}
+	}
+}
+/*
 if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {
 	while ($oneFile = readdir($directoryPointer)) {
 //		$thisFileType = strtolower(substr(strrchr($oneFile, "."), 1));
 //		$thisFileType = strtolower(substr(stristr($oneFile, "p"), 1));
 		$thisFileType = strtolower(substr($oneFile,-5));
-/*		if ($thisFileType == ".jpg" || $thisFileType == "jpeg") {
+-/		if ($thisFileType == ".jpg" || $thisFileType == "jpeg") {
 			$fileCount++;
 		} else {
 			if ($thisFileType == "g" || $thisFileType == "jpeg") {
@@ -37,7 +56,7 @@ if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {
 		}
 */
 //Modificado por Zoca para retirar o ./ e o ../ da lista.
-
+/*
 		if (strlen($oneFile) > 5 && preg_match('/^[0-9]/',$oneFile)) {
 			if ($thisFileType == "p.jpg") {
 				$fotos_site[] = substr($oneFile,0,-5);
@@ -47,6 +66,7 @@ if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {
 		}
 	}
 } 
+*/
 /*
 $imageDir = $fotosalta; 
 if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {

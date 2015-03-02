@@ -209,7 +209,7 @@ $action  = isset($_POST['action'])?$_POST['action']:"";
 
 
 if($action == "copiarFoto") {
-	include("../toolkit/inc_IPTC4.php");
+	include("./toolkit/inc_IPTC4.php");
 	
 	$tombos = $_POST['tombo'];
 	$tombos = str_replace(",",";",$tombos);

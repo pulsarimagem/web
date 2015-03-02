@@ -305,7 +305,7 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 ?>
 
 <table width="100%" style="margin-top:0px;">	
-	<tr><td align="center"><img src="../images/pulsarimagens.png"></td></tr>
+	<tr><td align="center"><img src="./imagens/pulsarimagens.png"></td></tr>
 	<tr><td width="90%" align="center">
 	        <b>LICENÇA DE REPRODUÇÃO</b><br />
 	        <a href="administrativo_licencas_nova.php?id_contrato=<?php echo $id_contrato ?>">Contrato: <b><?php echo $id_contrato?></b></a>
@@ -351,7 +351,7 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 </table>
 <div class="quebra"></div>
 <table align="center" width="100%">
-	<tr><td colspan="2"><center><img src="../images/pulsarimagens.png"/></center></td></tr>
+	<tr><td colspan="2"><center><img src="./imagens/pulsarimagens.png"/></center></td></tr>
 	<tr><td align="center"><b>ANEXO: 1</b></td></tr>
 	<tr><td colspan="2"></td></tr>
 </table>

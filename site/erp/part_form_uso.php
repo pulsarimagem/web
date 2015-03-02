@@ -6,7 +6,7 @@ $sufix = isset($sufix)?$sufix:"";
 $contrato = isVideo($MMColParam_dados_foto)?"V":"F";
 // $contrato = "V";
 ?>
-<?php include("../tool_details_download_form_script.php");?>
+<?php include("./tool_details_download_form_script.php");?>
 <?php 
 
 // $contrato = "V";
