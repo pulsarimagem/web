@@ -179,11 +179,11 @@
 					
 					if($indio) {
 						$indio_comissao = (($row_objRsContratos["VALOR_TOTAL"] - $impvalor) - $cliente_comissao) / 3;
-						$pulsar_comissao = ((($row_objRsContratos["VALOR_TOTAL"] - $impvalor) - $cliente_comissao) - $indio_comissao)*0.55;
+						$pulsar_comissao = ((($row_objRsContratos["VALOR_TOTAL"] - $impvalor) - $cliente_comissao) - $indio_comissao)*0.50; //alterado de .55 para .50 a pedido do Saulo
 						$total_indio = $total_indio + $indio_comissao;
 					}
 					else {
-						$pulsar_comissao = ((($row_objRsContratos["VALOR_TOTAL"] - $impvalor) - $cliente_comissao))*0.55;
+						$pulsar_comissao = ((($row_objRsContratos["VALOR_TOTAL"] - $impvalor) - $cliente_comissao))*0.50; //alterado de .55 para .50 a pedido do Saulo
 					}
 			?>
 			
