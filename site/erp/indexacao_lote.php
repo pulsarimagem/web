@@ -45,7 +45,7 @@
 <?php
 do {  
 ?>
-		                  <option value="<?php echo $rowAllTemas['Id']?>"><?php echo $rowAllTemas['Tema_total']?></option>
+		                  <option value="<?php echo $rowAllTemas['Id']?>" <?php if(isset($_GET['tema'])&&$_GET['tema']==$rowAllTemas['Id']) echo "selected"?>><?php echo $rowAllTemas['Tema_total']?></option>
                   <?php
 } while ($rowAllTemas = mysql_fetch_assoc($rsAllTemas));
   $rows = mysql_num_rows($rsAllTemas);
@@ -62,7 +62,7 @@ do {
                     <label class="control-label">Palavra-Chave</label>
                     <div class="controls clearfix">
                       <div class="span10">
-						<input class="span10" type="hidden" name="descritores" id="indexDesc2" value="<?php echo $descConcat?>">
+						<input class="span10" type="hidden" name="descritores" id="indexDesc2" value="<?php if(isset($_GET['descritores'])) echo $_GET['descritores']?>">
                       </div>
                     </div>
                   </div>
@@ -77,7 +77,7 @@ do {
 <?php
 do {  
 ?>
-					            <option value="<?php echo $row_fotografos['id_fotografo']?>"><?php echo $row_fotografos['Nome_Fotografo']?></option>
+					            <option value="<?php echo $row_fotografos['id_fotografo']?>" <?php if(isset($_GET['autor'])&& in_array($row_fotografos['id_fotografo'],$_GET['autor'])) echo "selected"?>><?php echo $row_fotografos['Nome_Fotografo']?></option>
             <?php
 } while ($row_fotografos = mysql_fetch_assoc($fotografos));
   $rows = mysql_num_rows($fotografos);
@@ -88,6 +88,16 @@ do {
 ?>
 							</select>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls-row">
+                      <div class="controls clearfix">
+                        <div class="span4">
+							Cidade
+							<input name="cidade" type="text" placeholder="Cidade " value="<?php if(isset($_GET['cidade'])) echo $_GET['cidade'];?>" />
+                        </div>
                         <div class="span4">
 							Estado
 							<select name="estado" data-placeholder="-- Estado --">
@@ -95,7 +105,7 @@ do {
 <?php
 do {  
 ?>
-					            <option value="<?php echo $row_estado['Sigla']?>"><?php echo $row_estado['Estado']?></option>
+					            <option value="<?php echo $row_estado['Sigla']?>" <?php if(isset($_GET['estado'])&&$_GET['estado']==$row_estado['Sigla']) echo "selected"?>><?php echo $row_estado['Estado']?></option>
 <?php
 } while ($row_estado = mysql_fetch_assoc($estado));
   $rows = mysql_num_rows($estado);
@@ -113,7 +123,7 @@ do {
 <?php
 do {  
 ?>
-					            <option value="<?php echo $row_pais['id_pais']?>"><?php echo $row_pais['nome']?></option>
+					            <option value="<?php echo $row_pais['id_pais']?>" <?php if(isset($_GET['pais'])&&$_GET['pais']==$row_pais['id_pais']) echo "selected"?>><?php echo $row_pais['nome']?></option>
 <?php
 } while ($row_pais = mysql_fetch_assoc($pais));
   $rows = mysql_num_rows($pais);
@@ -131,7 +141,7 @@ do {
                     <label class="control-label">Assunto</label>
                     <div class="controls clearfix">
                       <div class="span6">
-                        <input name="assunto_principal" type="text" placeholder="Assunto principal " />
+                        <input name="assunto_principal" type="text" placeholder="Assunto principal " value="<?php if(isset($_GET['assunto_principal'])) echo $_GET['assunto_principal'];?>" />
                       </div>
                     </div>
                   </div>
@@ -140,7 +150,7 @@ do {
                     <label class="control-label">Assunto Extra</label>
                     <div class="controls clearfix">
                       <div class="span6">
-                        <input name="extra" type="text" placeholder="Assunto secundário " />
+                        <input name="extra" type="text" placeholder="Assunto secundário " value="<?php if(isset($_GET['extra'])) echo $_GET['extra'];?>" />
                       </div>
                     </div>
                   </div>
@@ -172,23 +182,39 @@ $count_fotos = $startRow_retorno;
 while($row_retorno = mysql_fetch_assoc($retorno)) { 
 ?>       
           
-  <li class="span2">
-    <input type="checkbox" class="checkbox" name="indexacao[]" value="<?php echo $row_retorno['Id_Foto']; ?>" checked="checked">
-    <div class="thumbnail" style="width: 152px;height: 165px">
+  <li class="span2" style="width: 520px;">
+    <div class="thumbnail" style="width: 512px;height: 265px">
+    <div>
 <?php if(isVideo($row_retorno['tombo'])) { ?>    
       <a href="indexacao.php?tombos[]=<?php echo $row_retorno['tombo']."&action=consultar"; ?>">
       <img src="<?php echo $cloud_server?>Videos/thumbs/<?php echo $row_retorno['tombo']; ?>_3s.jpg" alt="">
       </a>
 <?php } else { ?>
       <a href="indexacao.php?tombos[]=<?php echo $row_retorno['tombo']."&action=consultar"; ?>">
-      <img src="<?php echo "http://www.pulsarimagens.com.br/"//$homeurl?>bancoImagens/<?php echo $row_retorno['tombo']; ?>p.jpg" alt="">
+      <img src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $row_retorno['tombo']; ?>p.jpg" alt="">
       </a>
 <?php } ?>      
+	</div>
       <div class="clearfix">
-	      <h4><?php echo $row_retorno['tombo']; ?></h4>
-	      <div class="bt-zoom">
-		      <a class="icon icon-zoom-in" href="#" alt="visualizar"></a>
-		  </div>
+    		  <span><input type="checkbox" class="checkbox" name="indexacao[]" value="<?php echo $row_retorno['Id_Foto']; ?>" checked="checked"><font style="font-weight: bold;">Codigo: </font><?php echo $row_retorno['tombo']; ?></span><br/>
+	      	  <span><font style="font-weight: bold;">Assunto: </font><?php echo $row_retorno['assunto_principal']; ?></span><br/>
+	      	  <span><font style="font-weight: bold;">Info Extra: </font><?php echo $row_retorno['extra']; ?></span><br/>
+	      	  <span><font style="font-weight: bold;">Autor: </font><?php echo $row_retorno['Nome_Fotografo']; ?></span><br/>
+	      	  <span><font style="font-weight: bold;">Data: </font><?php echo $row_retorno['data_foto']; ?></span><br/>
+	      	  <span><font style="font-weight: bold;">Local: </font><?php echo $row_retorno['cidade']; ?>-<?php echo $row_retorno['Sigla']; ?>-<?php echo $row_retorno['nome']; ?></span><br/>
+	      	  <span><font style="font-weight: bold;">Temas: </font><br/><?php
+	      	  mysql_select_db($database_pulsar, $pulsar);
+	      	  $query_temas = "SELECT Fotos.tombo, super_temas.Tema_total as Tema, super_temas.Id FROM super_temas INNER JOIN rel_fotos_temas ON (super_temas.Id=rel_fotos_temas.id_tema) INNER JOIN Fotos ON (Fotos.Id_Foto=rel_fotos_temas.id_foto) WHERE (Fotos.tombo = '".$row_retorno['tombo']."')";
+	      	  $temas = mysql_query($query_temas, $pulsar) or die(mysql_error());
+	      	  while ($row_temas = mysql_fetch_assoc($temas)) { echo $row_temas['Tema']."<br/>"; };
+	      	  ?></span>
+	      	  <span><font style="font-weight: bold;">PC: </font><br/><?php 
+	      	  mysql_select_db($database_pulsar, $pulsar);
+	      	  $query_palavras = " SELECT    pal_chave.Pal_Chave as Pal_Chave,   pal_chave.Id FROM  rel_fotos_pal_ch  INNER JOIN Fotos ON (rel_fotos_pal_ch.id_foto=Fotos.Id_Foto)  INNER JOIN pal_chave ON (pal_chave.Id=rel_fotos_pal_ch.id_palavra_chave) WHERE   (Fotos.tombo LIKE '".$row_retorno['tombo']."' AND Pal_Chave IS NOT NULL) GROUP BY Pal_Chave order by Pal_Chave";
+	      	  $palavras = mysql_query($query_palavras, $pulsar) or die(mysql_error());
+	      	  while ($row_palavras = mysql_fetch_assoc($palavras)) { echo $row_palavras['Pal_Chave']." | "; };
+	      	  mysql_select_db($database_sig, $sig);
+	      	  ?></span>
 	    </div>
     </div>
   </li>

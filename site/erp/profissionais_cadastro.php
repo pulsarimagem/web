@@ -170,13 +170,13 @@
 				              <div class="control-group">
 			                    <div class="controls clearfix">
 								  <div class="span6">
-			                        <input type="text" placeholder="E-mail " name="email" value="<?php echo ($isNew?"":$rowUsers['EMAIL'])?>" />
+			                        Email <input type="text" placeholder="E-mail " name="email" value="<?php echo ($isNew?"":$rowUsers['EMAIL'])?>" />
 			                      </div>
 			                      <div class="span2">
-			                        <input type="text" placeholder="Sigla" name="sigla" value="<?php echo ($isNew?"":$rowUsers['SIGLA'])?>" />
+			                        Sigla <input type="text" placeholder="Sigla" name="sigla" value="<?php echo ($isNew?"":$rowUsers['SIGLA'])?>" />
 			                      </div>
 			                      <div class="span4">
-			                        <input type="text" placeholder="Senha" name="senha" value="<?php echo ($isNew?"":$rowUsers['senha'])?>" />
+			                        Senha <input type="text" placeholder="Senha" name="senha" value="<?php echo ($isNew?"":$rowUsers['senha'])?>" />
 			                      </div>
 			                    </div>
 			                  </div>

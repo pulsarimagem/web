@@ -108,7 +108,7 @@ if($action == "indexar") {
 
 if($action == "pesquisar") {
 	$lingua = "br";
-	include("../inc_pesquisa_obj.php");
+	include("./inc_pesquisa_obj.php");
 	$ordem = "relevancia";
 	$pageNum_retorno = 0;
 	$maxRows_retorno = 9999;
@@ -125,6 +125,14 @@ if($action == "pesquisar") {
 	$engine->db = $database_pulsar;
 	$engine->connect();
 	$engine->idioma = $lingua;
+	
+	if (isset($_GET['cidade']) && $_GET['cidade']!="") {
+		$pesq = new elementoPesquisa();
+		$pesq->arrPalavras[$_GET['cidade']] = $lingua;
+		$pesq->arrCampos['cidade'] = true;
+		$pesquisas[] = $pesq;
+		$engine->isEnable = true;
+	}
 	
 	if (isset($_GET['estado']) && $_GET['estado']!="") {
 		$pesq = new elementoPesquisa();
