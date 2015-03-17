@@ -14,6 +14,6 @@ $this_page = $partsURL[count($partsURL) - 1];
             	<li><a href="consulta_comissoes.php" <?php if($this_page == "consulta_comissoes.php") echo "class=\"select\"><span><img src=\"images/secao_admin-span.jpg\" /></span";?>>3. Relatório de Comissões</a></li>
             	<li><a href="adm_import_xls.php" <?php if($this_page == "adm_import_xls.php") echo "class=\"select\"><span><img src=\"images/secao_admin-span.jpg\" /></span";?>>4. Importar Excel</a></li>
             	<li><a href="alterar_senha.php" <?php if($this_page == "alterar_senha.php") echo "class=\"select\"><span><img src=\"images/secao_admin-span.jpg\" /></span";?>>5. Alterar Senha</a></li>
-            	<li><a href="../colaborador/">6. Logout</a></li>
+            	<li><a href="../">6. Logout</a></li>
             	</ol>
         </div>

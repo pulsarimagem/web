@@ -80,21 +80,44 @@ function update_tombos_list() {
 	$altas_site = array();
 	$x = 0;
 
-	if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {
-		while ($oneFile = readdir($directoryPointer)) {
-			$thisFileType = strtolower(substr($oneFile,-5));
+// 	if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {
+// 		while ($oneFile = readdir($directoryPointer)) {
+// 			$thisFileType = strtolower(substr($oneFile,-5));
 
-			//Modificado por Zoca para retirar o ./ e o ../ da lista.
-			if (strlen($oneFile) > 5) {
-				if ($thisFileType == "p.jpg") {
-					$codigo_autor = ereg_replace("[^A-Za-z]","", substr($oneFile,0,-5));
-					if((strlen($codigo_autor) == strlen($sigla_autor)) && stristr($codigo_autor, $sigla_autor)) {
-						$fotos_site[] = substr($oneFile,0,-5);
+// 			//Modificado por Zoca para retirar o ./ e o ../ da lista.
+// 			if (strlen($oneFile) > 5) {
+// 				if ($thisFileType == "p.jpg") {
+// 					$codigo_autor = ereg_replace("[^A-Za-z]","", substr($oneFile,0,-5));
+// 					if((strlen($codigo_autor) == strlen($sigla_autor)) && stristr($codigo_autor, $sigla_autor)) {
+// 						$fotos_site[] = substr($oneFile,0,-5);
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+	for($i = 1; $i < 100; $i++) {
+		
+		$cmd = "aws --profile pulsar s3 ls s3://pulsar-media/fotos/orig/".str_pad($i,2,"0",STR_PAD_LEFT).$sigla_autor;
+//		echo $cmd."<br>";
+		$out = shell_exec($cmd);
+		$out_arr = explode("\n", $out);
+		foreach($out_arr as $line) {
+			if(strstr($line, ".jpg")!==false) {
+				$words = explode(" ",$line);
+				$oneFile = end($words);
+				$thisFileType = strtolower(substr($oneFile,-5));
+				if (strlen($oneFile) > 5) {
+					if ($thisFileType != "p.jpg") {
+						$codigo_autor = ereg_replace("[^A-Za-z]","", substr($oneFile,0,-5));
+						if((strlen($codigo_autor) == strlen($sigla_autor)) && stristr($codigo_autor, $sigla_autor)) {
+							$fotos_site[] = substr($oneFile,0,-4);
+						}
 					}
 				}
 			}
 		}
 	}
+	
 	$fotos_sem_db = array_diff($fotos_site, $fotos_db);
 	asort($fotos_sem_db);
 

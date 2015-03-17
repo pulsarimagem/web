@@ -33,8 +33,10 @@ if (isset($_GET['login']) && isset($_GET['senha'])) {
 	$login = strtoupper($_GET['login']);
 	$senha = $_GET['senha'];
 }
-
-if(!$has_error && $submit) {
+if(isset($_SESSION['MM_Username_Fotografo'])) {
+	header("Location: menu.php");
+}
+else if(!$has_error && $submit) {
 	$loginUsername=$login;
 	$password=$senha;
 	$MM_fldUserAuthorization = "tipo";

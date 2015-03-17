@@ -21,7 +21,7 @@
                     <li><a href="consulta_comissoes.php">3. Relatório de Comissões</a></li>
 	                <li><a href="adm_import_xls.php">4. Importar Excel</a></li>
                     <li><a href="alterar_senha.php">5. Alterar Senha</a></li> 
-                    <li><a href="../colaborador/">6. Logout</a></li> 
+                    <li><a href="../">6. Logout</a></li> 
     	        </ul>
             </div>
           
