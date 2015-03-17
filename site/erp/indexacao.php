@@ -227,14 +227,14 @@
 									<label class="control-label">Direito de imagem</label>
 									<div class="controls">
 										<div class="span6">
-											<label><input type="radio" name="dir_img" value="0" <?php echo ($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":"");?>> Nenhum</label> 
-											<label><input type="radio" name="dir_img" value="1" <?php echo ($form_dirimg%10 == 1 ? "checked":"");?>> Uso autorizado</label> 
-											<label><input type="radio" name="dir_img" value="2" <?php echo ($form_dirimg%10 == 2 ? "checked":"");?>> Uso autorizado + Acrécimo de 100%</label>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="0" <?php echo ($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":"");?>></label><label style="display: inline;">Nenhum</label><br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="1" <?php echo ($form_dirimg%10 == 1 ? "checked":"");?>></label><label style="display: inline;">Uso autorizado</label> <br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="2" <?php echo ($form_dirimg%10 == 2 ? "checked":"");?>></label><label style="display: inline;">Uso autorizado + Acrécimo de 100%</label><br/>
 <!-- 											<label><input type="radio" name="dir_img" value="3" <?php echo ($form_dirimg%10 == 3 ? "checked":"");?>> Não autorizado</label> -->
 										</div>
 									</div>
 								</div>
-								<div class="control-group" style="display:none">
+<!-- 								<div class="control-group" style="display:none">
 									<label class="control-label">Direito de propriedade</label>
 									<div class="controls">
 										<div class="span6">
@@ -243,7 +243,7 @@
 											<label><input type="radio" name="dir_prop" value="20" <?php echo (intval($form_dirimg/10) == 2 ? "checked":"");?>> Não autorizado</label>
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<div class="control-group">
 									<label class="control-label">Autor</label>
 									<div class="controls clearfix">
@@ -292,6 +292,7 @@ do {
 									<div class="controls clearfix">
 										<select name="estado" data-placeholder=" - - - - - Escolha - - - - - ">
             <option value="" <?php if (!(strcmp("", $form_estado)) && $iptc_estado == "") {echo "SELECTED";} ?>></option>
+            <option value>Nenhum</option>
             <?php
 do {  
 ?>
@@ -313,6 +314,7 @@ do {
 										<div class="span5">
 											<select class="span12" name="pais" data-placeholder=" - - - - - Escolha - - - - - ">
             <option value="" <?php if (!(strcmp("", $form_pais)) && $iptc_pais == "") {echo "SELECTED";} ?>></option>
+            <option value>Nenhum</option>
             <?php
 do {  
 ?>
@@ -359,6 +361,16 @@ do {
 										</div>
 									</div>
 								</div>
+<?php if($isFotoTmp) { ?>
+								<div class="control-group">
+									<label class="control-label">Copiar temas e descritores</label>
+									<div class="controls clearfix">
+										<input type="text" name="copy_tombo" id="copy_desc" value="" style="width: 250px"/>
+										<input type="hidden" name="copy_url" id="copy_url" value="<?php echo $_SERVER['REQUEST_URI'];?>"/>
+										<button type="submit" name="action" value="copy_desc_btn" class="btn btn-primary">Copiar</button>
+									</div>
+								</div>
+<?php } ?>
 								<div class="control-group">
 									<label class="control-label">Descritores Inline</label>
 									<div class="controls clearfix">
@@ -367,8 +379,7 @@ do {
 										</div>
 									</div>
 								</div>
-								
-<?php if($iptc_pal!="") {?>								
+<?php if($iptc_pal!="") {?>
 								<div class="control-group">
 									<label class="control-label">Descritores IPTC</label>
 									<div class="controls clearfix">
@@ -376,11 +387,16 @@ do {
 											<input type="text" value="<?php echo $iptc_pal?>" disabled="disabled">
 										</div>
 										<div class="span2">
+<?php if($isFotoTmp) { ?>
+											<button type="submit" name="action" value="copy_iptc_btn" class="btn btn-primary">Incluir Descritores</button>
+											<input type="hidden" name="iptcPal" value="<?php echo $iptc_pal?>">
+<?php } else { ?>
 											<button type="button" class="btn btn-primary" id="btnSaveIptc">Incluir Descritores</button>
+<?php } ?>
 										</div>	
 									</div>
 								</div>
-<?php } ?>								
+<?php } ?>
 								<div class="form-actions2">
 
 									<div class="controls clearfix">

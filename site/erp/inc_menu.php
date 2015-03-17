@@ -116,6 +116,7 @@ class erpMenu {
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Cromo vs Licenças", "relatorio_cromos_licenca.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Download", "relatorio_download.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Não Faturadas", "administrativo_naofaturadas.php", ""); $j++;
+			$this->menu->child[$i]->child[$j] = new erpMenuElem("Excluir do S3", "administracao_s3.php", ""); $j++;
 			$i++; $j=0;
 				
 			$this->menu->child[$i] = new erpMenuElem("Estatisticas", "#", "icon-signal");

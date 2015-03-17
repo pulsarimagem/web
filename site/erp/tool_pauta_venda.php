@@ -1,6 +1,6 @@
 <?php
 mysql_select_db($database_pulsar, $pulsar);
-$database_sig = "sig_teste";
+$database_sig = "sig";
 
 $timeBefore = microtime(true);
 

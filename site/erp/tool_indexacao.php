@@ -5,7 +5,9 @@ $tomboExists = false;
 $tombos = array();
 $isFotoTmp = (isset($_GET['fotoTmp'])?true:false);
 $deleteFotoTmp = (isset($_POST['deleteVideoTmp'])?true:false); 
-$isCopy = (isset($_GET['copiar'])?true:false);;
+$isCopy = (isset($_GET['copiar'])?true:false);
+$isCopyDesc = (isset($_GET['copiar_desc'])?true:false);
+$isCopyIptc = (isset($_GET['copy_iptc'])?true:false);
 $action = isset($_GET['action'])?strtolower($_GET['action']):"";
 $action = isset($_POST['action'])?strtolower($_POST['action']):$action;
 
@@ -19,6 +21,32 @@ if($action == "copy_btn") {
 	$copyURL = $_POST['copy_url'];
 	$copyTombo = $_POST['copy_tombo'];
 	header("location: $copyURL&copiar=true&copy_tombo=$copyTombo");
+	die();
+}
+else if($action == "copy_desc_btn") {
+	$add_temas = "";
+	if(isset($_POST['temas'])) {
+		$add_temas = "=temas[]=";
+		$temasSubmit = $_POST['temas'];
+		$temasAddTmp = implode("&temas[]=",$temasSubmit);
+		$add_temas .= $temasAddTmp;
+	}
+	$copyURL = $_POST['copy_url'];
+	$copyTombo = $_POST['copy_tombo'];
+	header("location: $copyURL&copiar_desc=true&copy_tombo=$copyTombo&$add_temas");
+	die();
+}
+else if($action == "copy_iptc_btn") {
+	$add_temas = "";
+	if(isset($_POST['temas'])) {
+		$add_temas = "temas[]=";
+		$temasSubmit = $_POST['temas'];
+		$temasAddTmp = implode("&temas[]=",$temasSubmit);
+		$add_temas .= $temasAddTmp;
+	}
+	$copyURL = $_POST['copy_url'];
+	$iptcPal = $_POST['iptcPal'];
+	header("location: $copyURL&copy_iptc=true&iptcPal=$iptcPal&$add_temas");
 	die();
 }
 else if($action == "criar" || $isFotoTmp) {
@@ -90,8 +118,12 @@ else if($action == "gravar") {
 		$extra = $_POST['extra'];
 		$assunto_principal = $_POST['assunto_principal'];
 		$pais = $_POST['pais'];
+		
 		$estado = $_POST['estado'];
+		
 		$cidade = $_POST['cidade'];
+		if(strtolower_br($cidade) == "nenhum" || strtolower_br($cidade) == "nenhuma")
+			$cidade = NULL;
 		$data = $_POST['data'];
 		$autor = $_POST['autor'];
 	// 	$tombo = $_POST['tombo'];
@@ -358,6 +390,16 @@ if($isFotoTmp) {
 				$row_dados_foto = $rowCopy;
 			}
 		}
+		if($isCopyDesc) {
+			$copyTombo = $_GET['copy_tombo'];
+			$queryCopy = sprintf("SELECT * FROM Fotos WHERE tombo = '%s'", $copyTombo);
+			$rsCopy = mysql_query($queryCopy, $pulsar) or die(mysql_error());
+			$rowCopy = mysql_fetch_assoc($rsCopy);
+			$totalRowsCopy = mysql_num_rows($rsCopy);
+			if($totalRowsCopy > 0) {
+				$row_dados_foto_desc = $rowCopy;
+			}
+		}
 	}
 }
 else {
@@ -419,6 +461,37 @@ $query_descritore = sprintf("SELECT    Fotos.tombo,   pal_chave.Id, group_concat
 $descritore = mysql_query($query_descritore, $pulsar) or die(mysql_error());
 $row_descritore = mysql_fetch_assoc($descritore);
 $descConcat = $row_descritore['desc_arr'];
+if($isCopyDesc) {
+	mysql_select_db($database_pulsar, $pulsar);
+	$query_descritore = sprintf("SELECT    Fotos.tombo,   pal_chave.Id, group_concat(pal_chave.Id separator ',') as desc_arr,  pal_chave.Pal_Chave,  rel_fotos_pal_ch.id_rel FROM  rel_fotos_pal_ch  INNER JOIN Fotos ON (rel_fotos_pal_ch.id_foto=Fotos.Id_Foto)  INNER JOIN pal_chave ON (pal_chave.Id=rel_fotos_pal_ch.id_palavra_chave) WHERE   (Fotos.tombo = '%s') ORDER BY pal_chave.Pal_Chave",$copyTombo);
+	$descritore = mysql_query($query_descritore, $pulsar) or die(mysql_error());
+	$row_descritore = mysql_fetch_assoc($descritore);
+	$descConcat = $row_descritore['desc_arr'];
+}
+if($isCopyIptc) {
+	$iptcPal = $_GET['iptcPal'];
+	$pal_chave_arr = explode(";",str_replace(",",";",$iptcPal));
+	mysql_select_db($database_pulsar, $pulsar);
+	$descArr = array();
+
+	foreach($pal_chave_arr as $pc) {
+		$pc = trim($pc);
+		if($pc == "")
+			continue;
+		$pc = (get_magic_quotes_gpc()) ? $pc : addslashes($pc);
+		$query_pal_chave = sprintf("SELECT * FROM pal_chave WHERE Pal_Chave = '%s'", $pc);
+		$pal_chave = mysql_query($query_pal_chave, $pulsar) or die(mysql_error());
+		$row_pal_chave = mysql_fetch_assoc($pal_chave);
+		$totalRows_pal_chave = mysql_num_rows($pal_chave);
+	
+		$idPc = $row_pal_chave['Id'];
+	
+		if($totalRows_pal_chave != 0) {
+			$descArr[] = $idPc;
+		}
+	}
+	$descConcat = implode(",",$descArr);
+}
 
 mysql_select_db($database_pulsar, $pulsar);
 $query_temas = sprintf("SELECT   Fotos.tombo,  super_temas.Tema_total,  super_temas.Id, group_concat(super_temas.Id separator ',') as temas_arr, rel_fotos_temas.id_rel FROM Fotos INNER JOIN rel_fotos_temas ON (Fotos.Id_Foto=rel_fotos_temas.id_foto) INNER JOIN super_temas ON (rel_fotos_temas.id_tema=super_temas.Id) WHERE   (Fotos.tombo = '%s') ORDER BY  super_temas.Tema_total",$row_dados_foto['tombo']);
@@ -426,6 +499,17 @@ $temas = mysql_query($query_temas, $pulsar) or die(mysql_error());
 $row_temas = mysql_fetch_assoc($temas);
 $temasConcat = $row_temas['temas_arr'];
 $temasArr = explode(",",$temasConcat);
+if(isset($_GET['temas'])) {
+	$temasArr = $_GET['temas'];
+}
+if($isCopyDesc) {
+	mysql_select_db($database_pulsar, $pulsar);
+	$query_temas = sprintf("SELECT   Fotos.tombo,  super_temas.Tema_total,  super_temas.Id, group_concat(super_temas.Id separator ',') as temas_arr, rel_fotos_temas.id_rel FROM Fotos INNER JOIN rel_fotos_temas ON (Fotos.Id_Foto=rel_fotos_temas.id_foto) INNER JOIN super_temas ON (rel_fotos_temas.id_tema=super_temas.Id) WHERE   (Fotos.tombo = '%s') ORDER BY  super_temas.Tema_total",$copyTombo);
+	$temas = mysql_query($query_temas, $pulsar) or die(mysql_error());
+	$row_temas = mysql_fetch_assoc($temas);
+	$temasConcat = $row_temas['temas_arr'];
+	$temasArr = explode(",",$temasConcat);
+}
 
 $queryAllTemas = "SELECT   super_temas.Tema_total,  super_temas.Id FROM super_temas ORDER BY  super_temas.Tema_total";
 $rsAllTemas = mysql_query($queryAllTemas, $pulsar) or die(mysql_error());

@@ -396,7 +396,7 @@ $sqlTipo = "select Id, tipo_br as tipo from USO_TIPO where Id in (select id_tipo
 $objTipo = mysql_query($sqlTipo, $sig) or die(mysql_error());
 
 
-$strSQL = "SELECT ID, ID_CONTRATO, ID_USO, CODIGO, ASSUNTO, AUTOR, VALOR, DESCONTO, reuso FROM CROMOS WHERE ID_CONTRATO=".$id_contrato;
+$strSQL = "SELECT ID, ID_CONTRATO, ID_USO, CODIGO, ASSUNTO, AUTOR, VALOR, DESCONTO, reuso FROM CROMOS WHERE ID_CONTRATO=$id_contrato ORDER BY ID DESC";
 $objRS5 = mysql_query($strSQL, $sig) or die(mysql_error());
 
 $sqlContratosDescs = "select CONTRATOS_DESC.Id, titulo,padrao, assinatura from CONTRATOS_DESC LEFT JOIN rel_contratosdesc_clientes ON rel_contratosdesc_clientes.id_contratodesc = CONTRATOS_DESC.Id where status = true AND (rel_contratosdesc_clientes.id_cliente = $id_cliente OR CONTRATOS_DESC.padrao = true) order by titulo ";

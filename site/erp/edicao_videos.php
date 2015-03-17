@@ -64,7 +64,7 @@ do {
     <input type="checkbox" class="checkbox" name="edicao[]" value="<?php echo $row_retorno['tombo']; ?>">
     <div class="thumbnail">
       <a <?php if($row_retorno['status'] == 1) echo "class=\"approved\""; else if ($row_retorno['status'] == -1) echo "class=\"rejected\"";?>href="details_video.php?tombo=<?php echo $row_retorno['tombo']."&search=PA&ordem_foto=$count_fotos&total_foto=$totalRows_retorno"; ?>">
-      <img src="<?php echo $cloud_server?>Videos/thumbs/<?php echo $row_retorno['tombo']; ?>_3s.jpg" alt="">
+      <img src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $row_retorno['tombo']; ?>p.jpg" alt=""> <!-- <?php echo $cloud_server?>Videos/thumbs/<?php echo $row_retorno['tombo']; ?>_3s.jpg" -->
       </a>
       <div class="clearfix">
 	      <h4><?php echo $row_retorno['tombo']; ?></h4>

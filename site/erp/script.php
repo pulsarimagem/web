@@ -1,7 +1,11 @@
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.jeditable.mini.js"></script>
-<script type="text/javascript" src="../video/jwplayer.js"></script>
+<script type="text/javascript" src="./video/jwplayer.js"></script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script src="js/mbTooltip.js" type="text/javascript"></script>
+<script src="js/jquery.dropshadow.js" type="text/javascript"></script>
+<script src="js/jquery.timers.js" type="text/javascript"></script>
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -139,6 +143,19 @@ jQuery(document).ready(function() {
 		$('.novoIndio').toggle();
 	});
 
+	$(".tooltipme").mbTooltip({ // also $([domElement]).mbTooltip  >>  in this case only children element are involved
+		opacity : .85,       //opacity
+		wait:10,           //before show
+		cssClass:"default",  // default = default
+		timePerWord: 1000,      //time to show in milliseconds per word
+		hasArrow:false,			// if you whant a little arrow on the corner
+		hasShadow:false,
+		imgPath:"images/",
+		anchor:"parent", //"mouse", //"parent"  you can anchor the tooltip to the mouse position or at the bottom of the element
+		shadowColor:"black", //the color of the shadow
+		mb_fade:10 //the time to fade-in
+	});
+	
 	$('.editable').editable("tool_ajax_jedit.php", {
 	      data: function(value, settings) {
 			        /* Convert <br> to newline. */

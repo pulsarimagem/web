@@ -96,7 +96,7 @@ do {
                       <div class="controls clearfix">
                         <div class="span4">
 							Cidade
-							<input name="cidade" type="text" placeholder="Cidade " value="<?php if(isset($_GET['cidade'])) echo $_GET['cidade'];?>" />
+							<input name="cidade" type="text" placeholder="Cidade" value="<?php if(isset($_GET['cidade'])) echo $_GET['cidade'];?>" />
                         </div>
                         <div class="span4">
 							Estado

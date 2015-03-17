@@ -6,9 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <title>Pulsar Imagens</title>
-<link href="../br/style.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css.css" rel="stylesheet" type="text/css" />
-<?php include("../br/scripts.php")?>
+<script type="text/javascript" src="./video/jwplayer.js"></script>
 <script>
 function MM_goToURL() { //v3.0
 	  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
