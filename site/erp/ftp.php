@@ -278,6 +278,8 @@ $rowUso = $rowLastVideoUso;
 				$tamanho = "SD";
 			else if($row_arquivos['flag'] == "VH")
 				$tamanho = "HD";
+			else 
+				$tamanho = "Foto";
 		}
         echo $tamanho; 
 ?>

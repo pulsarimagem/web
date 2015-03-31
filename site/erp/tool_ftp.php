@@ -216,24 +216,33 @@ if($action == "copiarFoto") {
 	$tombos_arr = explode(";",$tombos);
 	
 	foreach ($tombos_arr as $tombo) {
+		$isOk = false;
 		if(strlen($tombo) > 2) {
 			$tombo = trim(strtoupper_br($tombo));
 			$file = $tombo.'.jpg';
 			$dest_file = "/tmp/$tombo.jpg";
 			
-			$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $dest_file";
-// 			echo $cmd."<br>";
-			shell_exec($cmd);
-			
-			if (file_exists($dest_file)) {
-				$fp = fopen($dest_file, "r");
-				$s_array=fstat($fp);
-				$tamanho = $s_array["size"];
-				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
-				$cmd = "aws --profile pulsar s3 cp $dest_file s3://pulsar-media/ftp/".$_POST['diretorio']."/$tombo.jpg --acl public-read";
-				shell_exec($cmd);
+			$sql = "SELECT Id_Foto FROM Fotos WHERE tombo = '$tombo'";
+			$rs = mysql_query($sql, $pulsar) or die(mysql_error());
+			$totalRows = mysql_num_rows($rs);
+			$tamanho = 0;
+				
+			if($totalRows > 0)
 				$isOk = true;
-			}
+			
+//			$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $dest_file";
+// 			echo $cmd."<br>";
+//			shell_exec($cmd);
+			
+// 			if (file_exists($dest_file)) {
+// 				$fp = fopen($dest_file, "r");
+// 				$s_array=fstat($fp);
+// 				$tamanho = $s_array["size"];
+// 				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
+// 				$cmd = "aws --profile pulsar s3 cp $dest_file s3://pulsar-media/ftp/".$_POST['diretorio']."/$tombo.jpg --acl public-read";
+// 				shell_exec($cmd);
+// 				$isOk = true;
+// 			}
 			
 // 			$source_file = '/var/fotos_alta/'.$file;
 // 			$dest_file = $homeftp.$_POST['diretorio'].'/'.$file;
@@ -265,7 +274,7 @@ if($action == "copiarFoto") {
 			if($isOk) {
 // 				coloca_iptc($tombo, $dest_file, $database_pulsar, $pulsar);
 				
-				unlink($dest_file);
+//				unlink($dest_file);
 				
 				$insertSQL = sprintf("INSERT INTO ftp_arquivos (id_ftp, data_cria,nome,tamanho,validade,observacoes) VALUES (%s,%s,%s,%s,%s,%s)",
 						GetSQLValueString($_POST['diretorio'], "int"),

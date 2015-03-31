@@ -210,7 +210,7 @@ jQuery(document).ready(function() {
 	$("#indexDesc2").select2({
 		multiple: true,
 		placeholder: '-- Escolha os Descritores --',
-		minimumInputLength: 3,
+		minimumInputLength: 2,
 		ajax: {
 	        multiple: true,
 	        url: "tool_ajax_desc2.php",
@@ -239,7 +239,7 @@ jQuery(document).ready(function() {
 	$("#indexDesc").select2({
 		multiple: true,
 		placeholder: '-- Escolha os Descritores --',
-		minimumInputLength: 3,
+		minimumInputLength: 2,
 //         data: [{id:0,text:'enhancement'},{id:1,text:'bug'},{id:2,text:'duplicate'},{id:3,text:'invalid'},{id:4,text:'wontfix'}],
 //         tags: [0, 'duplicate', {id:3,text:'invalid'}],
 		ajax: {
@@ -317,7 +317,7 @@ jQuery(document).ready(function() {
 	$(".indexDesc").select2({
 		multiple: true,
 		placeholder: '-- Não mudar --',
-		minimumInputLength: 3,
+		minimumInputLength: 2,
 		ajax: {
 	        multiple: true,
 	        url: "tool_ajax_desc.php",
@@ -343,11 +343,17 @@ jQuery(document).ready(function() {
 	        callback(ret);
         }
 	});
+
+// 	var $eventSelect = $("#indexCidade");
+// 	console.log($eventSelect);
+// 	$eventSelect.on("select2:open", function (e) { console.log(e) });
+// 	$eventSelect.on("select2:close", function (e) { console.log(e) });
+// 	$eventSelect.on("select2:select", function (e) { console.log(e) });
 	
-	$("#indexCidade").select2({
+	 $("#indexCidade").select2({
 		multiple: false,
 		placeholder: '-- Escolha cidade --',
-		minimumInputLength: 3,
+		minimumInputLength: 2,
 		ajax: {
 	        multiple: true,
 	        url: "tool_ajax_cidade.php",
@@ -388,7 +394,7 @@ jQuery(document).ready(function() {
 			callback(ret);
         }
 	});
-	
+
 	$(".bt-zoom").hover(
 			function () {
 				$(this).children("div.mzoom").show();

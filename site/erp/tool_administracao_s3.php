@@ -19,12 +19,17 @@ mysql_select_db($database_pulsar, $pulsar);
 
 if ($action == "excluir") {
 	$codigo = strtoupper_br($_GET['tombo']);
-	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo.".jpg";
-	$out = shell_exec($cmd);
-	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo."p.jpg";
-	$out = shell_exec($cmd);
-	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/orig/".$codigo.".jpg";
-	$out = shell_exec($cmd);
+	
+	$user = "pulsar";
+	$param = array('user'=>$user, 'tombo'=>$codigo);
+	$data = curl_request_async($cloud_server.'remove_from_s3.php', $param, "GET");
+	//  
+// 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo.".jpg";
+// 	$out = shell_exec($cmd);
+// 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo."p.jpg";
+// 	$out = shell_exec($cmd);
+// 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/orig/".$codigo.".jpg";
+// 	$out = shell_exec($cmd);
 // 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/videos/previews/".$codigo."_640x360.flv";
 // 	$out = shell_exec($cmd);
 // 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/videos/previews/".$codigo."_640x360.mp4";
@@ -51,12 +56,16 @@ if (isset($_GET['action'])) {
 			$sufix = str_pad((int) $i,3,"0",STR_PAD_LEFT);
 			$codigo = strtoupper("$prefix$sufix");
 			
-	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo.".jpg";
- 	$out = shell_exec($cmd);
-	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo."p.jpg";
- 	$out = shell_exec($cmd);
-	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/orig/".$codigo.".jpg";
- 	$out = shell_exec($cmd);
+			$user = "pulsar";
+			$param = array('user'=>$user, 'tombo'=>$codigo);
+			$data = curl_request_async($cloud_server.'remove_from_s3.php', $param, "GET");
+			
+// 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo.".jpg";
+//  	$out = shell_exec($cmd);
+// 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/previews/".$codigo."p.jpg";
+//  	$out = shell_exec($cmd);
+// 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/fotos/orig/".$codigo.".jpg";
+//  	$out = shell_exec($cmd);
 // 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/videos/previews/".$codigo."_640x360.flv";
 //  	$out = shell_exec($cmd);
 // 	$cmd = "aws --profile pulsar s3 rm s3://pulsar-media/videos/previews/".$codigo."_640x360.mp4";

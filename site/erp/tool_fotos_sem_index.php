@@ -24,23 +24,51 @@ $thumbs_site = array();
 $altas_site = array();
 
 
-$cmd = "aws --profile pulsar s3 ls s3://pulsar-media/fotos/previews/";
+
+$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/fotosPreviewList.txt /tmp/";
 $out = shell_exec($cmd);
-$out_arr = explode("\n", $out);
-foreach($out_arr as $line) {
-	if(strstr($line, ".jpg")!==false) {
-		$words = explode(" ",$line);
-		$oneFile = end($words);
-		$thisFileType = strtolower(substr($oneFile,-5));
-		if (strlen($oneFile) > 5 && preg_match('/^[0-9]/',$oneFile)) {
-			if ($thisFileType == "p.jpg") {
-				$fotos_site[] = substr($oneFile,0,-5);
-			} else {
-				$thumbs_site[] = substr($oneFile,0,-4);
+
+
+$handle = fopen("/tmp/fotosPreviewList.txt", "r");
+if ($handle) {
+	while (($line = fgets($handle)) !== false) {
+		if(strstr($line, ".jpg")!==false) {
+			$words = explode(" ",$line);
+			$oneFile = trim(end($words));
+			$thisFileType = strtolower(substr($oneFile,-5));
+			if (strlen($oneFile) > 5 && preg_match('/^[0-9]/',$oneFile)) {
+				if ($thisFileType == "p.jpg") {
+					$fotos_site[] = substr($oneFile,0,-5);
+				} else {
+					$thumbs_site[] = substr($oneFile,0,-4);
+				}
 			}
 		}
 	}
+	fclose($handle);
+} else {
+	$msg_err = "Arquivo nao encontrado!";
 }
+
+
+// $cmd = "aws --profile pulsar s3 ls s3://pulsar-media/fotos/previews/";
+// $out = shell_exec($cmd);
+// $out_arr = explode("\n", $out);
+// foreach($out_arr as $line) {
+// 	if(strstr($line, ".jpg")!==false) {
+// 		$words = explode(" ",$line);
+// 		$oneFile = end($words);
+// 		$thisFileType = strtolower(substr($oneFile,-5));
+// 		if (strlen($oneFile) > 5 && preg_match('/^[0-9]/',$oneFile)) {
+// 			if ($thisFileType == "p.jpg") {
+// 				$fotos_site[] = substr($oneFile,0,-5);
+// 			} else {
+// 				$thumbs_site[] = substr($oneFile,0,-4);
+// 			}
+// 		}
+// 	}
+// }
+
 /*
 if (is_dir($imageDir) && $directoryPointer = @opendir($imageDir)) {
 	while ($oneFile = readdir($directoryPointer)) {

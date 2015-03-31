@@ -8,7 +8,7 @@ mysql_select_db($database_pulsar, $pulsar);
 
 $where = "";
 if(isset($_GET['term'])) {
-	$term = $_GET['term'];
+	$term = removeAccents(utf8_decode($_GET['term']));
 	$where = "Pal_Chave LIKE '$term%'";
 }
 else if(isset($_GET['id'])) {

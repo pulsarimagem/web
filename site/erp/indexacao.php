@@ -361,16 +361,14 @@ do {
 										</div>
 									</div>
 								</div>
-<?php if($isFotoTmp) { ?>
 								<div class="control-group">
 									<label class="control-label">Copiar temas e descritores</label>
 									<div class="controls clearfix">
-										<input type="text" name="copy_tombo" id="copy_desc" value="" style="width: 250px"/>
+										<input type="text" name="copy_desc" id="copy_desc" value="" style="width: 250px"/>
 										<input type="hidden" name="copy_url" id="copy_url" value="<?php echo $_SERVER['REQUEST_URI'];?>"/>
 										<button type="submit" name="action" value="copy_desc_btn" class="btn btn-primary">Copiar</button>
 									</div>
 								</div>
-<?php } ?>
 								<div class="control-group">
 									<label class="control-label">Descritores Inline</label>
 									<div class="controls clearfix">

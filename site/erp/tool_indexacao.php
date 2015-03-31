@@ -19,20 +19,21 @@ mysql_select_db($database_pulsar, $pulsar);
 
 if($action == "copy_btn") {
 	$copyURL = $_POST['copy_url'];
-	$copyTombo = $_POST['copy_tombo'];
+	$copyTombo = preg_replace("/[^A-Za-z0-9]/", '', $_POST['copy_tombo']);
 	header("location: $copyURL&copiar=true&copy_tombo=$copyTombo");
 	die();
 }
 else if($action == "copy_desc_btn") {
 	$add_temas = "";
 	if(isset($_POST['temas'])) {
-		$add_temas = "=temas[]=";
+		$add_temas = "temas[]=";
 		$temasSubmit = $_POST['temas'];
 		$temasAddTmp = implode("&temas[]=",$temasSubmit);
 		$add_temas .= $temasAddTmp;
 	}
 	$copyURL = $_POST['copy_url'];
-	$copyTombo = $_POST['copy_tombo'];
+// 	$copyTombo = $_POST['copy_tombo'];
+	$copyTombo = preg_replace("/[^A-Za-z0-9]/", '', $_POST['copy_desc']);
 	header("location: $copyURL&copiar_desc=true&copy_tombo=$copyTombo&$add_temas");
 	die();
 }
@@ -52,6 +53,7 @@ else if($action == "copy_iptc_btn") {
 else if($action == "criar" || $isFotoTmp) {
 	$tombos = $_GET['tombos'];
 	foreach($tombos as $tombo) {
+		$tombo = preg_replace("/[^A-Za-z0-9]/", '', $tombo);
 		$sqlSelect = "SELECT * FROM Fotos WHERE tombo = '$tombo';";
 		$rsSelect = mysql_query($sqlSelect, $pulsar) or die(mysql_error());
 		if(mysql_num_rows($rsSelect) == 0) {
@@ -121,7 +123,7 @@ else if($action == "gravar") {
 		
 		$estado = $_POST['estado'];
 		
-		$cidade = $_POST['cidade'];
+		$cidade = clearInput($_POST['cidade']);
 		if(strtolower_br($cidade) == "nenhum" || strtolower_br($cidade) == "nenhuma")
 			$cidade = NULL;
 		$data = $_POST['data'];
@@ -198,6 +200,7 @@ else if($action == "gravar") {
 		
 		foreach($descInsert as $desc) {
 			if(!is_numeric($desc)) {
+				$desc = clearInput($desc);
 				$querySelectDesc = "SELECT * FROM pal_chave WHERE Pal_Chave = '$desc'";
 				$SelectDesc = mysql_query($querySelectDesc, $pulsar) or die(mysql_error());
 				$rowSelectDesc = mysql_fetch_array($SelectDesc);
@@ -334,8 +337,8 @@ if (isset($_GET['action'])) {
 	if($_GET['action'] == "multi") {
 		$tombos = array();
 		$id_fotos = array();
-		$prefix = $_GET['prefix'];
-		for ($i = $_GET['inicio']; $i <= $_GET['fim']; $i++) {
+		$prefix = preg_replace("/[^A-Za-z0-9]/", '', $_GET['prefix']);
+		for ($i = preg_replace("/[^A-Za-z0-9]/", '', $_GET['inicio']); $i <= preg_replace("/[^A-Za-z0-9]/", '', $_GET['fim']); $i++) {
 			$sufix = str_pad((int) $i,3,"0",STR_PAD_LEFT);
 			$tombo = strtoupper("$prefix$sufix");
 			$tombos[] = $tombo;
@@ -349,20 +352,20 @@ if (isset($_GET['action'])) {
 
 			$data = file_get_contents($cloud_server.'send_photoS3.php?tombo='.$colname_dados_foto);
 		}
-		$colname_dados_foto = $tombos[0];
+		$colname_dados_foto = preg_replace("/[^A-Za-z0-9]/", '', $tombos[0]);
 		$multiLoad = true;
 		$toLoad = true;
 		$tomboExists = true;
 	}
 	else {
 		if (isset($_GET['tombos'])) {
-			$colname_dados_foto = strtoupper((get_magic_quotes_gpc()) ? $_GET['tombos'][0] : addslashes($_GET['tombos'][0]));
+			$colname_dados_foto = strtoupper((get_magic_quotes_gpc()) ? preg_replace("/[^A-Za-z0-9]/", '', $_GET['tombos'][0]) : addslashes(preg_replace("/[^A-Za-z0-9]/", '', $_GET['tombos'][0])));
 			$toLoad = true;
 			$tombos = array();
 			$tombos[] = $colname_dados_foto; 
 		}
 		if (isset($_POST['tombos'])) {
-			$colname_dados_foto = strtoupper((get_magic_quotes_gpc()) ? $_POST['tombos'][0] : addslashes($_POST['tombos'][0]));
+			$colname_dados_foto = strtoupper((get_magic_quotes_gpc()) ? preg_replace("/[^A-Za-z0-9]/", '', $_POST['tombos'][0]) : addslashes(preg_replace("/[^A-Za-z0-9]/", '', $_POST['tombos'][0])));
 			$toLoad = true;
 			$tombos = array();
 			$tombos[] = $colname_dados_foto; 
@@ -420,6 +423,9 @@ else {
 			if($totalRowsCopy > 0) {
 				$row_dados_foto = $rowCopy;
 			}
+		}
+		else if ($isCopyDesc) {
+			$copyTombo = $_GET['copy_tombo'];
 		}
 	}
 }
