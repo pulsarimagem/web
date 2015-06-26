@@ -234,7 +234,7 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
         <td><div align="left">Tiragem: <?php echo $row_arquivos['tiragem']; ?></div></td>
       </tr>
       <tr>
-        <td><div align="left"><div  class="editable" id="<?php echo $row_arquivos['id_log']?>">T&iacute;tulo: <?php echo $row_arquivos['projeto']; ?></div></div></td>
+        <td><div align="left"><div  class="editable" id="<?php echo $row_arquivos['id_log']?>|projeto">T&iacute;tulo: <?php echo $row_arquivos['projeto']; ?></div></div></td>
 <?php 	if(is_numeric($row_arquivos['uso'])) { ?>
 <!--          <td><div align="left">Tamanho: <?php echo $row_arquivos['tamanho_desc']; ?></div></td> -->
           <td><div align="left">Tamanho: <?php echo $row_uso['tamanho']; ?></div></td>
@@ -245,7 +245,7 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
       <tr>
 <?php 	if(is_numeric($row_arquivos['uso'])) { ?>
 <!--         <td colspan="2"><div align="left">Uso: <?php echo $row_arquivos['uso_desc']; ?></div></td> -->
-		<td colspan="2"><div align="left">Uso: <?php echo $row_uso['tipo']." | ".$row_uso['utilizacao']; ?></div></td>
+		<td colspan="2"><div align="left" class="editable_uso" id="<?php echo $row_arquivos['id_log']?>|USO|<?php echo $row_uso['Id']?>|<?php echo ($relTipo == "videos")?"V":"F";?>">Uso: <?php echo $row_uso['tipo']." | ".$row_uso['utilizacao']; ?></div></td>
 <?php 	} else { ?>
         <td colspan="2"><div align="left">Uso: <?php echo $row_arquivos['uso']; ?></div></td>
 <?php 	} ?>
@@ -254,7 +254,7 @@ if(($this_download['projeto'] != $last_download['projeto'])||($this_download['in
       
       
       <tr>
-        <td colspan="2"><div align="left">Obs: <?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", $row_arquivos['obs']); ?></div></td>
+        <td colspan="2"><div align="left"><div class="editable" id="<?php echo $row_arquivos['id_log']?>|obs">Obs: <?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", $row_arquivos['obs']); ?></div></div></td>
       </tr>
       <tr>
         <td colspan="2"><div align="left">Faturado:

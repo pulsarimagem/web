@@ -160,6 +160,7 @@ jQuery(document).ready(function() {
 	      data: function(value, settings) {
 			        /* Convert <br> to newline. */
 			        var retval = value.replace('Título: ', '');
+			        retval = retval.replace('Obs: ', '');
 			        return retval;
 		  		},
 	      tooltip   : "Pressione duas vezes para editar!",
@@ -169,7 +170,18 @@ jQuery(document).ready(function() {
 	    	  location.reload();
 	      }
 	});
-	
+
+	$('.editable_uso').editable("tool_ajax_jedit.php", {
+	      loadurl : 'tool_ajax_get_select.php?contrato=f',
+		  type: 'select',
+	      event     : "dblclick",
+	      style  : "inherit",
+	      submit : "Ok",
+	      callback : function(value, settings) {
+	    	  location.reload();
+	      }
+	});
+
 	if($('#FCKeditor1').length > 0) {
 		CKEDITOR.replace( 'FCKeditor1', {
 			allowedContent: true
@@ -521,7 +533,7 @@ jQuery(document).ready(function() {
 	});
 	
 	$('#btnSaveIptc').click(function() {
-		var dataString = "action=salveIPTC&idFoto=<?php echo isset($idFoto)?$idFoto:""?>&iptcPal=<?php echo isset($iptc_pal)?$iptc_pal:""?>";
+		var dataString = "action=salveIPTC&idFoto=<?php echo isset($idFoto)?$idFoto:""?>&iptcPal=<?php echo isset($iptc_pal)?str_replace('"','',$iptc_pal):""?>";
 		$.ajax({
 			type: "POST",
 			url: "tool_ajax.php",

@@ -214,22 +214,22 @@
 								<div class="control-group">
 									<label class="control-label">Assunto principal</label>
 									<div class="controls clearfix">
-										<input type="text" name="assunto_principal" id="assunto_principal" value="<?php echo ($toLoad?($form_assunto==""?$iptc_assunto:$form_assunto):"");?>"/>
+										<input type="text" name="assunto_principal" id="assunto_principal" value="<?php echo (isset($_GET['assunto_principal'])?$_GET['assunto_principal']:($toLoad?($form_assunto==""?$iptc_assunto:$form_assunto):""));?>"/>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Informação adicional</label>
 									<div class="controls clearfix">
-										<input type="text" name="extra" value="<?php echo ($toLoad?$form_extra:"");?>"/>
+										<input type="text" name="extra" value="<?php echo (isset($_GET['extra'])?$_GET['extra']:($toLoad?$form_extra:""));?>"/>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Direito de imagem</label>
 									<div class="controls">
 										<div class="span6">
-											<label style="display: inline;"><input type="radio" name="dir_img" value="0" <?php echo ($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":"");?>></label><label style="display: inline;">Nenhum</label><br/>
-											<label style="display: inline;"><input type="radio" name="dir_img" value="1" <?php echo ($form_dirimg%10 == 1 ? "checked":"");?>></label><label style="display: inline;">Uso autorizado</label> <br/>
-											<label style="display: inline;"><input type="radio" name="dir_img" value="2" <?php echo ($form_dirimg%10 == 2 ? "checked":"");?>></label><label style="display: inline;">Uso autorizado + Acrécimo de 100%</label><br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="0" <?php echo (isset($_GET["dir_img"])?($_GET["dir_img"]==0?"checked":""):($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":""));?>></label><label style="display: inline;">Nenhum</label><br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="1" <?php echo (isset($_GET["dir_img"])?($_GET["dir_img"]==1?"checked":""):($form_dirimg%10 == 1 ? "checked":""));?>></label><label style="display: inline;">Uso autorizado</label> <br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="2" <?php echo (isset($_GET["dir_img"])?($_GET["dir_img"]==2?"checked":""):($form_dirimg%10 == 2 ? "checked":""));?>></label><label style="display: inline;">Uso autorizado + Acrécimo de 100%</label><br/>
 <!-- 											<label><input type="radio" name="dir_img" value="3" <?php echo ($form_dirimg%10 == 3 ? "checked":"");?>> Não autorizado</label> -->
 										</div>
 									</div>
@@ -270,7 +270,7 @@ do {
 								<div class="control-group">
 									<label class="control-label">Data</label>
 									<div class="controls clearfix">
-										<input name="data_tela" type="text" id="data_tela" onBlur="fix_data()" value="<?php if($toLoad) { if($form_data=="") { echo $iptc_data; } else { if (strlen($form_data) == 4) {
+										<input name="data_tela" type="text" id="data_tela" onBlur="fix_data()" value="<?php if(isset($_GET['data_tela'])) { echo $_GET['data_tela']; } else if($toLoad) { if($form_data=="") { echo $iptc_data; } else { if (strlen($form_data) == 4) {
 			echo $form_data;
 		} elseif (strlen($form_data) == 6) {
 			echo substr($form_data,4,2).'/'.substr($form_data,0,4);
@@ -283,7 +283,7 @@ do {
 								<div class="control-group">
 									<label class="control-label">Cidade</label>
 									<div class="controls clearfix">
-										<input class="span5" type="hidden" name="cidade" id="indexCidade" value="<?php echo ($toLoad?($form_cidade==""?$iptc_local:$form_cidade):"");?>">
+										<input class="span5" type="hidden" name="cidade" id="indexCidade" value="<?php echo (isset($_GET['cidade'])?$_GET['cidade']:($toLoad?($form_cidade==""?$iptc_local:$form_cidade):""));?>">
 <!-- 										<input type="text" name="cidade" value="<?php echo ($toLoad?$form_cidade:"");?>"/> -->
 									</div>
 								</div>
@@ -296,7 +296,7 @@ do {
             <?php
 do {  
 ?>
-            <option value="<?php echo $row_estado['id_estado']?>"<?php if (!(strcmp($row_estado['id_estado'], $form_estado)) || !(strcasecmp($row_estado['Sigla'], $iptc_estado))) {echo "SELECTED";} ?>><?php echo $row_estado['Estado']?></option>
+            <option value="<?php echo $row_estado['id_estado']?>"<?php if (isset($_GET['estado'])) { if(!(strcmp($row_estado['id_estado'], $_GET['estado']))) {echo "SELECTED";} } else if (!(strcmp($row_estado['id_estado'], $form_estado)) || !(strcasecmp($row_estado['Sigla'], $iptc_estado))) {echo "SELECTED";} ?>><?php echo $row_estado['Estado']?></option>
             <?php
 } while ($row_estado = mysql_fetch_assoc($estado));
   $rows = mysql_num_rows($estado);
@@ -318,7 +318,7 @@ do {
             <?php
 do {  
 ?>
-            <option value="<?php echo $row_pais['id_pais']?>"<?php if (!(strcmp($row_pais['id_pais'], $form_pais)) || !(strcasecmp(removeAccents($row_pais['nome']), removeAccents($iptc_pais)))) {echo "SELECTED";} ?>><?php echo $row_pais['nome']?></option>
+            <option value="<?php echo $row_pais['id_pais']?>"<?php if (isset($_GET['pais'])) { if(!(strcmp($row_pais['id_pais'], $_GET['pais']))) {echo "SELECTED";} } else if (!(strcmp($row_pais['id_pais'], $form_pais)) || !(strcasecmp(removeAccents($row_pais['nome']), removeAccents($iptc_pais)))) {echo "SELECTED";} ?>><?php echo $row_pais['nome']?></option>
             <?php
 } while ($row_pais = mysql_fetch_assoc($pais));
   $rows = mysql_num_rows($pais);

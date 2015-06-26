@@ -66,6 +66,7 @@
 
 <?php
 if (! (isset($_GET['id_login']) or isset($_GET['periodo']))  || ($colname_arquivos == "-1")) { ?>
+<?php $tot = 0; $fat = 0;?>
 <span>Mês Atual: </span>
 <table class="table table-bordered table-striped">
 <thead>
@@ -81,18 +82,19 @@ if (! (isset($_GET['id_login']) or isset($_GET['periodo']))  || ($colname_arquiv
   <tr>
     <td><?php echo $row_tabela1['nome']; ?>&nbsp;</td>
     <td><?php echo $row_tabela1['empresa']; ?>&nbsp;</td>
-    <td><div align="center"><?php echo $row_tabela1['total']; ?>&nbsp;</div></td>
-    <td><div align="center"><?php echo $row_tabela1['faturados']; ?>&nbsp;</div></td>
+    <td><div align="center"><?php echo $row_tabela1['total']; $tot += $row_tabela1['total'];?>&nbsp;</div></td>
+    <td><div align="center"><?php echo $row_tabela1['faturados']; $fat += $row_tabela1['faturados'];?>&nbsp;</div></td>
   </tr>
 <?php } while ($row_tabela1 = mysql_fetch_assoc($tabela1));  ?>
   <tr>
     <td colspan="2">Total:</td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
+    <td><div align="center"><?php echo $tot?></div></td>
+    <td><div align="center"><?php echo $fat?></div></td>
   </tr>
   </tbody>
 </table>
 <br />
+<?php $tot = 0; $fat = 0;?>
 <span class="style5">Mês Anterior: </span>
 <table class="table table-bordered table-striped">
 <thead>
@@ -108,14 +110,14 @@ if (! (isset($_GET['id_login']) or isset($_GET['periodo']))  || ($colname_arquiv
   <tr>
     <td><?php echo $row_tabela2['nome']; ?>&nbsp;</td>
     <td><?php echo $row_tabela2['empresa']; ?>&nbsp;</td>
-    <td><div align="center"><?php echo $row_tabela2['total']; ?>&nbsp;</div></td>
-    <td><div align="center"><?php echo $row_tabela2['faturados']; ?></div></td>
+    <td><div align="center"><?php echo $row_tabela2['total']; $tot += $row_tabela2['total'];?>&nbsp;</div></td>
+    <td><div align="center"><?php echo $row_tabela2['faturados']; $fat += $row_tabela2['faturados'];?></div></td>
   </tr>
 <?php } while ($row_tabela2 = mysql_fetch_assoc($tabela2));  ?>
   <tr>
     <td colspan="2">Total:</td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
+    <td><div align="center"><?php echo $tot?></div></td>
+    <td><div align="center"><?php echo $fat?></div></td>
   </tr>
   </tbody>
 </table>

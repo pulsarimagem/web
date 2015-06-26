@@ -7,6 +7,12 @@
     <title>Pulsar Admin - Relatórios</title>
     <meta charset="iso-8859-1" />
     <?php include('includes_header.php'); ?>
+<script>
+function sendHistory(id) {
+	$.post('tool_ajax_script.php', {action: "sendHistory", id: id});
+	$('#cot_'+id).hide();
+}
+</script>
   </head>
   <body>
 
@@ -88,9 +94,9 @@
   <tbody>
   
 <?php do { ?>
-  <tr>
+  <tr id="cot_<?php echo $row_pendentes['id_cotacao2']; ?>">
   	<td>
-  		<input name="checkbox" type="checkbox" onClick="MM_callJS('document.form<?php echo $row_pendentes['id_cotacao2']; ?>.submit();')" value="checkbox">
+  		<input name="checkbox" type="checkbox" onClick="sendHistory(<?php echo $row_pendentes['id_cotacao2']; ?>);" value="checkbox">
 		<input name="id_cotacao2" type="hidden" id="id_cotacao2" value="<?php echo $row_pendentes['id_cotacao2']; ?>"> 
 		<input name="MM_Update" type="hidden" id="MM_Update" value="True"> 	
   	</td>
@@ -98,7 +104,7 @@
     	<div align="center"><?php echo makeDateTime($row_pendentes['data_hora'], 'd-m-Y'); ?><br>
           <?php echo makeDateTime($row_pendentes['data_hora'], 'H:i:s'); ?> </div>
     </td>
-    <td><strong><a href="cotacao.php?action=show&id_cotacao=<?php echo $row_pendentes['id_cotacao2']; ?>"><?php echo $row_pendentes['nome']; ?></a></strong></td>
+    <td><strong><a href="cotacao.php?action=show&id_cotacao=<?php echo $row_pendentes['id_cotacao2']; ?>"><?php echo ($row_pendentes['nome']==""?"Não identificado":$row_pendentes['nome']); ?></a></strong></td>
     <td><?php echo $row_pendentes['empresa']; ?>&nbsp;</td>
     <td><div align="center"><?php echo $row_pendentes['total_cromos']; ?></div></td>
   </tr>
@@ -164,7 +170,7 @@
   <?php do { ?>
   <TR>
       <TD><div align="center"><?php echo $row_fotos['tombo']; ?><br>
-          <IMG src="http://www.pulsarimagens.com.br/bancoImagens/<?php echo $row_fotos['tombo']; ?>p.jpg" 
+          <IMG src="https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/<?php echo $row_fotos['tombo']; ?>p.jpg" 
       align=middle></div></TD>
       <TD><div align="center"><?php echo $row_fotos['nome_pasta']; ?>&nbsp;</div></TD>
   </TR>

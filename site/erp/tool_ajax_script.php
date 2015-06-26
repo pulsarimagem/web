@@ -5,12 +5,17 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 
 $action = $_POST['action'];
 
+
 if($action == "savePage") {
 	$page_num = $_POST['page_num'];
 	$_SESSION['page_num_details_nav'] = $page_num;
 	$_SESSION['page_num_details_li'] = $page_num;
 }
-
+else if ($action == "sendHistory") {
+	$updateSQL = "UPDATE cotacao_2 SET atendida = 1, data_hora_atendida = '".date("Y-m-d H:i:s", strtotime('now'))."' WHERE id_cotacao2 = ".$_POST['id'];
+	mysql_select_db($database_pulsar, $pulsar);
+	$Result1 = mysql_query($updateSQL, $pulsar) or die(mysql_error());
+}
 else if($action == "utilizacao") {
 	$idioma = $_POST['idioma'];
 	$contrato = $_POST['contrato'];

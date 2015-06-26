@@ -31,10 +31,45 @@ else if($action == "copy_desc_btn") {
 		$temasAddTmp = implode("&temas[]=",$temasSubmit);
 		$add_temas .= $temasAddTmp;
 	}
+	$add_assunto = "";
+	if(isset($_POST['assunto_principal'])) {
+		$add_assunto = "&assunto_principal=";
+		$add_assunto .= $_POST['assunto_principal'];
+	}
+	$add_extra = "";
+	if(isset($_POST['extra'])) {
+		$add_extra = "&extra=";
+		$add_extra .= $_POST['extra'];
+	}
+	$add_data = "";
+	if(isset($_POST['data_tela'])) {
+		$add_data = "&data_tela=";
+		$add_data .= $_POST['data_tela'];
+	}
+	$add_cidade = "";
+	if(isset($_POST['cidade'])) {
+		$add_cidade = "&cidade=";
+		$add_cidade .= $_POST['cidade'];
+	}
+	$add_estado = "";
+	if(isset($_POST['estado'])) {
+		$add_estado = "&estado=";
+		$add_estado .= $_POST['estado'];
+	}
+	$add_pais = "";
+	if(isset($_POST['pais'])) {
+		$add_pais = "&pais=";
+		$add_pais .= $_POST['pais'];
+	}
+	$add_dir_img = "";
+	if(isset($_POST['dir_img'])) {
+		$add_dir_img = "&dir_img=";
+		$add_dir_img .= $_POST['dir_img'];
+	}
 	$copyURL = $_POST['copy_url'];
 // 	$copyTombo = $_POST['copy_tombo'];
 	$copyTombo = preg_replace("/[^A-Za-z0-9]/", '', $_POST['copy_desc']);
-	header("location: $copyURL&copiar_desc=true&copy_tombo=$copyTombo&$add_temas");
+	header("location: $copyURL&copiar_desc=true&copy_tombo=$copyTombo&$add_temas$add_assunto$add_extra$add_dir_img$add_data$add_cidade$add_estado$add_pais");
 	die();
 }
 else if($action == "copy_iptc_btn") {
@@ -45,9 +80,40 @@ else if($action == "copy_iptc_btn") {
 		$temasAddTmp = implode("&temas[]=",$temasSubmit);
 		$add_temas .= $temasAddTmp;
 	}
+	$add_assunto = "";
+	if(isset($_POST['assunto_principal'])) {
+		$add_assunto = "&assunto_principal=";
+		$add_assunto .= $_POST['assunto_principal'];
+	}
+	$add_extra = "";
+	if(isset($_POST['extra'])) {
+		$add_extra = "&extra=";
+		$add_extra .= $_POST['extra'];
+	}
+	$add_data = "";
+	if(isset($_POST['data_tela'])) {
+		$add_data = "&data_tela=";
+		$add_data .= $_POST['data_tela'];
+	}
+	$add_cidade = "";
+	if(isset($_POST['cidade'])) {
+		$add_cidade = "&cidade=";
+		$add_cidade .= $_POST['cidade'];
+	}
+	$add_estado = "";
+	if(isset($_POST['estado'])) {
+		$add_estado = "&estado=";
+		$add_estado .= $_POST['estado'];
+	}
+	$add_pais = "";
+	if(isset($_POST['pais'])) {
+		$add_pais = "&pais=";
+		$add_pais .= $_POST['pais'];
+	}
+	
 	$copyURL = $_POST['copy_url'];
 	$iptcPal = $_POST['iptcPal'];
-	header("location: $copyURL&copy_iptc=true&iptcPal=$iptcPal&$add_temas");
+	header("location: $copyURL&copy_iptc=true&iptcPal=$iptcPal&$add_temas$add_assunto$add_extra$add_data$add_cidade$add_estado$add_pais");
 	die();
 }
 else if($action == "criar" || $isFotoTmp) {
@@ -85,36 +151,39 @@ else if($action == "gravar") {
 		$row = mysql_fetch_array($rs);
 		$tombo = $row['tombo'];
 		
-		$orig = "/tmp/$tombo.jpg";
-		if(!file_exists($orig)) {
-			$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $orig";
-			shell_exec($cmd);
-		}
-		
-		// ROTINA DE PEGAR AS DIMENSOES DA FOTO
-		
 		$orientacao = 'H';
 		$width = 0;
 		$height = 0;
 		
-		$file = "/tmp/".$tombo.".jpg";
+		$orig = "/tmp/$tombo.jpg";
 		
-		if (!file_exists($file)) {				// check se o arquivo existe com extensao jpg e JPG
-			$msg .= "Arquivo em alta não encontrado!";
-		}
-		
-		if (file_exists($file)) {				// se existir, abre e imprime a resolucao
-			$getimgsize = getimagesize($file);
-		
-			if ($getimgsize) {
-				list($width, $height, $type, $attr) = $getimgsize;
-				 
-				if($height > $width) {
-					$orientacao = 'V';
+		if(!isVideo($tombo)) {
+			if(!file_exists($orig)) {
+				$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/orig/$tombo.jpg $orig";
+				shell_exec($cmd);
+			}
+			
+			// ROTINA DE PEGAR AS DIMENSOES DA FOTO
+			
+			$file = "/tmp/".$tombo.".jpg";
+			
+			if (!file_exists($file)) {				// check se o arquivo existe com extensao jpg e JPG
+				$msg .= "Arquivo em alta não encontrado!";
+			}
+			
+			if (file_exists($file)) {				// se existir, abre e imprime a resolucao
+				$getimgsize = getimagesize($file);
+			
+				if ($getimgsize) {
+					list($width, $height, $type, $attr) = $getimgsize;
+					 
+					if($height > $width) {
+						$orientacao = 'V';
+					}
 				}
 			}
 		}
-		
+				
 		$direito_img = $_POST['dir_img'] + $_POST['dir_prop'] ;
 // 		$id_foto = $_POST['id_foto'];
 		$extra = $_POST['extra'];
@@ -129,10 +198,11 @@ else if($action == "gravar") {
 		$data = $_POST['data'];
 		$autor = $_POST['autor'];
 	// 	$tombo = $_POST['tombo'];
-		$assunto_principal_en = translateText($assunto_principal);
+		$assunto_principal_en = translateV2($assunto_principal);
+		$extra_en = translateV2($extra);
 		
 		
-		$updateSQL = sprintf("UPDATE Fotos SET tombo=%s, id_autor=%s, data_foto=%s, cidade=%s, id_estado=%s, id_pais=%s, orientacao=%s, assunto_principal=%s, assunto_principal_en=%s, dim_a=%s, dim_b=%s, direito_img=%s, extra=%s WHERE Id_Foto=%s",
+		$updateSQL = sprintf("UPDATE Fotos SET tombo=%s, id_autor=%s, data_foto=%s, cidade=%s, id_estado=%s, id_pais=%s, orientacao=%s, assunto_principal=%s, assunto_principal_en=%s, dim_a=%s, dim_b=%s, direito_img=%s, extra=%s, extra_en=%s WHERE Id_Foto=%s",
 				GetSQLValueString($tombo, "text"),
 				GetSQLValueString($autor, "int"),
 				GetSQLValueString($data, "text"),
@@ -146,6 +216,7 @@ else if($action == "gravar") {
 				GetSQLValueString($height, "int"),
 				GetSQLValueString($direito_img, "int"),
 				GetSQLValueString($extra, "text"),
+				GetSQLValueString($extra_en, "text"),
 				GetSQLValueString($id_foto, "int"));
 		
 	// echo $updateSQL;
@@ -264,6 +335,10 @@ else if($action == "gravar") {
 				}
 			}
 		}
+		
+		curl_request_async("http://erp.pulsarimagens.com.br/tool_include_iptc.php",["tombo"=>$tombo],"GET");
+		
+/*		
 	// 	$tombo = $_POST['tombo'];
 	
 		$thumbs = "/tmp/".$tombo."t.jpg";
@@ -288,14 +363,14 @@ else if($action == "gravar") {
 		shell_exec($cmd);
 		$cmd = "aws --profile pulsar s3 cp $pop s3://pulsar-media/fotos/previews/".$tombo."p.jpg --acl public-read";
 		shell_exec($cmd);
-		
+*/		
 		if($deleteFotoTmp) {
 			$deleteSQL = "DELETE FROM Fotos_tmp WHERE tombo='$tombo'";
 			$Result1 = mysql_query($deleteSQL, $pulsar) or die(mysql_error());
 		}
 		
-		unlink($thumbs);
-		unlink($pop);
+// 		unlink($thumbs);
+// 		unlink($pop);
 		unlink($orig);
 		$msg .= "Gravado com sucesso!";
 	}

@@ -358,6 +358,37 @@ function translateText($palavra, $idioma = "pt") {
 	return $palavra;
 }
 
+function translateV2($strWord, $strLanguage = 'en', $strLanguageStart = 'pt',$strEncode = 'UTF-8')
+{
+	$strKeyAPI = 'AIzaSyDUXJdrrSk4Fk6G43Ga8xSOtXP1seWecJg';
+	$strUrl = 'https://www.googleapis.com/language/translate/v2?key=';
+	$arrExcludeWord = array('do');
+
+	if(!in_array($strWord, $arrExcludeWord))
+	{
+		$strWord = utf8_encode($strWord);
+		$objCurl = curl_init($strUrl.$strKeyAPI.'&q=' . rawurlencode($strWord) . '&source='.$strLanguageStart.'&target='.$strLanguage.'');
+		curl_setopt($objCurl, CURLOPT_RETURNTRANSFER, true);
+		$arrReturn = json_decode(curl_exec($objCurl),true);
+		//$jsonReturnCode = curl_getinfo($objCurl, CURLINFO_HTTP_CODE);
+		curl_close($objCurl);
+			
+		if(isset($arrReturn['data']['translations'][0]['translatedText']))
+		{
+			return utf8_decode($arrReturn['data']['translations'][0]['translatedText']);
+		}
+		else
+		{
+			return utf8_decode($strWord);
+		}
+	}
+	else
+	{
+		return $strWord;
+	}
+
+}
+
 function formatdate($date) {
 	$objDate = new DateTime($date);
 	$fixDate = $objDate->format('d/m/Y');
