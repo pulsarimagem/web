@@ -95,16 +95,18 @@ function update_tombos_list() {
 // 			}
 // 		}
 // 	}
-	for($i = 1; $i < 100; $i++) {
-		
-		$cmd = "aws --profile pulsar s3 ls s3://pulsar-media/fotos/orig/".str_pad($i,2,"0",STR_PAD_LEFT).$sigla_autor;
-//		echo $cmd."<br>";
-		$out = shell_exec($cmd);
-		$out_arr = explode("\n", $out);
-		foreach($out_arr as $line) {
+
+	
+	$cmd = "aws --profile pulsar s3 cp s3://pulsar-media/fotos/fotosPreviewList.txt /tmp/";
+	$out = shell_exec($cmd);
+	
+	
+	$handle = fopen("/tmp/fotosPreviewList.txt", "r");
+	if ($handle) {
+		while (($line = fgets($handle)) !== false) {
 			if(strstr($line, ".jpg")!==false) {
 				$words = explode(" ",$line);
-				$oneFile = end($words);
+				$oneFile = trim(end($words));
 				$thisFileType = strtolower(substr($oneFile,-5));
 				if (strlen($oneFile) > 5) {
 					if ($thisFileType != "p.jpg") {
@@ -114,9 +116,39 @@ function update_tombos_list() {
 						}
 					}
 				}
+				
 			}
 		}
+		fclose($handle);
+	} else {
+		$msg_err = "Arquivo nao encontrado!";
 	}
+	
+	
+	
+	
+// 	for($i = 1; $i < 100; $i++) {
+		
+// 		$cmd = "aws --profile pulsar s3 ls s3://pulsar-media/fotos/orig/".str_pad($i,2,"0",STR_PAD_LEFT).$sigla_autor;
+// //		echo $cmd."<br>";
+// 		$out = shell_exec($cmd);
+// 		$out_arr = explode("\n", $out);
+// 		foreach($out_arr as $line) {
+// 			if(strstr($line, ".jpg")!==false) {
+// 				$words = explode(" ",$line);
+// 				$oneFile = end($words);
+// 				$thisFileType = strtolower(substr($oneFile,-5));
+// 				if (strlen($oneFile) > 5) {
+// 					if ($thisFileType != "p.jpg") {
+// 						$codigo_autor = ereg_replace("[^A-Za-z]","", substr($oneFile,0,-5));
+// 						if((strlen($codigo_autor) == strlen($sigla_autor)) && stristr($codigo_autor, $sigla_autor)) {
+// 							$fotos_site[] = substr($oneFile,0,-4);
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
 	
 	$fotos_sem_db = array_diff($fotos_site, $fotos_db);
 	asort($fotos_sem_db);

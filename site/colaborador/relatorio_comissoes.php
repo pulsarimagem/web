@@ -272,7 +272,7 @@ $totalRows_objRsContratos = mysql_num_rows($objRsContratos);
                 <td><center><?php If($indio) echo "*";?><?php If($isOld) echo "@";?><?php echo $row_objRsContratos["ID"];?></center></td>
                 <td><?php echo $row_objRsCliente["FANTASIA"]; ?></td>
 <!-- 	                <td><?php echo $cliente_contato;?></td> -->
-                <td><a href="http://www.pulsarimagens.com.br/listing/detailResult/0?tombo=<?php echo $row_OBJCROMOS["CODIGO"];?>&page=1&type=<?php echo (isVideo($row_OBJCROMOS["CODIGO"])?"video":"image");?>"><?php echo $row_OBJCROMOS["CODIGO"];?></a></td>
+                <td><a href="http://www.pulsarimagens.com.br/listing/detail/1000?tombo=<?php echo $row_OBJCROMOS["CODIGO"];?>&strTipo=<?php echo (isVideo($row_OBJCROMOS["CODIGO"])?"video":"image");?>"><?php echo $row_OBJCROMOS["CODIGO"];?></a></td>
                 <td title="Uso: <?php echo $row_objRsUso["tipo"].$row_objRsUso["subtipo"] ?>"><?php echo $row_OBJCROMOS["ASSUNTO"];?></td>
                 <td>R$ <?php If($CROMO_VALOR >= 0) echo formatnumber($CROMO_VALOR); Else echo "0,00";?></td>
                 <td>R$ <?php If($COMISSAO_AUTOR >= 0) echo formatnumber($COMISSAO_AUTOR); Else echo "0,00";?></td>
