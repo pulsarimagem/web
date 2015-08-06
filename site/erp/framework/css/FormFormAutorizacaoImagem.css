@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+.form
+{
+	border: 0px solid red;	
+	min-width: 780px;
+}
+.rowForm
+{
+	border: 0px solid yellow;
+	width: 32.1%;
+	padding: 5px;	
+	display: inline-block;
+}
+.errorMessage
+{
+	color: red;
+	font-weight: bold;	
+}

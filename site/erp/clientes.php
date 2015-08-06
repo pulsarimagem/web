@@ -48,10 +48,10 @@
 							<tr>
 								<th><input type="checkbox" /></th>
 								<th>Razão</th>
+								<th>CNPJ</th>
 								<th>Fantasia</th>
-<!-- 								<th>Função</th> -->
-								<!--                   <th>E-mail</th> -->
 								<th>Status</th>
+								<th>Data</th>
 								<th>Açoes</th>
 							</tr>
 						</thead>
@@ -60,10 +60,10 @@
 							<tr>
 								<td><input type="checkbox" /></td>
 								<td><a href="clientes_cadastro.php?idUser=<?php echo $rowUsers['ID']?>"><?php echo $rowUsers['RAZAO']?></a></td>
+								<td><?php echo $rowUsers['CNPJ']?></td>
 								<td><?php echo $rowUsers['FANTASIA']?></td>
-<!-- 								<td><?php echo $rowUsers['role']?></td> -->
-								<!--                     <td>zoca@zoca.com.br</td> -->
 								<td><?php echo ($rowUsers['STATUS']=='A'?"Válido":"Excluído")?></td>
+								<td><?php echo $rowUsers['DESDE']?></td>
 								<td>
 									<a class="btn btn-primary" href="clientes_cadastro.php?idUser=<?php echo $rowUsers['ID']?>">Editar</a>&nbsp;
 <?php if($rowUsers['STATUS']=='A') { ?>

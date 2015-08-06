@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+ul li div.mzoom { position: absolute; right: 38px; bottom: -30px; z-index: 9999; }
+ul li div.mzoom img { border: 3px solid #000; }
+
+ul li a.approved { display: block; text-decoration: none; color: #5e5e5e; font-size: 11px; line-height: 1.1em; border: 1px solid #66cc00; position: relative; max-width: 97%;}
+ul li a.rejected { display: block; text-decoration: none; color: #5e5e5e; font-size: 11px; line-height: 1.1em; border: 1px solid #ff0033; position: relative; max-width: 97%;}

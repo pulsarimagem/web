@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+.conteudo
+{
+	border: 0px solid black;
+	margin: 25px;
+}
+.conteudo-submenu
+{
+	border: 0px solid yellow;
+	padding: 10px;
+	
+}
+.botao-submenu
+{
+	border: 2px solid #d6d6d6;
+	background-color: #e5e5e5;
+	min-width: 10px;
+	max-width: 250px;
+	display: inline ;
+	padding: 10px;
+	color: #666666;
+	box-shadow: 0 0 1px #ffffff;
+	cursor: pointer;
+}
+
+.botao-submenu:hover, .batao-submenu-selecionado:hover
+{
+	background-color: #666666;
+	color: #f4f4f4;
+}
+.botao-submenu-selecionado
+{
+	border: 2px solid #d6d6d6;
+	background-color: #d6d6d6;
+	min-width: 10px;
+	max-width: 250px;
+	display: inline ;
+	padding: 10px;
+	color: #444444;
+	box-shadow: 0 0 1px #ffffff;
+	cursor: pointer;
+}	
+
+.infomacaoDoSubmenu
+{
+	border: 2px solid #d6d6d6;
+	padding: 25px;
+	color: #666666;
+	box-shadow: 0 0 1px #ffffff;
+	-moz-border-radius: 0 10px;
+    -webkit-border-radius: 0 10px;
+    -khtml-border-radius: 0 10px;
+    border-radius: 0 10px;
+    display:none;
+	min-width: 830px;
+	background-color: #ffffff;
+}

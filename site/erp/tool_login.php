@@ -72,7 +72,7 @@ if(!$has_error && $submit) {
 			//register the session variables
 			$_SESSION['MM_Username_erp'] = $loginUsername;
 			$_SESSION['MM_UserGroup_erp'] = $loginStrGroup;
-			
+				
 
 			if (isset($_SESSION['PrevUrl'])) { // && false) {
 				$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];

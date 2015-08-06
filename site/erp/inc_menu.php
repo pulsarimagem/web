@@ -10,6 +10,7 @@ class erpMenuElem {
 		$this->name = $name;
 		$this->url = $url;
 		$this->icon = $icon;
+		
 	}
 	
 	function getNumChild() {
@@ -27,7 +28,6 @@ class erpMenuElem {
 		}
 		else {
 			$html = "<li class='submenu'>";
-// 			$html .= "	<a href='$this->url'><i class='icon $this->icon'></i> <span>$this->name</span> <span class='label'>$numChild</span></a>";
 			$html .= "	<a href='$this->url'><i class='icon $this->icon'></i> <span>$this->name</span> <span class='label'>&darr;</span></a>";
 			$html .= "	<ul>";
 			foreach($this->getChild() as $child) {
@@ -54,6 +54,7 @@ class erpMenu {
 	public $actualPage;
 	public $dbConn;
 	public $db;
+	public $roleFramework;
 
 	function __construct() {
 		$this->menu = new erpMenuElem("root", "index.php", "");
@@ -71,6 +72,9 @@ class erpMenu {
 	function createMenuArr() {
 		$i = 0;
 		$j = 0;
+		
+	
+		
 		
 		if($this->menu->getNumChild() == 0) {
 			$this->menu->child[$i] = new erpMenuElem("Dashboard", "main.php", "icon-home"); 
@@ -98,6 +102,7 @@ class erpMenu {
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Edição Videos", "edicao_videos.php", "");
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Fotos sem Indexação", "fotos_sem_index.php?show=3", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Indexação sem Foto", "index_sem_foto.php", ""); $j++;
+			$this->menu->child[$i]->child[$j] = new erpMenuElem("Autorização de imagem", "framework/Indexacao/autorizacao/principal/Indexação/pagina/Autorização de imagem", ""); $j++;
 			$i++; $j=0;
 				
 			$this->menu->child[$i] = new erpMenuElem("Mineração de Dados", "#", "icon-picture");
@@ -116,7 +121,6 @@ class erpMenu {
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Cromo vs Licenças", "relatorio_cromos_licenca.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Download", "relatorio_download.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Não Faturadas", "administrativo_naofaturadas.php", ""); $j++;
-			$this->menu->child[$i]->child[$j] = new erpMenuElem("Excluir do S3", "administracao_s3.php", ""); $j++;
 			$i++; $j=0;
 				
 			$this->menu->child[$i] = new erpMenuElem("Estatisticas", "#", "icon-signal");
@@ -131,56 +135,14 @@ class erpMenu {
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Usuários", "usuarios.php", ""); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Regras", "roles.php", "icon-user"); $j++;
 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Corte Royalt-free", "royalt_free.php", "icon-briefcase"); $j++;
+			$this->menu->child[$i]->child[$j] = new erpMenuElem("Excluir do S3", "administracao_s3.php", ""); $j++;
 			$i++; $j=0;
-				
-// 			$this->menu->child[$i] = new erpMenuElem("Páginas", "#pagina.php", "icon-book"); 
-// 			$i++; $j=0;
-			
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Site", "#", "icon-picture");
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Pagina Inicial", "pagina_inicial.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Download", "relatorio_download.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("FTP", "ftp.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Cotação", "cotacao.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Fotos sem Indexação", "fotos_sem_index.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Indexação sem Foto", "index_sem_foto.php", ""); $j++;
-// 			$i++; $j=0;
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Mineração de Dados", "#", "icon-picture");
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Comparativo Sinônimos", "sinonimos.php", "icon-briefcase"); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Pauta das Pesquisas", "pauta.php", "icon-briefcase"); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Pauta das Vendas", "pauta_venda.php", "icon-briefcase"); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relação Temas-Descritores", "temas_descritores.php", "icon-briefcase"); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Corte Royalt-free", "royalt_free.php", "icon-briefcase"); $j++;
-// 			$i++; $j=0;
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Profissionais", "profissionais.php", "icon-briefcase");
-// 			$i++; $j=0;
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Clientes", "clientes.php", "icon-list");
-// 			$i++; $j=0;
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Cadastro", "cadastro.php", "icon-list");
-// 			$i++; $j=0;
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Usuários", "usuarios.php", "icon-user");
-// 			$i++; $j=0;
-			
-// 			$this->menu->child[$i] = new erpMenuElem("Regras", "roles.php", "icon-user");
-// 			$i++; $j=0;
-								
-// 			$this->menu->child[$i] = new erpMenuElem("Administrativo", "#", "icon-signal");
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Comissões", "administrativo_comissoes.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Contratos", "administrativo_contratos.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Licenças", "administrativo_licencas.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Preços", "administrativo_precos.php", ""); $j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Indios", "administrativo_indios.php", "");	$j++;
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Contratos", "relatorio_contratos.php", ""); $j++;	
-// 			$this->menu->child[$i]->child[$j] = new erpMenuElem("Relatório Licença Cromo", "relatorio_cromos_licenca.php", ""); $j++;	
-		}
+		}	
 	} 
 	function createMenu($role) {
+
 		$this->connect();
+		$_SESSION['role'] = $role;
 		$sql = "SELECT * FROM roles WHERE id = $role";
 		$rs = mysql_query($sql, $this->dbConn) or die(mysql_error()); 
 		$row = mysql_fetch_array($rs);
@@ -190,8 +152,10 @@ class erpMenu {
 		if($this->menu->getNumChild() == 0) {
 			$this->createMenuArr();
 		}
+		
 		foreach($this->menu->getChild() as $submenu) {
 			$perm = isset($row[$this->getChildNoSpace($submenu->name)])?$row[$this->getChildNoSpace($submenu->name)]:-1;
+			
 			if ($perm >= 0) {
 				echo $submenu->getHtml($this->actualPage);
 			}

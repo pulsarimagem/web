@@ -67,7 +67,7 @@ if ($tmpLogin!=-1) {
 		$error = "Senha em branco!";
 	}
 	else {
-		$insertSQL = sprintf("INSERT INTO cadastro (nome,login, senha, email, data_cadastro,temporario) VALUES (%s,%s,%s,%s,%s,'S')",
+		$insertSQL = sprintf("INSERT INTO cadastro (nome,login, senha, email, data_cadastro,temporario, download) VALUES (%s,%s,%s,%s,%s,'S','SV')",
 				GetSQLValueString("Temporário - ".$tmpLogin, "text"),
 				GetSQLValueString($tmpLogin, "text"),
 				GetSQLValueString($_GET['senha'], "text"),

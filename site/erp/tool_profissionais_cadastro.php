@@ -80,6 +80,22 @@ if($isDel > 0) {
 	$rsDelUsers = mysql_query($queryDelUsers, $pulsar) or die(mysql_error());
 	if($siteDebug)
 		echo $queryDelUsers;
+	$queryUsers = "SELECT * FROM AUTORES_OFC LEFT JOIN $database_pulsar.fotografos ON $database_pulsar.fotografos.Iniciais_Fotografo = AUTORES_OFC.SIGLA WHERE ID = $isDel"; 	
+	
+	$rsUsers = mysql_query($queryUsers, $pulsar) or die(mysql_error());
+	$rowUsers = mysql_fetch_assoc($rsUsers);	
+	if(is_array($rowUsers))
+	{
+		$queryDelUsers = "
+			UPDATE 
+				$database_pulsar.fotografos
+			SET
+				boo_ativo = 0
+			WHERE 
+				Iniciais_Fotografo = '".$rowUsers['SIGLA']."'";
+		$rsDelUsers = mysql_query($queryDelUsers, $pulsar) or die(mysql_error());
+	}
+	
 	header("location: profissionais.php?msg=Excluido com Sucesso!");
 }
 ?>

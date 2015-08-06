@@ -67,6 +67,7 @@ $query_arquivos = sprintf("SELECT
 		`$relTable`.faturado,
 		`fotografos`.Nome_Fotografo,
 		`Fotos`.assunto_principal,
+		`Fotos`.direito_img as intIndio,
 		(`Fotos`.assunto_principal regexp '($tribos)') as indio
 		$relExtra2
 		FROM
@@ -79,6 +80,7 @@ $query_arquivos = sprintf("SELECT
 		GROUP BY arquivo, EXTRACT(DAY FROM data_hora), projeto
 		ORDER BY faturado, projeto, indio, data_hora DESC
 		", $colname_arquivos,$data2);
+				
 $arquivos = mysql_query($query_arquivos, $pulsar) or die(mysql_error());
 $row_arquivos = mysql_fetch_assoc($arquivos);
 $totalRows_arquivos = mysql_num_rows($arquivos);
@@ -90,7 +92,7 @@ $row_cliente = mysql_fetch_assoc($cliente);
 $totalRows_cliente = mysql_num_rows($cliente);
 
 if($isExcel) {
-	require_once ('Classes/PHPExcel.php');
+	require_once ('./Classes/PHPExcel.php');
 	// Create new PHPExcel object
 	$objPHPExcel = new PHPExcel();
 	
@@ -106,14 +108,15 @@ if($isExcel) {
 
 	// Add some data
 	$objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A1', utf8_encode('Código'))
-	->setCellValue('B1', 'Data')
-	->setCellValue('C1', 'Assunto')
-	->setCellValue('D1', utf8_encode('Título'))
-	->setCellValue('E1', 'Uso')
-	->setCellValue('F1', 'Tamanho')
-	->setCellValue('G1', 'Faturado')
-	->setCellValue('H1', 'Obs');
+	->setCellValue('A1', 'CÃ³digo')
+	->setCellValue('B1', 'AcrÃ©scimo de 100%')
+	->setCellValue('C1', 'Data')
+	->setCellValue('D1', 'Assunto')
+	->setCellValue('E1', 'TÃ­tulo')
+	->setCellValue('F1', 'Uso')
+	->setCellValue('G1', 'Tamanho')
+	->setCellValue('H1', 'Faturado')
+	->setCellValue('I1', 'Obs');
 	
 	$cnt = 2;
 	do {
@@ -139,15 +142,21 @@ if($isExcel) {
 			$tamanho = "";
 		}
 		
+		if($row_arquivos['intIndio']==2)
+			$strIndio = 'X';
+		else
+			$strIndio = '';
+		
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A'.$cnt, str_replace(".JPG","",strtoupper($row_arquivos['arquivo'])))
-		->setCellValue('B'.$cnt, date("d/m/Y", strtotime($data[0])))
-		->setCellValue('C'.$cnt, utf8_encode($row_arquivos['assunto_principal']))
-		->setCellValue('D'.$cnt, utf8_encode($row_arquivos['projeto']))
-		->setCellValue('E'.$cnt, utf8_encode($uso))
-		->setCellValue('F'.$cnt, utf8_encode($tamanho))
-		->setCellValue('G'.$cnt, utf8_encode(($row_arquivos['faturado']==0?"Não":"Sim")))
-		->setCellValue('H'.$cnt, utf8_encode(str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", $row_arquivos['obs'])));
+		->setCellValue('B'.$cnt, $strIndio)
+		->setCellValue('C'.$cnt, date("d/m/Y", strtotime($data[0])))
+		->setCellValue('D'.$cnt, utf8_encode($row_arquivos['assunto_principal']))
+		->setCellValue('E'.$cnt, utf8_encode($row_arquivos['projeto']))
+		->setCellValue('F'.$cnt, utf8_encode($uso))
+		->setCellValue('G'.$cnt, utf8_encode($tamanho))
+		->setCellValue('H'.$cnt, ($row_arquivos['faturado']==0?"NÃ£o":"Sim"))
+		->setCellValue('I'.$cnt, utf8_encode(str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", $row_arquivos['obs'])));
 		
 		$cnt ++;
 		
@@ -160,7 +169,7 @@ if($isExcel) {
 	// Rename worksheet
 	$objPHPExcel->getActiveSheet()->setTitle('Relatorio');
 	
-	// Redirect output to a client’s web browser (Excel5)
+	// Redirect output to a clientï¿½s web browser (Excel5)
 	header('Content-Type: application/vnd.ms-excel');
 	header('Content-Disposition: attachment;filename="relatorio.xls"');
 	header('Cache-Control: max-age=0');

@@ -22,6 +22,10 @@ if ($action == 'incluir') {
 	$rs = mysql_query($sql, $sig) or die(mysql_error());
 	$row = mysql_fetch_array($rs);
 	$id_gravar = $row['id'];
+if($id_gravar===false) echo "FALSE!";
+else if($id_gravar=="0") echo "0!";
+else echo $id_gravar;
+echo "<-<br>";
     $clientes = $_POST['clientes'];
 	foreach ($clientes as $cliente) {
 		$sqlInsert = "INSERT INTO rel_contratosdesc_clientes (id_contratodesc, id_cliente) VALUES ($id_gravar,$cliente)";

@@ -92,8 +92,8 @@ else if($action == "clean_id_contato_sig") {
 		$isReuso = false;
 	}
 	$reusoVal = $isReuso?"1":"-1";
-	$query = "UPDATE CROMOS SET reuso = reuso+$reusoVal, VALOR = $val, DESCONTO = $desc WHERE ID = $id";
-	echo $query;
+	$query = "UPDATE CROMOS SET reuso = '$reusoVal', VALOR = '$val', DESCONTO = '$desc' WHERE ID = '$id'";
+	/* echo */ $query;
 	$rs	= mysql_query($query, $sig) or die(mysql_error());
 }else if(isset($_GET['chkIndio'])) {
 	$id = $_GET['chkIndio'];

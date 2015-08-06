@@ -9,14 +9,13 @@ if($action == "indexar") {
 	if(($assunto_principal = $_GET['assunto_principal']) != "") {
 		if($sqlUpdate != "")
 			$sqlUpdate .= ",";
-		$assunto_en = translateV2($assunto_principal);
-		$sqlUpdate .= " assunto_principal = '$assunto_principal', assunto_principal_en = '$assunto_en' ";
+		$assunto_en = translateText($assunto_principal);
+		$sqlUpdate .= " assunto_principal = '$assunto_principal', assunto_en = '$assunto_en' ";
 	}
 	if(($extra = $_GET['extra']) != "") {
 		if($sqlUpdate != "")
 			$sqlUpdate .= ",";
-		$extra_en = translateV2($extra);
-		$sqlUpdate .= " extra = '$extra', extra_en = '$extra_en' ";
+		$sqlUpdate .= " extra = '$extra' ";
 	}
 	if(($autor = $_GET['autor']) != "") {
 		if($sqlUpdate != "")

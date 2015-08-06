@@ -45,7 +45,27 @@
 		    </div>
       		<div class="row-fluid novoContrato">
 		        <div>
-		    		<textarea name="FCKeditor1" id="FCKeditor1"><?php echo ($editar?$valor=$row_objId['condicoes']:$valor="")?></textarea>
+            <?php
+//            ' Automatically calculates the editor base path based on the _samples directory.
+//            ' This is usefull only for these samples. A real application should use something like this:
+//            ' oFCKeditor.BasePath = '/fckeditor/' ;	// '/fckeditor/' is the default value.
+            if ($editar) {
+                $valor = $row_objId['condicoes'];
+            } else {
+                $valor = "";
+            }
+
+            include("fckeditor/fckeditor.php");
+            
+            $oFCKeditor = new FCKeditor('FCKeditor1') ;
+            $oFCKeditor->BasePath = './fckeditor/';
+            $oFCKeditor->Value = $valor;
+            $oFCKeditor->Width = '650';
+            $oFCKeditor->Height = '550';
+            $oFCKeditor->ToolbarSet = 'Default';
+            $oFCKeditor->Create();
+            
+		    ?>		         
 		         </div>
 		    </div>
 		    <div class="row-fluid novoContrato">

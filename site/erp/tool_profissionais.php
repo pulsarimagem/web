@@ -12,6 +12,8 @@ if($busca != "") {
 }
 
 $queryUsers = $sql = "SELECT ID,NOME,SIGLA,TELEFONE,CELULAR,EMAIL,STATUS FROM AUTORES_OFC $where ORDER BY trim(NOME)";
+
+
 $rsUsers = mysql_query($queryUsers, $pulsar) or die(mysql_error());
 
 if(isset($_GET['excluirUser'])) {
@@ -19,5 +21,9 @@ if(isset($_GET['excluirUser'])) {
 	$rsDelUsers = mysql_query($queryDelUsers, $pulsar) or die(mysql_error());
 	if($siteDebug)
 		echo $queryDelUsers;
+
+	
+		
+		
 }
 ?>

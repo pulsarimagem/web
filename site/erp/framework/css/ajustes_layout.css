@@ -1,0 +1,72 @@
+.span3, #administrativo_licencas
+{
+	width: 120px;
+}
+.administrativo_licencas_p
+{
+	margin-top: 5px;
+}
+#containerForm
+{
+/* 	border: 1px solid pink;	 */
+	float: left;
+	margin-bottom: 20px; 
+}
+.divLabelERP
+{
+	float: left;
+    padding-right: 5px;
+    padding-top: 5px;
+    text-align: right;
+    width: 20%;
+}
+.divInputERP
+{
+	width: 70%;
+	float: left;
+}
+#divContainerSelectERP
+{
+/*	border: 1px solid red;	 */
+	float: left;
+	width:400px;	
+	min-width: 400px;
+}
+#divContainerDatePickerERP
+{
+/*	border: 1px solid black; */
+	width: 200px;
+	min-width: 200px;	
+}
+#divContainerTextLRERP
+{
+/*	border: 1px solid yellow; */
+	float: left;
+	width: 200px;
+	min-width: 200px;
+}
+#divContainerButtonSendERP
+{
+/*	border: 1px solid green; */
+	float: left;
+	width: 200px;
+	min-width: 200px;
+}
+
+.mensagem
+{
+	border: 1px solid #DF0101;
+	padding: 10px;
+	font-size: 14px;
+	background-color: #FA5858;
+	opacity: 0.4;
+	color: #F2F2F2;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+    margin-bottom: 25px;
+}
+
+#mensagemDeSucesso
+{
+	border: 1px solid #0B610B;
+	background-color: #088A08;
+}

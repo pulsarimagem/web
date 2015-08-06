@@ -291,7 +291,18 @@ if($baixado == "S") {
                           <th>Valor</th>
                           <th>Desconto</th>
                           <th>Total</th>
-                          <th>Reuso</th>
+                          <?php 
+                          /*
+                          $strChecked = 'checked';
+                          While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
+                          		if(((int)$row_objRS5['reuso']%10)<1)
+                          		{
+                          			$strChecked = 'checked';
+                          		}
+                          }
+                          */
+                          ?>
+                          <th><input type="checkbox" name="reusoAll" class="reusoAll"/>Reuso</th>
                           <th>Indio</th>
 <?php if($editar && !$isBaixado) { ?>
                           <th>Excluir</th>
@@ -301,6 +312,8 @@ if($baixado == "S") {
 $contador = 0;
 $total = 0;
 $desconto = 0;
+
+
 While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 	$id_uso=$row_objRS5['ID_USO'];
 
@@ -337,33 +350,55 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 					  <input type="hidden" name="id<?php echo  $contador?>" value="<?php echo  $row_objRS5['ID'] ?>" />
                       <tr>
                           <td><?php echo $row_objRS5['CODIGO']?></td>
-                          <td><?php echo mb_strtoupper($row_objRS5['ASSUNTO'])?><br/><?php echo $uso?>
+                          <td   ><?php echo mb_strtoupper($row_objRS5['ASSUNTO'])?><br/><?php echo $uso?>
 <?php 
-	$query = "SELECT CROMOS.CODIGO, CONTRATOS.ID AS LR, CONTRATOS.ID_CLIENTE, CONTRATOS.DATA FROM CROMOS
-				LEFT JOIN CONTRATOS ON CROMOS.ID_CONTRATO = CONTRATOS.ID 
-				WHERE YEAR(CONTRATOS.DATA) = YEAR(NOW()) AND CROMOS.CODIGO LIKE '".$row_objRS5['CODIGO']."' AND CONTRATOS.ID_CLIENTE = '$id_cliente' AND CONTRATOS.ID != '$id_contrato';";
+	$query = "	SELECT 
+					CROMOS.CODIGO, 
+					CONTRATOS.ID AS LR, 
+					CONTRATOS.ID_CLIENTE, 
+					CONTRATOS.DATA ,
+					CONTRATOS.DESCRICAO
+				FROM 
+					CROMOS
+				LEFT JOIN 
+					CONTRATOS ON CROMOS.ID_CONTRATO = CONTRATOS.ID 
+				WHERE 
+					YEAR(CONTRATOS.DATA) = YEAR(NOW()) 
+				AND 
+					CROMOS.CODIGO LIKE '".$row_objRS5['CODIGO']."' 
+				AND 
+					CONTRATOS.ID_CLIENTE = '$id_cliente' 
+				AND 
+					CONTRATOS.ID != '$id_contrato';";
 	
 	$rs 	= mysql_query($query, $sig) or die(mysql_error());
 
 	while($row = mysql_fetch_assoc($rs)) {
-		echo "<br/><span style='color:red;font-weight:bold'>Código já licenciado na LR ".$row['LR']." em ".date("d/m/Y",strtotime($row['DATA']))." para esse cliente!</span>";
+		echo "<br/><span style='color:red;font-weight:bold'>Código já licenciado na LR <span class='tooltipSpanLr' id='".$row['DESCRICAO']."' >".$row['LR']."</span> em ".date("d/m/Y",strtotime($row['DATA']))." para esse cliente!</span>";
+		
 	}
+	
 ?>
                           </td>
-                          <td><?php echo $row_objRS5['AUTOR']?></td>
+                          <td><?php echo $row_objRS5['AUTOR'] ?></td>
 <?php If ($editar && !$isBaixado) { ?>
 							<td>R$ <input class="span7" type="text" name="valor<?php echo $contador?>" id="valor<?php echo $contador?>" value="<?php echo $row_objRS5['VALOR']?>"/></td>
 							<td>R$ <input class="span7" type="text" name="desconto<?php echo $contador?>" id="desconto<?php echo $contador?>" value="<?php echo $row_objRS5['DESCONTO']?>"/></td>
 							<?php $valor_final=fixnumber($row_objRS5['VALOR'])-fixnumber($row_objRS5['DESCONTO'])?>
 							<td>R$ <input class="span7" type="text" name="valor_final<?php echo $contador?>" value="<?php echo formatnumber($valor_final)?>" readonly/></td>
+						
+						
+						
 							<td><input type="checkbox" name="reuso[]" value="<?php echo $row_objRS5['ID']?>" id="chk_<?php echo $contador?>" class="reuso unbind_unload" <?php echo ((int)$row_objRS5['reuso']%10)>=1?"checked":""?>/></td>
 							<td><input type="checkbox" name="indio[]" value="<?php echo $row_objRS5['ID']?>" id="chkIndio_<?php echo $contador?>" class="chkIndio unbind_unload" <?php echo ((int)$row_objRS5['reuso']/10)>=1?"checked":""?>/></td>
-							<td><center><a class="icon-remove unbind_unload" href="administrativo_licencas_nova.php?editar=true&id_contrato=<?php echo $id_contrato?>&trash=<?php echo $row_objRS5['ID']?>"><img src="images/del.gif" border="0" alt="excluir cromo do contrato" class="unbind_unload"/></a></center></td>
+							<td><center><a class="icon-remove unbind_unload" href="administrativo_licencas_nova.php?editar=true&id_contrato=<?php echo $id_contrato?>&trash=<?php echo $row_objRS5['ID']?>"></a></center></td>
 <?php } else { ?>
 							<td>R$ <?php echo $row_objRS5['VALOR']?>&nbsp;</td>
 							<td>R$ <?php echo $row_objRS5['DESCONTO']?>&nbsp;</td>
 							<?php $valor_final=fixnumber($row_objRS5['VALOR'])-fixnumber($row_objRS5['DESCONTO'])?>
 							<td>R$ <?php echo formatnumber($valor_final)?>&nbsp;</td>
+							
+							
 							<td><input type="checkbox" name="reuso[]" value="<?php echo $row_objRS5['ID']?>" id="chk_<?php echo $contador?>" class="reuso" <?php echo ((int)$row_objRS5['reuso']%10)>=1?"checked":""?> disabled/></td>
 							<td><input type="checkbox" name="indio[]" value="<?php echo $row_objRS5['ID']?>" id="chkIndio_<?php echo $contador?>" class="chkIndio" <?php echo ((int)$row_objRS5['reuso']/10)>=1?"checked":""?> disabled/></td>
 <?php } ?>
@@ -373,9 +408,10 @@ While ($row_objRS5 = mysql_fetch_assoc($objRS5)) {
 	$desconto += $row_objRS5['DESCONTO'];
 	$contador=$contador+1;
 }
+
 ?>
 				<tr>
-				<td colspan="4"><?php echo $contador?> cromo(s)</td>
+				<td colspan="4"><?php echo $contador?> cromo(s)<input type="hidden" id="contadorTotal" name="contadorTotal" value="<?php echo  $contador; ?>" /></td>
 				<td>R$ <?php echo formatnumber($desconto)?></td>
 				<td>R$ <?php echo formatnumber($total)?></td>
 <?php if($editar && !$isBaixado) { ?>

@@ -1,0 +1,34 @@
+[raiz do projeto]/protected/config/main.php
+
+(...)
+'urlManager'=>array(
+    'urlFormat'=>'path',
+    'showScriptName'=>false,
+    'rules'=>array(
+        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+        '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+    ),
+),
+(...)
+
+[raiz do projeto]/.htaccess (Tem que criar!)
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . index.php
+
+httpd.conf do seu Apache
+
+(...)
+LoadModule rewrite_module modules/mod_rewrite.so
+(...)
+<Directory [caminha da sua app]>
+    Options FollowSymLinks
+    AllowOverride All
+    Order deny,allow (Se for Apache >= 2.4, fica Require all granted)
+</Directory>
+(...)

@@ -143,8 +143,17 @@ jQuery(document).ready(function() {
 		$('.novoIndio').toggle();
 	});
 
+	$('.tooltipSpanLr').mouseover(function(){
+		$(this).css('cursor', 'pointer' );
+	});
+	
+	$('.tooltipSpanLr').click(function(){
+		var descricao = $(this).attr('id');
+		alert(descricao);
+	});
+
 	$(".tooltipme").mbTooltip({ // also $([domElement]).mbTooltip  >>  in this case only children element are involved
-		opacity : .85,       //opacity
+		opacity : .99,       //opacity
 		wait:10,           //before show
 		cssClass:"default",  // default = default
 		timePerWord: 1000,      //time to show in milliseconds per word
@@ -453,39 +462,73 @@ jQuery(document).ready(function() {
 		return true;
 	});
 
-	$('.reuso').click(function() {
-		var thisCheck = $(this);
-		if(thisCheck.is(':checked')) {
-			var id = thisCheck.attr('id').split("_")[1];
+	$('.reusoAll').click(function()
+	{
+		var thisReusoAll = $(this);
+		var intCotador = $('#contadorTotal').attr('value');
+		$(this).prop( "checked", true );
+
+		id = 0;
+		while( id < intCotador)
+		{
+			var thisCheck = $('#chk_'+id).attr('value');
 			var valAddDesc = $('#valor'+id).attr('value').replace(".","").replace(",",".");
-//			alert(valAddDesc);
 			valAddDesc = valAddDesc*0.3;
-//			alert(valAddDesc);
 			var valDesc = $('#desconto'+id).attr('value').replace(".","").replace(",",".");
 			valDesc = parseFloat(valDesc) + parseFloat(valAddDesc);
 			valDesc = valDesc.toString().replace(".",",");
-//			alert(valDesc);
 			$('#desconto'+id).attr('value',valDesc);
 			var val = $('#desconto'+id).attr('value');
-//			alert(val);
+
+			if(thisReusoAll.is(':checked')) 
+			{
+				$.ajax("tool_ajax.php?reuso="+thisCheck+"&val="+val+"&desc="+valDesc).done(function (){
+					//$(".reuso_form").submit();
+				});
+				
+			}
+			else
+			{
+				$.ajax("tool_ajax.php?reuso="+thisCheck+"&false='false'&val="+val+"&desc="+valDesc).done(function (){
+					//$(".reuso_form").submit();
+				});
+			}
+
+			id++;	
+		}
+		$(".reuso_form").submit();		
+		
+	}
+	);
+
+	$('.reuso').click(function() {
+		var thisCheck = $(this);
+		
+		if(thisCheck.is(':checked')) {
+			
+			var id = thisCheck.attr('id').split("_")[1];
+			var valAddDesc = $('#valor'+id).attr('value').replace(".","").replace(",",".");
+			valAddDesc = valAddDesc*0.3;
+			var valDesc = $('#desconto'+id).attr('value').replace(".","").replace(",",".");
+			valDesc = parseFloat(valDesc) + parseFloat(valAddDesc);
+			valDesc = valDesc.toString().replace(".",",");
+			$('#desconto'+id).attr('value',valDesc);
+			var val = $('#desconto'+id).attr('value');
 			$.ajax("tool_ajax.php?reuso="+thisCheck.attr('value')+"&val="+val+"&desc="+valDesc).done(function (){
 				$(".reuso_form").submit();
 			});
 		}
-		else {
+		else 
+		{
+			
 			var id = thisCheck.attr('id').split("_")[1];
 			var valAddDesc = $('#valor'+id).attr('value').replace(".","").replace(",",".");
-//			alert(valAddDesc);
 			valAddDesc = valAddDesc*0.3;
-//			alert(valAddDesc);
 			var valDesc = $('#desconto'+id).attr('value').replace(".","").replace(",",".");
 			valDesc = parseFloat(valDesc) - parseFloat(valAddDesc);
 			valDesc = valDesc.toString().replace(".",",");
-//			alert(valDesc);
 			$('#desconto'+id).attr('value',valDesc);
 			var val = $('#desconto'+id).attr('value');
-//			alert(val);
-//			alert("tool_ajax.php?reuso="+thisCheck.attr('value')+"&false=false");
 			$.ajax("tool_ajax.php?reuso="+thisCheck.attr('value')+"&false=false&val="+val+"&desc="+valDesc).done(function (){
 				$(".reuso_form").submit();
 			});

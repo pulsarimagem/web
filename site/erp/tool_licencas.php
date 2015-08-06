@@ -104,6 +104,7 @@ $sqlTotal = "select
 			$filtroCliente
 			$filtroData
     		order by ID DESC";
+
 // echo $sqlTotal;
 if($action!="" || $cliente != "" || $lr != "") {
 	$objTotal = mysql_query($sqlTotal, $sig) or die(mysql_error());
@@ -113,7 +114,7 @@ else {
 	$totalTotal = 0;
 }
 
-$query_empresas = sprintf("SELECT ID, RAZAO, FANTASIA FROM CLIENTES ORDER BY RAZAO");
+$query_empresas = sprintf("SELECT ID, RAZAO, FANTASIA, CNPJ FROM CLIENTES ORDER BY RAZAO");
 $empresas = mysql_query($query_empresas, $sig) or die(mysql_error());
 $totalRows_empresas = mysql_num_rows($empresas);	
 ?>

@@ -227,9 +227,9 @@
 									<label class="control-label">Direito de imagem</label>
 									<div class="controls">
 										<div class="span6">
-											<label style="display: inline;"><input type="radio" name="dir_img" value="0" <?php echo (isset($_GET["dir_img"])?($_GET["dir_img"]==0?"checked":""):($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":""));?>></label><label style="display: inline;">Nenhum</label><br/>
-											<label style="display: inline;"><input type="radio" name="dir_img" value="1" <?php echo (isset($_GET["dir_img"])?($_GET["dir_img"]==1?"checked":""):($form_dirimg%10 == 1 ? "checked":""));?>></label><label style="display: inline;">Uso autorizado</label> <br/>
-											<label style="display: inline;"><input type="radio" name="dir_img" value="2" <?php echo (isset($_GET["dir_img"])?($_GET["dir_img"]==2?"checked":""):($form_dirimg%10 == 2 ? "checked":""));?>></label><label style="display: inline;">Uso autorizado + Acrécimo de 100%</label><br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="0" <?php echo ($form_dirimg%10 != 1 && $form_dirimg%10 != 2 && $form_dirimg%10 != 3? "checked":"");?>></label><label style="display: inline;">Nenhum</label><br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="1" <?php echo ($form_dirimg%10 == 1 ? "checked":"");?>></label><label style="display: inline;">Uso autorizado</label> <br/>
+											<label style="display: inline;"><input type="radio" name="dir_img" value="2" <?php echo ($form_dirimg%10 == 2 ? "checked":"");?>></label><label style="display: inline;">Uso autorizado + Acrécimo de 100%</label><br/>
 <!-- 											<label><input type="radio" name="dir_img" value="3" <?php echo ($form_dirimg%10 == 3 ? "checked":"");?>> Não autorizado</label> -->
 										</div>
 									</div>

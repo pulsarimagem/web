@@ -79,7 +79,7 @@ $sqlTotal = "select
 			from
 				log_download2 
 			LEFT JOIN cadastro ON cadastro.id_cadastro = log_download2.id_login
-    		WHERE log_download2.data_hora < NOW() - INTERVAL 3 MONTH AND log_download2.data_hora > NOW() - INTERVAL 1 YEAR AND log_download2.faturado = 0 AND log_download2.id_login NOT IN (15,4350,1431,311,459,1043,3314,11,789) 
+    		WHERE log_download2.data_hora < NOW() - INTERVAL 3 MONTH AND log_download2.data_hora > NOW() - INTERVAL 1 YEAR AND log_download2.faturado = 0 AND log_download2.id_login NOT IN (15,4350,1431,311,459,1043,3314,11) 
     		ORDER BY id_log DESC";
 // echo $sqlTotal;
 $objTotal = mysql_query($sqlTotal, $sig) or die(mysql_error());
