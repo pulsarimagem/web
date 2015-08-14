@@ -30,6 +30,17 @@ class Controller extends CController
 	
 	public $arrBreadCrumbControllerView;
 	
+	public $strUrlStockPhotos = 'https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/';
+	
+	public $strUrlStockPhotosInServer = 'https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/';
+	
+	//public $strUrlCloud = 'http://177.71.182.64/Videos/thumbs/';
+	public $strUrlCloud = 'https://s3-sa-east-1.amazonaws.com/pulsar-media/fotos/previews/';
+	
+	//public $strUrlCloudVideo = 'http://177.71.182.64/Videos/previews/';
+	public $strUrlCloudVideo = 'https://s3-sa-east-1.amazonaws.com/pulsar-media/videos/previews/';
+	
+	
 	public function init()
 	{
 		$objMenuDAO = new menuDAO();

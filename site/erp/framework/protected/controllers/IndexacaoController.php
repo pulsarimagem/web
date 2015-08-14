@@ -9,11 +9,21 @@ class IndexacaoController extends Controller
 			$objModelAutorizacaoImagem		= new AutorizacaoImagem;
 			$objModelFotografo				= new Fotografos();
 			$objUploadFileAutorizacaoAutor	= new UploadFileAutorizacaoAutor();
+			$objDropDownListing				= new DropDownListing();
+			$objFotografosOfDao				= new fotografosOfDao();
 		//Fim, instancia de classe
 		
 		//Inicio, variavel que define a aba que vai ser mostrada
 			$strPostOrDefault = 'default';
 		//Fim, variavel que define a aba que vai ser mostrada
+		
+		//Inicio, retornos variados para a view
+		$arrReturnView = array(
+			'strMensagemDeErro'	=> 'Não foi possível identificar o autor',
+			'intIdAutor' 		=> ''
+			
+		);
+		//Fim, retornos variados para a view	
 		
 		//Inicio, validacao do formulario de subir autorizacao
 			(isset($_POST['str_sigla_autor']) ? $_POST['AutorizacaoImagem']['str_sigla_autor'] = $_POST['str_sigla_autor'] : '');
@@ -70,21 +80,71 @@ class IndexacaoController extends Controller
 		    	//Fim, variavel que define a aba que vai ser mostrada, substituindo o valor default	
 		    }
 	    //Fim, acao pos envio deo formulario de  subir autorizacao
+	    
+		//Incio, acao get envio de formulario para visualizar fotos que estao pendentes
+			if(isset($_GET['listarPendente']))
+		    {
+		    	$strPostOrDefault = 'listarPendentes';
+		    	if(count($_GET['listarPendente']) > 0)
+		    	{
+		    		$arrReturnView['arrReturnDB']		= $objFotografosOfDao->fotografoAurorizacaoPendenteListing($_GET['idFotografo']);
+		    		$arrReturnView['arrAutorizacao']	= $objFotografosOfDao->fotografosAutorizacao($_GET['idFotografo']);
+		    		$arrReturnView['strMensagemDeErro']	= false;
+		    		$arrReturnView['intIdAutor']		= $_GET['idFotografo'];
+
+		    	}
+		    }    
+	    //Fim, acao get envio de formulario para visualizar fotos que estao pendentes
+		
+		//Inicio, salvando atualizacao de codigo de foto com LIU
+			if(isset($_GET['idCodigo']) && isset($_GET['idAutorizacao']))
+			{
+				$objHelperRelFotoAutorizacaoImagem = new HelperRelFotoAutorizacaoImagem();
+				$objHelperRelFotoAutorizacaoImagem->setArrIdCodigo($_GET['idCodigo']);
+				$objHelperRelFotoAutorizacaoImagem->setArrIdAutorizacao($_GET['idAutorizacao']);
+				
+				$objHelperRelFotoAutorizacaoImagem->save();
+					
+				$strPostOrDefault = 'atualizarFotoAutorizacao';
+				
+				//Incio, acao get envio de formulario para visualizar fotos que estao pendentes
+					if(isset($_GET['listarPendente']))
+				    {
+				    	if(count($_GET['listarPendente']) > 0)
+				    	{
+				    		$arrReturnView['arrReturnDB']		= $objFotografosOfDao->fotografoAurorizacaoPendenteListing($_GET['idFotografo']);
+				    		$arrReturnView['arrAutorizacao']	= $objFotografosOfDao->fotografosAutorizacao($_GET['idFotografo']);
+				    		$arrReturnView['strMensagemDeErro']	= false;
+				    		$arrReturnView['intIdAutor']		= $_GET['idFotografo'];
+		
+				    	}
+				    }    
+			    //Fim, acao get envio de formulario para visualizar fotos que estao pendentes
+			    
+				$arrReturnView['strSucessoAutorizacao']	= 'As Autoriza&ccedil;&otilde;es foram salvas com sucesso!';    
+			}	
+		//Fim, salvando atualizacao de codigo de foto com LIU	
+		
+		//Inicio, dropdown de autores com fotos pendentes de autorizacao
+			$arrReturnFotografosAutorizacaoPendente = $objDropDownListing->dropAutorAutorizacao();
+		//Inicio, dropdown de autores com fotos pendentes de autorizacao		
 
 		$this->render('autorizacao',
 			array(
 				
 					//Inicio, html Topo da pagina
-					'strTituloPagina' 			=> $objHelperHtmlPaginaCabecalho->HtmlTituloPagina($this->arrBreadCrumb),
+					'strTituloPagina' 							=> $objHelperHtmlPaginaCabecalho->HtmlTituloPagina($this->arrBreadCrumb),
 					//Fim, html Topo da pagina
 					//Inicio, html breadcrumb
-					'strBreadCrumb' 			=> $objHelperHtmlBreadCrumb->HtmlBreadCrumb(),
+					'strBreadCrumb' 							=> $objHelperHtmlBreadCrumb->HtmlBreadCrumb(),
 					//Fim, html breadcrumb
-					'strPostOrDefault' 			=> $strPostOrDefault,
-					'objModelAutorizacaoImagem' => $objModelAutorizacaoImagem,
-					'objDropDownFotografo'		=> $objModelFotografo,
-					'strMensagemDeErro'			=> $objUploadFileAutorizacaoAutor->strMensagemDeErro,
-					'strMensagemDeSucesso'		=> $objUploadFileAutorizacaoAutor->strMensagemDeSucesso,
+					'strPostOrDefault' 							=> $strPostOrDefault,
+					'objModelAutorizacaoImagem' 				=> $objModelAutorizacaoImagem,
+					'objDropDownFotografo'						=> $objModelFotografo,
+					'strMensagemDeErro'							=> $objUploadFileAutorizacaoAutor->strMensagemDeErro,
+					'strMensagemDeSucesso'						=> $objUploadFileAutorizacaoAutor->strMensagemDeSucesso,
+					'arrReturnFotografosAutorizacaoPendente'	=> $arrReturnFotografosAutorizacaoPendente,
+					'arrReturnView'								=> $arrReturnView,		
 				
 			)
 		);

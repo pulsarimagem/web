@@ -82,13 +82,35 @@ echo $strBreadCrumb;
 
 <!-- inicio, infomacaoDoSubmenu -->	
 	<div class="infomacaoDoSubmenu" id="listarPendentes">
-		listarPendentes
+		<?php
+			//Inicio, listagem de autorizações pendentes 
+			$this->renderPartial(
+				'listarPendente',
+				array
+				(
+					'arrReturnFotografosAutorizacaoPendente' => $arrReturnFotografosAutorizacaoPendente,
+					'arrReturnView'							 => $arrReturnView,
+				)
+			);
+			//Fim, listagem de autorizações pendentes 
+		?>
 	</div>
 <!-- fim, listarPendentes -->
 		
 <!-- inicio, infomacaoDoSubmenu -->		
 	<div class="infomacaoDoSubmenu" id="atualizarFotoAutorizacao">
-		atualizarFotoAutorizacao
+		<?php
+			//Inicio, listagem de autorizações pendentes 
+			$this->renderPartial(
+				'atualizar',
+				array
+				(
+					'arrReturnFotografosAutorizacaoPendente' => $arrReturnFotografosAutorizacaoPendente,
+					'arrReturnView'							 => $arrReturnView,
+				)
+			);
+			//Fim, listagem de autorizações pendentes 
+		?>
 	</div>
 <!-- fim, infomacaoDoSubmenu -->		
 </div>

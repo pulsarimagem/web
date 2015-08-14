@@ -82,5 +82,25 @@ class DropDownListing
 		return $arrReturn;
 	}
 
-	
+	public function dropAutorAutorizacao()
+	{
+		$objFotografosOfDao	= new fotografosOfDao();
+		
+		$arrReturnFotografosAutorizacaoPendente = $objFotografosOfDao->fotografoAurorizacaoPendente(); 
+		
+		if(count($arrReturnFotografosAutorizacaoPendente)> 0)
+		{
+			$arrReturn = array();
+			foreach ($arrReturnFotografosAutorizacaoPendente as $arrValue)
+			{
+				$arrReturn[$arrValue['id_fotografo']] = $arrValue['fotografo'];	
+			}
+			
+			return $arrReturn;
+		}
+		else
+		{
+			return array('0'=>'Nenhum autor tem foto com autorização pendente');
+		}
+	}
 }
