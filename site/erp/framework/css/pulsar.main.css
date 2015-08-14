@@ -195,10 +195,11 @@ a:hover {
     margin-right: 0;
     padding-bottom: 25px;
     position: relative;
-    min-height: 500px;
+    min-height: 950px;
     /* width: auto; */
     border-top-left-radius: 8px;
-     min-width: 800px;
+    min-width: 800px;
+    margin-top: -40px;
 }
 
 #content-header {
